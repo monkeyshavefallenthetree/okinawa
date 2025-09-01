@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Okinawa Admin Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            line-height: 1.6;
+        }
+
+        /* Login Screen Styles */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #A61f23 0%, #cf2029 100%);
+        }
+
+        .login-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .login-form h1 {
+            color: #A61f23;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #000000;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #A61f23;
+        }
+
+        .login-btn {
+            width: 100%;
+            background-color: #A61f23;
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #cf2029;
+        }
+
+        .error-message {
+            color: #cf2029;
+            text-align: center;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        /* Dashboard Styles */
+        .dashboard {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        /* Header */
+        .admin-header {
+            background: linear-gradient(135deg, #A61f23, #cf2029);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(166, 31, 35, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .admin-header h1 {
+            font-size: 1.8rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            margin: 0;
+        }
+
+        .admin-header-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .admin-status {
+            background-color: rgba(255,255,255,0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .logout-btn {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logout-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .logout-btn:hover {
+            color: #A61f23;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .logout-btn:hover::before {
+            left: 0;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Summary Cards */
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .summary-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .summary-card h3 {
+            color: #666;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .summary-card .number {
+            color: #A61f23;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-card .label {
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        /* Sections */
+        .section {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+            margin-bottom: 3rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .section h2 {
+            color: #A61f23;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        /* Buttons */
+        .btn {
+            background-color: #A61f23;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+            margin-right: 1rem;
+        }
+
+        .btn:hover {
+            background-color: #cf2029;
+        }
+
+        .btn-small {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+            margin: 0 0.2rem;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+        /* Forms */
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-row input,
+        .form-row select {
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .form-row input:focus,
+        .form-row select:focus {
+            outline: none;
+            border-color: #A61f23;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin-top: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #A61f23;
+            position: sticky;
+            top: 0;
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background-color: #cf2029;
+            color: white;
+        }
+
+        .status-in-progress {
+            background-color: #A61f23;
+            color: white;
+        }
+
+        .status-shipped {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .status-delivered {
+            background-color: #28a745;
+            color: white;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal h3 {
+            color: #A61f23;
+            margin-bottom: 1.5rem;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .admin-header {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .admin-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .admin-header-info {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .summary-cards {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-nav {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .dashboard-tab {
+                width: 100%;
+                text-align: center;
+            }
+
+            table {
+                font-size: 0.8rem;
+            }
+
+            th, td {
+                padding: 0.5rem;
+            }
+
+            .order-actions {
+                min-width: 100px;
+            }
+
+            .order-actions select,
+            .order-actions button {
+                font-size: 0.7rem;
+                padding: 0.2rem 0.4rem;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 1rem;
+            }
+
+            .section {
+                margin-bottom: 2rem;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 2rem;
+            color: #999;
+            font-style: italic;
+        }
+
+        .profit-positive {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .profit-negative {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        /* Order Actions Column */
+        .order-actions {
+            min-width: 120px;
+        }
+
+        .order-actions select {
+            margin-bottom: 0.5rem;
+        }
+
+        .order-actions .btn-small {
+            font-size: 0.7rem;
+            padding: 0.3rem 0.6rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-container">
+        <form class="login-form" id="admin-login-form">
+            <h1>Admin Login</h1>
+            <div class="form-group">
+                <label for="admin-email">Email</label>
+                <input type="email" id="admin-email" required>
+            </div>
+            <div class="form-group">
+                <label for="admin-password">Password</label>
+                <input type="password" id="admin-password" required>
+            </div>
+            <button type="submit" class="login-btn">Login</button>
+            <div class="error-message" id="login-error"></div>
+        </form>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="dashboard">
+        <!-- Header -->
+        <header class="admin-header">
+            <h1>🏪 Okinawa Admin</h1>
+            <div class="admin-header-info">
+                <div class="admin-status">Administrator</div>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Summary Cards -->
+            <section class="summary-cards">
+                <div class="summary-card">
+                    <h3>Total Sales</h3>
+                    <div class="number" id="total-sales">$0.00</div>
+                    <div class="label">Revenue</div>
+                </div>
+                <div class="summary-card">
+                    <h3>Total Orders</h3>
+                    <div class="number" id="total-orders">0</div>
+                    <div class="label">Orders</div>
+                </div>
+                <div class="summary-card">
+                    <h3>Total Products</h3>
+                    <div class="number" id="total-products">0</div>
+                    <div class="label">Products</div>
+                </div>
+                <div class="summary-card">
+                    <h3>Net Profit</h3>
+                    <div class="number" id="net-profit">$0.00</div>
+                    <div class="label">Profit</div>
+                </div>
+            </section>
+
+            <!-- Product Management -->
+            <section class="section">
+                <h2>Product Management</h2>
+                
+                <!-- Add Product Form -->
+                <form id="add-product-form">
+                    <div class="form-row">
+                        <input type="text" id="product-name" placeholder="Product Name" required>
+                        <select id="product-main-category" required onchange="updateSubcategories()">
+                            <option value="">Select Main Category</option>
+                            <option value="lifestyle">Lifestyle</option>
+                            <option value="beauty">Beauty</option>
+                            <option value="food-beverage">Food & Beverage</option>
+                        </select>
+                        <select id="product-category" required disabled>
+                            <option value="">Select Subcategory</option>
+                        </select>
+                        <input type="number" id="product-cost-price" placeholder="Cost Price" step="0.01" required>
+                        <input type="number" id="product-sell-price" placeholder="Sell Price" step="0.01" required>
+                        <input type="text" id="product-image" placeholder="Image Filename" required>
+                    </div>
+                    <div class="form-row">
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" id="product-new-arrival" style="width: auto;">
+                            Mark as New Arrival
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" id="product-best-selling" style="width: auto;">
+                            Mark as Best Selling
+                        </label>
+                        <button type="submit" class="btn">Add Product</button>
+                    </div>
+                </form>
+
+                <!-- Products Table -->
+                <div class="table-container">
+                    <table id="products-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Cost Price</th>
+                                <th>Sell Price</th>
+                                <th>Margin</th>
+                                <th>New Arrival</th>
+                                <th>Best Selling</th>
+                                <th>Image</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="9" class="loading">Loading products...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Orders Management -->
+            <section class="section">
+                <h2>Orders Management</h2>
+                
+                <div class="table-container">
+                    <table id="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Items</th>
+                                <th>Total</th>
+                                <th>Payment</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="8" class="loading">Loading orders...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Product Profits -->
+            <section class="section">
+                <h2>Product Profits Analysis</h2>
+                
+                <div class="table-container">
+                    <table id="profits-table">
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Cost Price</th>
+                                <th>Sell Price</th>
+                                <th>Units Sold</th>
+                                <th>Profit per Unit</th>
+                                <th>Total Profit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="6" class="loading">Calculating profits...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Edit Product Modal -->
+    <div class="modal" id="edit-product-modal">
+        <div class="modal-content" style="position: relative;">
+            <button class="close-modal" onclick="closeModal('edit-product')">&times;</button>
+            <h3>Edit Product</h3>
+            <form id="edit-product-form">
+                <input type="hidden" id="edit-product-id">
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" id="edit-product-name" required>
+                </div>
+                <div class="form-group">
+                    <label>Main Category</label>
+                    <select id="edit-product-main-category" required onchange="updateEditSubcategories()">
+                        <option value="">Select Main Category</option>
+                        <option value="lifestyle">Lifestyle</option>
+                        <option value="beauty">Beauty</option>
+                        <option value="food-beverage">Food & Beverage</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Subcategory</label>
+                    <select id="edit-product-category" required disabled>
+                        <option value="">Select Subcategory</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Cost Price</label>
+                    <input type="number" id="edit-product-cost-price" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Sell Price</label>
+                    <input type="number" id="edit-product-sell-price" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Image Filename</label>
+                    <input type="text" id="edit-product-image" required>
+                </div>
+                <div class="form-group">
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="checkbox" id="edit-product-new-arrival" style="width: auto;">
+                        Mark as New Arrival
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="checkbox" id="edit-product-best-selling" style="width: auto;">
+                        Mark as Best Selling
+                    </label>
+                </div>
+                <button type="submit" class="btn">Update Product</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDzitihiLQetctKmv2-VLTvbZfftB3zOmw",
+            authDomain: "okinawa-e5948.firebaseapp.com",
+            projectId: "okinawa-e5948",
+            storageBucket: "okinawa-e5948.firebasestorage.app",
+            messagingSenderId: "1079558060579",
+            appId: "1:1079558060579:web:93b7cc521ec819205bcf96",
+            measurementId: "G-9GLB5N0GS2"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const auth = firebase.auth();
+
+        // Admin credentials (in production, this should be managed in Firebase Auth rules or custom claims)
+        const ADMIN_CREDENTIALS = {
+            email: 'admin@okinawa.com',
+            // In production, use Firebase custom claims or admin SDK
+        };
+
+        let currentProducts = [];
+        let currentOrders = [];
+
+        // Category mapping
+        const categoryStructure = {
+            'lifestyle': [
+                { value: 'chopsticks-holders', label: 'Chopsticks & Holders' },
+                { value: 'matcha-set', label: 'Matcha Set' },
+                { value: 'bag-hanger', label: 'Bag Hanger' },
+                { value: 'rice-soup-spoon', label: 'Rice/Soup Spoon' },
+                { value: 'sushi-set', label: 'Sushi Set' },
+                { value: 'keychain', label: 'Keychain' },
+                { value: 'anime-drawing-book', label: 'Anime Drawing Book' }
+            ],
+            'beauty': [
+                { value: 'body-soap', label: 'Body Soap' },
+                { value: 'hand-cream', label: 'Hand Cream' },
+                { value: 'face-mask', label: 'Face Mask' },
+                { value: 'facial-tissue', label: 'Facial Tissue' }
+            ],
+            'food-beverage': [
+                { value: 'togarashi-furikake', label: 'Togarashi / Furikake' },
+                { value: 'miso', label: 'Miso' },
+                { value: 'yuzu', label: 'Yuzu' },
+                { value: 'matcha', label: 'Matcha' }
+            ]
+        };
+
+        // Function to get main category from subcategory
+        function getMainCategoryFromSub(subcategory) {
+            for (const [mainCat, subCats] of Object.entries(categoryStructure)) {
+                if (subCats.some(sub => sub.value === subcategory)) {
+                    return mainCat;
+                }
+            }
+            return '';
+        }
+
+        // Function to get category label
+        function getCategoryLabel(categoryValue) {
+            for (const [mainCat, subCats] of Object.entries(categoryStructure)) {
+                const subCat = subCats.find(sub => sub.value === categoryValue);
+                if (subCat) {
+                    return subCat.label;
+                }
+            }
+            return categoryValue;
+        }
+
+        // AUTH FUNCTIONS
+        async function adminLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('admin-email').value;
+            const password = document.getElementById('admin-password').value;
+            const errorDiv = document.getElementById('login-error');
+
+            try {
+                // Check if it's admin email
+                if (email !== ADMIN_CREDENTIALS.email) {
+                    throw new Error('Unauthorized: Admin access only');
+                }
+
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+
+                // Additional check - in production, use custom claims
+                if (user.email !== ADMIN_CREDENTIALS.email) {
+                    await auth.signOut();
+                    throw new Error('Unauthorized: Admin access only');
+                }
+
+                showDashboard();
+                
+            } catch (error) {
+                console.error('Login error:', error);
+                errorDiv.textContent = error.message;
+                errorDiv.style.display = 'block';
+            }
+        }
+
+        async function logout() {
+            try {
+                await auth.signOut();
+                showLoginScreen();
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
+        }
+
+        function showDashboard() {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('dashboard').classList.add('active');
+            
+            // Debug info
+            console.log('Admin dashboard loading...');
+            console.log('Current user:', auth.currentUser);
+            console.log('User email:', auth.currentUser?.email);
+            console.log('Firebase config:', firebaseConfig.projectId);
+            
+            loadDashboardData();
+        }
+
+        function showLoginScreen() {
+            document.getElementById('login-screen').style.display = 'flex';
+            document.getElementById('dashboard').classList.remove('active');
+        }
+
+        // DASHBOARD DATA LOADING
+        async function loadDashboardData() {
+            await Promise.all([
+                loadSummaryData(),
+                loadProducts(),
+                loadOrders(),
+                loadProfitsData()
+            ]);
+        }
+
+        async function loadSummaryData() {
+            try {
+                // Load orders for calculations
+                const ordersSnapshot = await db.collection('orders').get();
+                const orders = [];
+                ordersSnapshot.forEach(doc => {
+                    orders.push({ id: doc.id, ...doc.data() });
+                });
+
+                // Load products for count
+                const productsSnapshot = await db.collection('products').get();
+                const products = [];
+                productsSnapshot.forEach(doc => {
+                    products.push({ id: doc.id, ...doc.data() });
+                });
+
+                // Calculate totals
+                const totalSales = orders.reduce((sum, order) => sum + (order.total || 0), 0);
+                const totalOrders = orders.length;
+                const totalProducts = products.length;
+
+                // Calculate net profit (need to join with products for cost prices)
+                let totalProfit = 0;
+                for (const order of orders) {
+                    if (order.items) {
+                        for (const item of order.items) {
+                            const product = products.find(p => p.id == item.id);
+                            if (product) {
+                                const profit = ((product.sellPrice || product.price || 0) - (product.costPrice || 0)) * item.quantity;
+                                totalProfit += profit;
+                            }
+                        }
+                    }
+                }
+
+                // Update UI
+                document.getElementById('total-sales').textContent = `$${totalSales.toFixed(2)}`;
+                document.getElementById('total-orders').textContent = totalOrders;
+                document.getElementById('total-products').textContent = totalProducts;
+                document.getElementById('net-profit').textContent = `$${totalProfit.toFixed(2)}`;
+
+            } catch (error) {
+                console.error('Error loading summary data:', error);
+            }
+        }
+
+        // PRODUCT MANAGEMENT
+        async function loadProducts() {
+            try {
+                const productsTable = document.getElementById('products-table').querySelector('tbody');
+                productsTable.innerHTML = '<tr><td colspan="7" class="loading">Loading products...</td></tr>';
+
+                console.log('Admin loading products...');
+                console.log('Current user:', auth.currentUser?.email);
+
+                const snapshot = await db.collection('products').get();
+                currentProducts = [];
+                snapshot.forEach(doc => {
+                    currentProducts.push({ id: doc.id, ...doc.data() });
+                });
+
+                console.log('Products loaded:', currentProducts.length);
+
+                if (currentProducts.length === 0) {
+                    productsTable.innerHTML = `
+                        <tr>
+                            <td colspan="9" class="no-data">
+                                <h4>No products found</h4>
+                                <p>Use the form above to add your first product.</p>
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+
+                productsTable.innerHTML = '';
+                currentProducts.forEach(product => {
+                    const costPrice = product.costPrice || 0;
+                    const sellPrice = product.sellPrice || product.price || 0;
+                    const margin = sellPrice > 0 ? ((sellPrice - costPrice) / sellPrice * 100).toFixed(1) : '0.0';
+                    
+                    const categoryLabel = getCategoryLabel(product.category) || product.category || 'N/A';
+                    
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${product.name || 'N/A'}</td>
+                        <td>${categoryLabel}</td>
+                        <td>$${costPrice.toFixed(2)}</td>
+                        <td>$${sellPrice.toFixed(2)}</td>
+                        <td>${margin}%</td>
+                        <td>${product.isNewArrival ? '<span class="status-badge status-shipped">✓ NEW</span>' : ''}</td>
+                        <td>${product.isBestSelling ? '<span class="status-badge status-delivered">✓ BEST</span>' : ''}</td>
+                        <td>${product.image || 'N/A'}</td>
+                        <td>
+                            <button class="btn btn-small" onclick="editProduct('${product.id}')">Edit</button>
+                            <button class="btn btn-small btn-danger" onclick="deleteProduct('${product.id}')">Delete</button>
+                        </td>
+                    `;
+                    productsTable.appendChild(row);
+                });
+
+            } catch (error) {
+                console.error('Error loading products:', error);
+                console.error('Error details:', {
+                    message: error.message,
+                    code: error.code,
+                    user: auth.currentUser?.email || 'No user'
+                });
+                
+                document.getElementById('products-table').querySelector('tbody').innerHTML = 
+                    `<tr><td colspan="7" class="no-data">
+                        <h4>Error loading products</h4>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                        <p>Please check:</p>
+                        <ul style="text-align: left; margin-left: 2rem;">
+                            <li>You are logged in as admin</li>
+                            <li>Firestore rules are properly configured</li>
+                            <li>Internet connection is stable</li>
+                        </ul>
+                        <button onclick="loadProducts()" class="btn" style="margin-top: 1rem;">
+                            Try Again
+                        </button>
+                    </td></tr>`;
+            }
+        }
+
+        async function addProduct(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('product-name').value;
+            const mainCategory = document.getElementById('product-main-category').value;
+            const category = document.getElementById('product-category').value;
+            const costPrice = parseFloat(document.getElementById('product-cost-price').value);
+            const sellPrice = parseFloat(document.getElementById('product-sell-price').value);
+            const image = document.getElementById('product-image').value;
+            const isNewArrival = document.getElementById('product-new-arrival').checked;
+            const isBestSelling = document.getElementById('product-best-selling').checked;
+
+            if (!mainCategory || !category) {
+                alert('Please select both main category and subcategory');
+                return;
+            }
+
+            try {
+                await db.collection('products').add({
+                    name,
+                    category,
+                    costPrice,
+                    sellPrice,
+                    price: sellPrice, // For compatibility with existing system
+                    image: `products/${image}`,
+                    isNewArrival,
+                    isBestSelling,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                // Reset form
+                document.getElementById('add-product-form').reset();
+                
+                // Reload data
+                await Promise.all([loadProducts(), loadSummaryData(), loadProfitsData()]);
+                
+                alert('Product added successfully!');
+
+            } catch (error) {
+                console.error('Error adding product:', error);
+                alert('Error adding product: ' + error.message);
+            }
+        }
+
+        async function editProduct(productId) {
+            const product = currentProducts.find(p => p.id === productId);
+            if (!product) return;
+
+            // Get main category from subcategory
+            const mainCategory = getMainCategoryFromSub(product.category);
+
+            // Populate edit form
+            document.getElementById('edit-product-id').value = productId;
+            document.getElementById('edit-product-name').value = product.name;
+            document.getElementById('edit-product-main-category').value = mainCategory;
+            
+            // Update subcategories for the main category
+            updateEditSubcategories();
+            
+            // Set the subcategory after a brief delay to ensure options are loaded
+            setTimeout(() => {
+                document.getElementById('edit-product-category').value = product.category;
+            }, 100);
+            
+            document.getElementById('edit-product-cost-price').value = product.costPrice;
+            document.getElementById('edit-product-sell-price').value = product.sellPrice;
+            document.getElementById('edit-product-image').value = product.image.replace('products/', '');
+            document.getElementById('edit-product-new-arrival').checked = product.isNewArrival || false;
+            document.getElementById('edit-product-best-selling').checked = product.isBestSelling || false;
+
+            // Show modal
+            document.getElementById('edit-product-modal').classList.add('active');
+        }
+
+        async function updateProduct(event) {
+            event.preventDefault();
+
+            const productId = document.getElementById('edit-product-id').value;
+            const name = document.getElementById('edit-product-name').value;
+            const mainCategory = document.getElementById('edit-product-main-category').value;
+            const category = document.getElementById('edit-product-category').value;
+            const costPrice = parseFloat(document.getElementById('edit-product-cost-price').value);
+            const sellPrice = parseFloat(document.getElementById('edit-product-sell-price').value);
+            const image = document.getElementById('edit-product-image').value;
+            const isNewArrival = document.getElementById('edit-product-new-arrival').checked;
+            const isBestSelling = document.getElementById('edit-product-best-selling').checked;
+
+            if (!mainCategory || !category) {
+                alert('Please select both main category and subcategory');
+                return;
+            }
+
+            try {
+                await db.collection('products').doc(productId).update({
+                    name,
+                    category,
+                    costPrice,
+                    sellPrice,
+                    price: sellPrice, // For compatibility
+                    image: `products/${image}`,
+                    isNewArrival,
+                    isBestSelling,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                closeModal('edit-product');
+                await Promise.all([loadProducts(), loadSummaryData(), loadProfitsData()]);
+                alert('Product updated successfully!');
+
+            } catch (error) {
+                console.error('Error updating product:', error);
+                alert('Error updating product: ' + error.message);
+            }
+        }
+
+        async function deleteProduct(productId) {
+            if (!confirm('Are you sure you want to delete this product?')) return;
+
+            try {
+                await db.collection('products').doc(productId).delete();
+                await Promise.all([loadProducts(), loadSummaryData(), loadProfitsData()]);
+                alert('Product deleted successfully!');
+
+            } catch (error) {
+                console.error('Error deleting product:', error);
+                alert('Error deleting product: ' + error.message);
+            }
+        }
+
+        // ORDERS MANAGEMENT
+        async function loadOrders() {
+            try {
+                const ordersTable = document.getElementById('orders-table').querySelector('tbody');
+                ordersTable.innerHTML = '<tr><td colspan="8" class="loading">Loading orders...</td></tr>';
+
+                // Load orders and users
+                const [ordersSnapshot, usersSnapshot] = await Promise.all([
+                    db.collection('orders').orderBy('createdAt', 'desc').get(),
+                    db.collection('users').get()
+                ]);
+
+                currentOrders = [];
+                ordersSnapshot.forEach(doc => {
+                    currentOrders.push({ id: doc.id, ...doc.data() });
+                });
+
+                const users = {};
+                usersSnapshot.forEach(doc => {
+                    users[doc.id] = doc.data();
+                });
+
+                if (currentOrders.length === 0) {
+                    ordersTable.innerHTML = '<tr><td colspan="8" class="no-data">No orders found</td></tr>';
+                    return;
+                }
+
+                ordersTable.innerHTML = '';
+                currentOrders.forEach(order => {
+                    const user = users[order.clientId || order.userId] || {};
+                    const date = order.createdAt ? order.createdAt.toDate().toLocaleDateString() : 'N/A';
+                    const itemsCount = order.items ? order.items.length : 0;
+                    
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>#${order.id.substring(0, 8)}</td>
+                        <td>${user.fullName || 'Unknown'}<br><small>${user.email || ''}</small></td>
+                        <td>${date}</td>
+                        <td>${itemsCount} items</td>
+                        <td>$${(order.total || 0).toFixed(2)}</td>
+                        <td>${order.paymentMethod || 'N/A'}</td>
+                        <td>
+                            <span class="status-badge status-${(order.status || 'pending').toLowerCase().replace(' ', '-')}">
+                                ${(order.status || 'pending').toUpperCase()}
+                            </span>
+                        </td>
+                        <td class="order-actions">
+                            <select onchange="updateOrderStatus('${order.id}', this.value)" 
+                                    style="padding: 0.3rem; border: 1px solid #ddd; border-radius: 3px; width: 100%;">
+                                <option value="Pending" ${order.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                                <option value="In Progress" ${order.status === 'In Progress' ? 'selected' : ''}>In Progress</option>
+                                <option value="Shipped" ${order.status === 'Shipped' ? 'selected' : ''}>Shipped</option>
+                                <option value="Delivered" ${order.status === 'Delivered' ? 'selected' : ''}>Delivered</option>
+                            </select>
+                            <button class="btn btn-small btn-danger" onclick="deleteOrder('${order.id}')" 
+                                    style="width: 100%; margin-top: 0.5rem;" title="Delete this order permanently">
+                                🗑️ Delete
+                            </button>
+                        </td>
+                    `;
+                    ordersTable.appendChild(row);
+                });
+
+            } catch (error) {
+                console.error('Error loading orders:', error);
+                document.getElementById('orders-table').querySelector('tbody').innerHTML = 
+                    '<tr><td colspan="8" class="no-data">Error loading orders</td></tr>';
+            }
+        }
+
+        async function updateOrderStatus(orderId, newStatus) {
+            try {
+                await db.collection('orders').doc(orderId).update({
+                    status: newStatus,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                // Update the UI immediately
+                const order = currentOrders.find(o => o.id === orderId);
+                if (order) {
+                    order.status = newStatus;
+                }
+
+                // Reload summary data as status changes might affect calculations
+                await loadSummaryData();
+
+            } catch (error) {
+                console.error('Error updating order status:', error);
+                alert('Error updating order status: ' + error.message);
+            }
+        }
+
+        async function deleteOrder(orderId) {
+            // Confirm deletion
+            const order = currentOrders.find(o => o.id === orderId);
+            const orderDisplay = order ? `#${orderId.substring(0, 8).toUpperCase()}` : orderId;
+            
+            if (!confirm(`Are you sure you want to delete order ${orderDisplay}?\n\nThis action cannot be undone.`)) {
+                return;
+            }
+
+            try {
+                // Delete the order from Firestore
+                await db.collection('orders').doc(orderId).delete();
+                
+                // Remove from local array
+                const orderIndex = currentOrders.findIndex(o => o.id === orderId);
+                if (orderIndex > -1) {
+                    currentOrders.splice(orderIndex, 1);
+                }
+                
+                // Reload the orders table and summary data
+                await Promise.all([
+                    loadOrders(),
+                    loadSummaryData(),
+                    loadProfitsData()
+                ]);
+                
+                alert('Order deleted successfully!');
+
+            } catch (error) {
+                console.error('Error deleting order:', error);
+                alert('Error deleting order: ' + error.message);
+            }
+        }
+
+        // PROFITS ANALYSIS
+        async function loadProfitsData() {
+            try {
+                const profitsTable = document.getElementById('profits-table').querySelector('tbody');
+                profitsTable.innerHTML = '<tr><td colspan="6" class="loading">Calculating profits...</td></tr>';
+
+                // Get products and orders
+                const [productsSnapshot, ordersSnapshot] = await Promise.all([
+                    db.collection('products').get(),
+                    db.collection('orders').get()
+                ]);
+
+                const products = {};
+                productsSnapshot.forEach(doc => {
+                    products[doc.id] = { id: doc.id, ...doc.data() };
+                });
+
+                // Calculate sales per product
+                const productSales = {};
+                ordersSnapshot.forEach(orderDoc => {
+                    const order = orderDoc.data();
+                    if (order.items) {
+                        order.items.forEach(item => {
+                            if (!productSales[item.id]) {
+                                productSales[item.id] = 0;
+                            }
+                            productSales[item.id] += item.quantity;
+                        });
+                    }
+                });
+
+                const profitsData = [];
+                Object.keys(products).forEach(productId => {
+                    const product = products[productId];
+                    const unitsSold = productSales[productId] || 0;
+                    const profitPerUnit = (product.sellPrice || product.price || 0) - (product.costPrice || 0);
+                    const totalProfit = profitPerUnit * unitsSold;
+
+                    profitsData.push({
+                        name: product.name,
+                        costPrice: product.costPrice || 0,
+                        sellPrice: product.sellPrice || product.price || 0,
+                        unitsSold,
+                        profitPerUnit,
+                        totalProfit
+                    });
+                });
+
+                // Sort by total profit descending
+                profitsData.sort((a, b) => b.totalProfit - a.totalProfit);
+
+                if (profitsData.length === 0) {
+                    profitsTable.innerHTML = '<tr><td colspan="6" class="no-data">No profit data available</td></tr>';
+                    return;
+                }
+
+                profitsTable.innerHTML = '';
+                profitsData.forEach(item => {
+                    const profitClass = item.profitPerUnit >= 0 ? 'profit-positive' : 'profit-negative';
+                    const totalProfitClass = item.totalProfit >= 0 ? 'profit-positive' : 'profit-negative';
+                    
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.name}</td>
+                        <td>$${item.costPrice.toFixed(2)}</td>
+                        <td>$${item.sellPrice.toFixed(2)}</td>
+                        <td>${item.unitsSold}</td>
+                        <td class="${profitClass}">$${item.profitPerUnit.toFixed(2)}</td>
+                        <td class="${totalProfitClass}">$${item.totalProfit.toFixed(2)}</td>
+                    `;
+                    profitsTable.appendChild(row);
+                });
+
+            } catch (error) {
+                console.error('Error loading profits data:', error);
+                document.getElementById('profits-table').querySelector('tbody').innerHTML = 
+                    '<tr><td colspan="6" class="no-data">Error calculating profits</td></tr>';
+            }
+        }
+
+        // CATEGORY FUNCTIONS
+        function updateSubcategories() {
+            const mainCategory = document.getElementById('product-main-category').value;
+            const subcategorySelect = document.getElementById('product-category');
+            
+            // Clear subcategories
+            subcategorySelect.innerHTML = '<option value="">Select Subcategory</option>';
+            
+            if (mainCategory && categoryStructure[mainCategory]) {
+                subcategorySelect.disabled = false;
+                categoryStructure[mainCategory].forEach(subcat => {
+                    const option = document.createElement('option');
+                    option.value = subcat.value;
+                    option.textContent = subcat.label;
+                    subcategorySelect.appendChild(option);
+                });
+            } else {
+                subcategorySelect.disabled = true;
+            }
+        }
+
+        function updateEditSubcategories() {
+            const mainCategory = document.getElementById('edit-product-main-category').value;
+            const subcategorySelect = document.getElementById('edit-product-category');
+            
+            // Clear subcategories
+            subcategorySelect.innerHTML = '<option value="">Select Subcategory</option>';
+            
+            if (mainCategory && categoryStructure[mainCategory]) {
+                subcategorySelect.disabled = false;
+                categoryStructure[mainCategory].forEach(subcat => {
+                    const option = document.createElement('option');
+                    option.value = subcat.value;
+                    option.textContent = subcat.label;
+                    subcategorySelect.appendChild(option);
+                });
+            } else {
+                subcategorySelect.disabled = true;
+            }
+        }
+
+        // UTILITY FUNCTIONS
+        function closeModal(modalName) {
+            document.getElementById(`${modalName}-modal`).classList.remove('active');
+        }
+
+        // EVENT LISTENERS
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up form event listeners
+            document.getElementById('admin-login-form').addEventListener('submit', adminLogin);
+            document.getElementById('add-product-form').addEventListener('submit', addProduct);
+            document.getElementById('edit-product-form').addEventListener('submit', updateProduct);
+
+            // Auth state listener
+            auth.onAuthStateChanged(function(user) {
+                if (user && user.email === ADMIN_CREDENTIALS.email) {
+                    showDashboard();
+                } else {
+                    showLoginScreen();
+                }
+            });
+
+            // Close modals when clicking outside
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        modal.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
