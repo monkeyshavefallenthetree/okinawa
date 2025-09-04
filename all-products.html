@@ -5,10 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Products - Okinawa</title>
     
-    <!-- Google Fonts - Shojumaru -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Shojumaru&display=swap" rel="stylesheet">
+    <!-- Simple, clean fonts -->
     
     <style>
         * {
@@ -18,15 +15,15 @@
         }
 
         body {
-            font-family: 'Shojumaru', cursive;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background-color: #ffffff;
             color: #000000;
             line-height: 1.6;
         }
 
-        /* Apply Shojumaru font to all elements */
+        /* Apply simple font to all elements */
         *, *::before, *::after {
-            font-family: 'Shojumaru', cursive !important;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
         }
 
         /* Font adjustments for better readability */
@@ -38,17 +35,102 @@
             letter-spacing: 0.3px;
         }
 
-        /* Header Styles */
+        /* Header Styles - Liquid Glass Effect */
         header {
-            background: linear-gradient(135deg, rgba(166, 31, 35, 0.6), rgba(207, 32, 41, 0.6));
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.25) 0%,
+                rgba(255, 255, 255, 0.15) 25%,
+                rgba(166, 31, 35, 0.1) 50%,
+                rgba(207, 32, 41, 0.15) 75%,
+                rgba(255, 255, 255, 0.2) 100%
+            );
             padding: 0.8rem 1rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.3);
-            backdrop-filter: blur(20px);
+            
+            /* Liquid Glass Effects */
+            backdrop-filter: blur(30px) saturate(1.8);
+            -webkit-backdrop-filter: blur(30px) saturate(1.8);
+            border-radius: 0 0 30px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-top: none;
+            
+            /* Glassmorphism Shadow */
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.1),
+                0 4px 16px rgba(0, 0, 0, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+            
+            /* Smooth transitions */
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Liquid animation */
+            animation: liquidFloat 6s ease-in-out infinite;
+            
+            /* Additional glass effect */
+            background-blend-mode: overlay;
+        }
+
+        /* Liquid floating animation */
+        @keyframes liquidFloat {
+            0%, 100% {
+                transform: translateY(0px);
+                backdrop-filter: blur(30px) saturate(1.8);
+            }
+            50% {
+                transform: translateY(-2px);
+                backdrop-filter: blur(35px) saturate(2);
+            }
+        }
+
+        /* Hover effect for liquid glass */
+        header:hover {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.35) 0%,
+                rgba(255, 255, 255, 0.25) 25%,
+                rgba(166, 31, 35, 0.15) 50%,
+                rgba(207, 32, 41, 0.2) 75%,
+                rgba(255, 255, 255, 0.3) 100%
+            );
+            backdrop-filter: blur(40px) saturate(2.2);
+            -webkit-backdrop-filter: blur(40px) saturate(2.2);
+            box-shadow: 
+                0 12px 40px rgba(0, 0, 0, 0.15),
+                0 6px 20px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        /* Pseudo-element for additional liquid effect */
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(
+                ellipse 800px 600px at 50% 0%,
+                rgba(255, 255, 255, 0.1) 0%,
+                transparent 50%
+            );
+            border-radius: 0 0 30px 30px;
+            pointer-events: none;
+            animation: liquidShimmer 8s ease-in-out infinite;
+        }
+
+        @keyframes liquidShimmer {
+            0%, 100% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.05);
+            }
         }
 
         nav {
@@ -64,14 +146,64 @@
         .logo {
             height: 70px;
             width: auto;
-            transition: transform 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 1001;
             object-fit: contain;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+            position: relative;
         }
 
         .logo:hover {
-            transform: scale(1.05);
+            transform: scale(1.05) translateY(-2px);
+            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
+        }
+
+        /* Translation Button */
+        .translation-btn {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-left: 1rem;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(44, 62, 80, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .translation-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.4);
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+        }
+
+        .translation-btn:active {
+            transform: translateY(0);
+        }
+
+        .lang-text {
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        .lang-icon {
+            font-size: 1.1rem;
+        }
+
+        /* RTL Support for Arabic */
+        [dir="rtl"] {
+            direction: rtl;
+            text-align: right;
+        }
+
+        [dir="rtl"] .translation-btn {
+            margin-left: 0;
+            margin-right: 1rem;
         }
 
         .back-to-home {
@@ -187,6 +319,15 @@
 
         .product-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .product-card[style*="cursor: pointer"] {
+            transition: all 0.3s ease;
+        }
+
+        .product-card[style*="cursor: pointer"]:hover {
+            border-color: #A61f23;
         }
 
         .product-image {
@@ -216,20 +357,95 @@
             margin-bottom: 1rem;
         }
 
+        /* Quantity Controls */
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 0.8rem 0;
+            padding: 0.5rem;
+            background: rgba(248, 249, 250, 0.5);
+            border-radius: 25px;
+            border: 1px solid rgba(166, 31, 35, 0.1);
+        }
+
+        .quantity-btn {
+            width: 32px;
+            height: 32px;
+            border: 2px solid #A61f23;
+            background: linear-gradient(135deg, rgba(166, 31, 35, 0.1), rgba(207, 32, 41, 0.1));
+            color: #A61f23;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            user-select: none;
+        }
+
+        .quantity-btn:hover {
+            background: linear-gradient(135deg, #A61f23, #cf2029);
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(166, 31, 35, 0.3);
+        }
+
+        .quantity-btn:active {
+            transform: scale(0.95);
+        }
+
+        .quantity-btn.minus:hover {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            border-color: #dc3545;
+        }
+
+        .quantity-display {
+            min-width: 40px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #A61f23;
+            padding: 0.3rem 0.6rem;
+            background: white;
+            border-radius: 15px;
+            border: 2px solid rgba(166, 31, 35, 0.2);
+            transition: all 0.3s ease;
+        }
+
         .add-to-cart {
-            background-color: #cf2029;
+            background: linear-gradient(135deg, #A61f23, #cf2029);
             color: white;
             border: none;
             padding: 0.8rem 1.5rem;
-            border-radius: 5px;
+            border-radius: 25px;
             cursor: pointer;
             font-size: 1rem;
-            transition: background-color 0.3s ease;
+            font-weight: 600;
+            transition: all 0.3s ease;
             width: 100%;
+            margin-top: auto;
         }
 
         .add-to-cart:hover {
-            background-color: #A61f23;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(166, 31, 35, 0.3);
+            background: linear-gradient(135deg, #cf2029, #A61f23);
+        }
+
+        /* Animation for quantity controls appearance */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         /* Mobile Responsive */
@@ -593,6 +809,26 @@
             background: linear-gradient(135deg, #F57C00 0%, #FF9800 100%);
         }
 
+        /* All Products styling */
+        .overlay-all-products {
+            background: linear-gradient(135deg, #A61f23 0%, #cf2029 100%) !important;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .overlay-all-products .overlay-category-name {
+            color: #ffffff !important;
+        }
+
+        .overlay-all-products .overlay-category-desc {
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+
+        .overlay-all-products:hover {
+            background: linear-gradient(135deg, #8B0000 0%, #A61f23 100%) !important;
+            transform: translateY(-6px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(166, 31, 35, 0.4);
+        }
+
         /* Mobile responsiveness for overlay */
         @media (max-width: 768px) {
             .category-overlay-content {
@@ -620,6 +856,24 @@
             .overlay-category-desc {
                 font-size: 0.7rem;
             }
+
+            /* Mobile quantity controls */
+            .quantity-controls {
+                padding: 0.3rem;
+                gap: 0.3rem;
+            }
+
+            .quantity-btn {
+                width: 28px;
+                height: 28px;
+                font-size: 1rem;
+            }
+
+            .quantity-display {
+                min-width: 35px;
+                font-size: 1rem;
+                padding: 0.2rem 0.4rem;
+            }
         }
     </style>
 </head>
@@ -634,6 +888,12 @@
             <div style="display: flex; align-items: center; gap: 1rem;">
                 <button class="cart-button" onclick="openCart()">
                     🛒 <span id="cart-count">0</span>
+                </button>
+                
+                <!-- Translation Button -->
+                <button class="translation-btn" onclick="toggleLanguage()" title="Toggle Language">
+                    <span class="lang-text">EN</span>
+                    <span class="lang-icon">🌐</span>
                 </button>
                 
                 <a href="index.html" class="back-to-home">
@@ -738,6 +998,17 @@
             </div>
             
             <div class="overlay-category-grid">
+                <!-- All Products Option -->
+                <div class="overlay-category-item overlay-all-products" data-category="all-products" onclick="selectCategoryAndClose('all-products')">
+                    <div class="overlay-category-card">
+                        <div class="overlay-category-icon">🛍️</div>
+                        <div class="overlay-category-info">
+                            <div class="overlay-category-name">All Products</div>
+                            <div class="overlay-category-desc">Browse our complete collection</div>
+                        </div>
+                    </div>
+                </div>
+                
                 <!-- Main Categories -->
                 <div class="overlay-category-item" data-category="food-beverage" onclick="selectCategoryAndClose('food-beverage')">
                     <div class="overlay-category-card">
@@ -1213,19 +1484,183 @@
                 const productCard = document.createElement('div');
                 productCard.className = 'product-card';
                 const price = product.sellPrice || product.price || 0;
+                const isInCart = cart.some(item => item.id === product.id);
+                const cartItem = cart.find(item => item.id === product.id);
+                
                 productCard.innerHTML = `
                     <div class="product-image">
                         Product Image<br>${product.name}
                     </div>
                     <div class="product-name">${product.name}</div>
                     <div class="product-price">$${price.toFixed(2)}</div>
-                    <button class="add-to-cart" onclick="addToCart('${product.id}', '${product.name}', ${price})">
+                    <div class="quantity-controls" id="qty-controls-${product.id}" style="display: ${isInCart ? 'flex' : 'none'}">
+                        <button class="quantity-btn minus" onclick="event.stopPropagation(); adjustCartQuantity('${product.id}', -1)">-</button>
+                        <span class="quantity-display" id="qty-${product.id}">${isInCart ? cartItem.quantity : 1}</span>
+                        <button class="quantity-btn plus" onclick="event.stopPropagation(); adjustCartQuantity('${product.id}', 1)">+</button>
+                    </div>
+                    <button class="add-to-cart" id="add-btn-${product.id}" onclick="event.stopPropagation(); addToCartFirst('${product.id}', '${product.name}', ${price})" style="display: ${isInCart ? 'none' : 'block'}">
                         Add to Cart
                     </button>
                 `;
+                
+                // Make entire card clickable
+                productCard.onclick = function(e) {
+                    // Don't navigate if clicking on buttons or quantity controls
+                    if (e.target.closest('button') || e.target.closest('.quantity-controls')) {
+                        return;
+                    }
+                    navigateToProduct(product.id);
+                };
+                productCard.style.cursor = 'pointer';
+                
                 container.appendChild(productCard);
+                
+                // Initialize the product card state immediately after adding to DOM
+                if (isInCart && cartItem) {
+                    initializeProductCardState(product.id, cartItem.quantity);
+                }
             });
         }
+
+        // DYNAMIC CART FUNCTIONS
+        
+        function addToCartFirst(id, name, price) {
+            // Add product to cart for the first time
+            cart.push({ id, name, price, quantity: 1 });
+            
+            // Save to localStorage
+            localStorage.setItem('okinawa-cart', JSON.stringify(cart));
+            
+            // Get DOM elements
+            const addButton = document.getElementById(`add-btn-${id}`);
+            const quantityControls = document.getElementById(`qty-controls-${id}`);
+            const quantityDisplay = document.getElementById(`qty-${id}`);
+            
+            console.log('DOM elements found:', {
+                addButton: !!addButton,
+                quantityControls: !!quantityControls,
+                quantityDisplay: !!quantityDisplay
+            });
+            
+            // Hide add button
+            if (addButton) {
+                addButton.style.display = 'none';
+                console.log('Add button hidden');
+            }
+            
+            // Show quantity controls
+            if (quantityControls) {
+                quantityControls.style.display = 'flex';
+                quantityControls.style.animation = 'slideInUp 0.3s ease-out';
+                console.log('Quantity controls shown');
+            }
+            
+            // Set quantity to 1
+            if (quantityDisplay) {
+                quantityDisplay.textContent = '1';
+                console.log('Quantity set to 1');
+            }
+            
+            // Update cart UI
+            updateCartUI();
+            
+            // Visual feedback
+            if (event && event.target) {
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = 'Added!';
+                button.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = 'linear-gradient(135deg, #A61f23, #cf2029)';
+                }, 1000);
+            }
+        }
+        
+        function adjustCartQuantity(productId, change) {
+            console.log('Adjusting cart quantity:', productId, 'change:', change);
+            
+            // Find item in cart
+            const existingItem = cart.find(item => item.id === productId);
+            if (!existingItem) {
+                console.log('Item not found in cart');
+                return;
+            }
+            
+            // Calculate new quantity
+            const newQuantity = existingItem.quantity + change;
+            console.log('New quantity will be:', newQuantity);
+            
+            // If quantity goes to 0 or below, remove from cart
+            if (newQuantity <= 0) {
+                console.log('Removing item from cart');
+                cart = cart.filter(item => item.id !== productId);
+                
+                // Hide quantity controls
+                const quantityControls = document.getElementById(`qty-controls-${productId}`);
+                if (quantityControls) {
+                    quantityControls.style.display = 'none';
+                    console.log('Quantity controls hidden');
+                }
+                
+                // Show add to cart button
+                const addButton = document.getElementById(`add-btn-${productId}`);
+                if (addButton) {
+                    addButton.style.display = 'block';
+                    console.log('Add to cart button shown');
+                }
+            } else {
+                // Update quantity in cart
+                existingItem.quantity = newQuantity;
+                console.log('Quantity updated in cart to:', newQuantity);
+                
+                // Update quantity display on product card
+                const quantityDisplay = document.getElementById(`qty-${productId}`);
+                if (quantityDisplay) {
+                    quantityDisplay.textContent = newQuantity;
+                    console.log('Quantity display updated to:', newQuantity);
+                    
+                    // Visual feedback
+                    quantityDisplay.style.transform = 'scale(1.2)';
+                    quantityDisplay.style.background = 'rgba(166, 31, 35, 0.2)';
+                    
+                    setTimeout(() => {
+                        quantityDisplay.style.transform = 'scale(1)';
+                        quantityDisplay.style.background = 'white';
+                    }, 200);
+                }
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('okinawa-cart', JSON.stringify(cart));
+            console.log('Cart saved to localStorage');
+            
+            // Update cart UI
+            updateCartUI();
+            console.log('Cart UI updated');
+        }
+
+        // Initialize product card state
+        function initializeProductCardState(productId, quantity) {
+            const quantityDisplay = document.getElementById(`qty-${productId}`);
+            const quantityControls = document.getElementById(`qty-controls-${productId}`);
+            const addButton = document.getElementById(`add-btn-${productId}`);
+            
+            if (quantityDisplay) {
+                quantityDisplay.textContent = quantity;
+            }
+            
+            if (quantityControls) {
+                quantityControls.style.display = 'flex';
+            }
+            
+            if (addButton) {
+                addButton.style.display = 'none';
+            }
+        }
+
+        // This function is no longer needed - removed for simplicity
 
         // Cart functions
         function addToCart(id, name, price) {
@@ -1257,6 +1692,61 @@
             document.getElementById('cart-count').textContent = cartCount;
             document.getElementById('fab-cart-count').textContent = cartCount;
             document.getElementById('fab-cart-count').style.display = cartCount > 0 ? 'flex' : 'none';
+            
+            // Update all product card displays to reflect cart changes
+            updateAllProductCardQuantities();
+        }
+
+        // Update quantity displays on all visible product cards
+        function updateAllProductCardQuantities() {
+            console.log('Updating all product card quantities...');
+            
+            // Get all product cards
+            const allProductCards = document.querySelectorAll('.product-card');
+            
+            allProductCards.forEach(card => {
+                // Find the product ID from the quantity display element
+                const quantityDisplay = card.querySelector('.quantity-display');
+                if (!quantityDisplay) return;
+                
+                const productId = quantityDisplay.id.replace('qty-', '');
+                console.log('Processing product card:', productId);
+                
+                // Check if this product is in cart
+                const cartItem = cart.find(item => item.id === productId);
+                const quantityControls = card.querySelector('.quantity-controls');
+                const addButton = card.querySelector('.add-to-cart');
+                
+                if (cartItem) {
+                    // Product is in cart - show quantity controls
+                    console.log(`Product ${productId} is in cart with quantity ${cartItem.quantity}`);
+                    
+                    if (quantityDisplay) {
+                        quantityDisplay.textContent = cartItem.quantity;
+                    }
+                    
+                    if (quantityControls) {
+                        quantityControls.style.display = 'flex';
+                    }
+                    
+                    if (addButton) {
+                        addButton.style.display = 'none';
+                    }
+                } else {
+                    // Product is not in cart - show add to cart button
+                    console.log(`Product ${productId} is not in cart`);
+                    
+                    if (quantityControls) {
+                        quantityControls.style.display = 'none';
+                    }
+                    
+                    if (addButton) {
+                        addButton.style.display = 'block';
+                    }
+                }
+            });
+            
+            console.log('All product card quantities updated');
         }
 
         function openCart() {
@@ -1297,6 +1787,32 @@
         async function selectCategoryAndClose(category) {
             // Close the overlay first
             closeCategoryOverlay();
+            
+            // Handle "All Products" selection
+            if (category === 'all-products') {
+                try {
+                    // Load all products from database
+                    const products = await loadProducts();
+                    allProducts = products;
+                    
+                    // Update page title
+                    document.getElementById('page-title').textContent = 'All Products';
+                    
+                    // Update URL
+                    const newUrl = new URL(window.location);
+                    newUrl.searchParams.set('type', 'all');
+                    window.history.replaceState({}, '', newUrl);
+                    
+                    // Reset category filter to "All"
+                    document.getElementById('category-filter').value = 'all';
+                    
+                    // Apply filter to show all products
+                    filterProducts();
+                    return;
+                } catch (error) {
+                    console.error('Error loading all products:', error);
+                }
+            }
             
             // Get current URL parameters
             const urlParams = new URLSearchParams(window.location.search);
@@ -1396,10 +1912,296 @@
             }
         }
 
+        // SIMPLE TRANSLATION SYSTEM - REBUILT FROM ZERO
+        
+        let isEnglish = true; // Simple boolean flag
+        
+        // Simple translation function
+        function toggleLanguage() {
+            console.log('Toggle language clicked, current state:', isEnglish);
+            
+            // Toggle the language
+            isEnglish = !isEnglish;
+            
+            // Update button text
+            const langText = document.querySelector('.lang-text');
+            if (langText) {
+                langText.textContent = isEnglish ? 'EN' : 'AR';
+                console.log('Button text updated to:', langText.textContent);
+            }
+            
+            // Update document direction
+            document.documentElement.dir = isEnglish ? 'ltr' : 'rtl';
+            
+            // Translate the page
+            translateAllText();
+            
+            // Save preference
+            localStorage.setItem('allproducts-lang', isEnglish ? 'en' : 'ar');
+        }
+        
+        // Simple translation function
+        function translateAllText() {
+            console.log('Translating page, isEnglish:', isEnglish);
+            
+            if (isEnglish) {
+                // Convert to English
+                translateToEnglish();
+            } else {
+                // Convert to Arabic
+                translateToArabic();
+            }
+        }
+        
+        // Convert all text to English
+        function translateToEnglish() {
+            // Page title - translate based on current category
+            const pageTitle = document.getElementById('page-title');
+            if (pageTitle) {
+                const currentText = pageTitle.textContent.trim();
+                if (currentText === 'جميع المنتجات') {
+                    pageTitle.textContent = 'All Products';
+                } else if (currentText === 'الطعام والمشروبات (أوشي)') {
+                    pageTitle.textContent = 'Food & Beverage (Oishii)';
+                } else if (currentText === 'توجاراشي / فوريكاكي') {
+                    pageTitle.textContent = 'Togarashi / Furikake';
+                } else if (currentText === 'ميسو') {
+                    pageTitle.textContent = 'Miso';
+                } else if (currentText === 'يوزو') {
+                    pageTitle.textContent = 'Yuzu';
+                } else if (currentText === 'ماتشا') {
+                    pageTitle.textContent = 'Matcha';
+                } else if (currentText === 'الجمال') {
+                    pageTitle.textContent = 'Beauty';
+                } else if (currentText === 'صابون الجسم') {
+                    pageTitle.textContent = 'Body Soap';
+                } else if (currentText === 'كريم اليدين') {
+                    pageTitle.textContent = 'Hand Cream';
+                } else if (currentText === 'قناع الوجه') {
+                    pageTitle.textContent = 'Face Mask';
+                } else if (currentText === 'مناديل الوجه') {
+                    pageTitle.textContent = 'Facial Tissue';
+                } else if (currentText === 'نمط الحياة') {
+                    pageTitle.textContent = 'Lifestyle';
+                } else if (currentText === 'عصي الطعام والحوامل') {
+                    pageTitle.textContent = 'Chopsticks & Holders';
+                } else if (currentText === 'طقم ماتشا') {
+                    pageTitle.textContent = 'Matcha Set';
+                } else if (currentText === 'علاقة الحقيبة') {
+                    pageTitle.textContent = 'Bag Hanger';
+                } else if (currentText === 'ملعقة الأرز/الحساء') {
+                    pageTitle.textContent = 'Rice/Soup Spoon';
+                } else if (currentText === 'طقم السوشي') {
+                    pageTitle.textContent = 'Sushi Set';
+                } else if (currentText === 'مفتاح') {
+                    pageTitle.textContent = 'Keychain';
+                } else if (currentText === 'كتاب رسم الأنمي') {
+                    pageTitle.textContent = 'Anime Drawing Book';
+                }
+            }
+            
+            // Search input
+            const searchInput = document.getElementById('product-search');
+            if (searchInput) searchInput.placeholder = 'Search by name...';
+            
+            // Back to home
+            const backToHome = document.querySelector('.back-to-home');
+            if (backToHome) backToHome.textContent = '← Back to Home';
+            
+            // Labels
+            const labels = document.querySelectorAll('label');
+            labels.forEach(label => {
+                const text = label.textContent.trim();
+                if (text === 'البحث في المنتجات') label.textContent = 'Search Products';
+                else if (text === 'تصفية حسب الفئة') label.textContent = 'Filter by Category';
+                else if (text === 'ترتيب حسب') label.textContent = 'Sort by';
+            });
+            
+            // Select options
+            const options = document.querySelectorAll('option');
+            options.forEach(option => {
+                const text = option.textContent.trim();
+                if (text === 'جميع الفئات') option.textContent = 'All Categories';
+                else if (text === 'جميع الطعام والمشروبات') option.textContent = 'All Food & Beverage';
+                else if (text === 'توجاراشي / فوريكاكي') option.textContent = 'Togarashi / Furikake';
+                else if (text === 'ميسو') option.textContent = 'Miso';
+                else if (text === 'يوزو') option.textContent = 'Yuzu';
+                else if (text === 'ماتشا') option.textContent = 'Matcha';
+                else if (text === 'جميع الجمال') option.textContent = 'All Beauty';
+                else if (text === 'صابون الجسم') option.textContent = 'Body Soap';
+                else if (text === 'كريم اليدين') option.textContent = 'Hand Cream';
+                else if (text === 'قناع الوجه') option.textContent = 'Face Mask';
+                else if (text === 'مناديل الوجه') option.textContent = 'Facial Tissue';
+                else if (text === 'جميع نمط الحياة') option.textContent = 'All Lifestyle';
+                else if (text === 'عصي الطعام والحوامل') option.textContent = 'Chopsticks & Holders';
+                else if (text === 'طقم ماتشا') option.textContent = 'Matcha Set';
+                else if (text === 'علاقة الحقيبة') option.textContent = 'Bag Hanger';
+                else if (text === 'ملعقة الأرز/الحساء') option.textContent = 'Rice/Soup Spoon';
+                else if (text === 'طقم السوشي') option.textContent = 'Sushi Set';
+                else if (text === 'مفتاح') option.textContent = 'Keychain';
+                else if (text === 'كتاب رسم الأنمي') option.textContent = 'Anime Drawing Book';
+                else if (text === 'السعر: من الأقل للأعلى') option.textContent = 'Price: Low to High';
+                else if (text === 'السعر: من الأعلى للأقل') option.textContent = 'Price: High to Low';
+                else if (text === 'الاسم: من أ إلى ي') option.textContent = 'Name: A to Z';
+                else if (text === 'الاسم: من ي إلى أ') option.textContent = 'Name: Z to A';
+            });
+            
+            // Optgroups
+            const optgroups = document.querySelectorAll('optgroup');
+            optgroups.forEach(optgroup => {
+                const text = optgroup.label.trim();
+                if (text === 'الطعام والمشروبات') optgroup.label = 'Food & Beverage';
+                else if (text === 'الجمال') optgroup.label = 'Beauty';
+                else if (text === 'نمط الحياة') optgroup.label = 'Lifestyle';
+            });
+            
+            // Buttons
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                const text = button.textContent.trim();
+                if (text === 'أضف إلى السلة') button.textContent = 'Add to Cart';
+                else if (text === 'إزالة') button.textContent = 'Remove';
+            });
+        }
+        
+        // Convert all text to Arabic
+        function translateToArabic() {
+            // Page title - translate based on current category
+            const pageTitle = document.getElementById('page-title');
+            if (pageTitle) {
+                const currentText = pageTitle.textContent.trim();
+                if (currentText === 'All Products') {
+                    pageTitle.textContent = 'جميع المنتجات';
+                } else if (currentText === 'Food & Beverage (Oishii)') {
+                    pageTitle.textContent = 'الطعام والمشروبات (أوشي)';
+                } else if (currentText === 'Togarashi / Furikake') {
+                    pageTitle.textContent = 'توجاراشي / فوريكاكي';
+                } else if (currentText === 'Miso') {
+                    pageTitle.textContent = 'ميسو';
+                } else if (currentText === 'Yuzu') {
+                    pageTitle.textContent = 'يوزو';
+                } else if (currentText === 'Matcha') {
+                    pageTitle.textContent = 'ماتشا';
+                } else if (currentText === 'Beauty') {
+                    pageTitle.textContent = 'الجمال';
+                } else if (currentText === 'Body Soap') {
+                    pageTitle.textContent = 'صابون الجسم';
+                } else if (currentText === 'Hand Cream') {
+                    pageTitle.textContent = 'كريم اليدين';
+                } else if (currentText === 'Face Mask') {
+                    pageTitle.textContent = 'قناع الوجه';
+                } else if (currentText === 'Facial Tissue') {
+                    pageTitle.textContent = 'مناديل الوجه';
+                } else if (currentText === 'Lifestyle') {
+                    pageTitle.textContent = 'نمط الحياة';
+                } else if (currentText === 'Chopsticks & Holders') {
+                    pageTitle.textContent = 'عصي الطعام والحوامل';
+                } else if (currentText === 'Matcha Set') {
+                    pageTitle.textContent = 'طقم ماتشا';
+                } else if (currentText === 'Bag Hanger') {
+                    pageTitle.textContent = 'علاقة الحقيبة';
+                } else if (currentText === 'Rice/Soup Spoon') {
+                    pageTitle.textContent = 'ملعقة الأرز/الحساء';
+                } else if (currentText === 'Sushi Set') {
+                    pageTitle.textContent = 'طقم السوشي';
+                } else if (currentText === 'Keychain') {
+                    pageTitle.textContent = 'مفتاح';
+                } else if (currentText === 'Anime Drawing Book') {
+                    pageTitle.textContent = 'كتاب رسم الأنمي';
+                }
+            }
+            
+            // Search input
+            const searchInput = document.getElementById('product-search');
+            if (searchInput) searchInput.placeholder = 'البحث بالاسم...';
+            
+            // Back to home
+            const backToHome = document.querySelector('.back-to-home');
+            if (backToHome) backToHome.textContent = '← العودة للرئيسية';
+            
+            // Labels
+            const labels = document.querySelectorAll('label');
+            labels.forEach(label => {
+                const text = label.textContent.trim();
+                if (text === 'Search Products') label.textContent = 'البحث في المنتجات';
+                else if (text === 'Filter by Category') label.textContent = 'تصفية حسب الفئة';
+                else if (text === 'Sort by') label.textContent = 'ترتيب حسب';
+            });
+            
+            // Select options
+            const options = document.querySelectorAll('option');
+            options.forEach(option => {
+                const text = option.textContent.trim();
+                if (text === 'All Categories') option.textContent = 'جميع الفئات';
+                else if (text === 'All Food & Beverage') option.textContent = 'جميع الطعام والمشروبات';
+                else if (text === 'Togarashi / Furikake') option.textContent = 'توجاراشي / فوريكاكي';
+                else if (text === 'Miso') option.textContent = 'ميسو';
+                else if (text === 'Yuzu') option.textContent = 'يوزو';
+                else if (text === 'Matcha') option.textContent = 'ماتشا';
+                else if (text === 'All Beauty') option.textContent = 'جميع الجمال';
+                else if (text === 'Body Soap') option.textContent = 'صابون الجسم';
+                else if (text === 'Hand Cream') option.textContent = 'كريم اليدين';
+                else if (text === 'Face Mask') option.textContent = 'قناع الوجه';
+                else if (text === 'Facial Tissue') option.textContent = 'مناديل الوجه';
+                else if (text === 'All Lifestyle') option.textContent = 'جميع نمط الحياة';
+                else if (text === 'Chopsticks & Holders') option.textContent = 'عصي الطعام والحوامل';
+                else if (text === 'Matcha Set') option.textContent = 'طقم ماتشا';
+                else if (text === 'Bag Hanger') option.textContent = 'علاقة الحقيبة';
+                else if (text === 'Rice/Soup Spoon') option.textContent = 'ملعقة الأرز/الحساء';
+                else if (text === 'Sushi Set') option.textContent = 'طقم السوشي';
+                else if (text === 'Keychain') option.textContent = 'مفتاح';
+                else if (text === 'Anime Drawing Book') option.textContent = 'كتاب رسم الأنمي';
+                else if (text === 'Price: Low to High') option.textContent = 'السعر: من الأقل للأعلى';
+                else if (text === 'Price: High to Low') option.textContent = 'السعر: من الأعلى للأقل';
+                else if (text === 'Name: A to Z') option.textContent = 'الاسم: من أ إلى ي';
+                else if (text === 'Name: Z to A') option.textContent = 'الاسم: من ي إلى أ';
+            });
+            
+            // Optgroups
+            const optgroups = document.querySelectorAll('optgroup');
+            optgroups.forEach(optgroup => {
+                const text = optgroup.label.trim();
+                if (text === 'Food & Beverage') optgroup.label = 'الطعام والمشروبات';
+                else if (text === 'Beauty') optgroup.label = 'الجمال';
+                else if (text === 'Lifestyle') optgroup.label = 'نمط الحياة';
+            });
+            
+            // Buttons
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                const text = button.textContent.trim();
+                if (text === 'Add to Cart') button.textContent = 'أضف إلى السلة';
+                else if (text === 'Remove') button.textContent = 'إزالة';
+            });
+        }
+        
+        // Load saved language preference
+        function loadLanguagePreference() {
+            const saved = localStorage.getItem('allproducts-lang');
+            if (saved === 'ar') {
+                isEnglish = false;
+                const langText = document.querySelector('.lang-text');
+                if (langText) langText.textContent = 'AR';
+                document.documentElement.dir = 'rtl';
+                translateToArabic();
+            }
+        }
+
+        // Navigate to product page
+        function navigateToProduct(productId) {
+            window.location.href = `product.html?id=${productId}`;
+        }
+
         // Initialize page when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
+            // Load language preference
+            loadLanguagePreference();
+            
             initializePage();
             updateFabAuth();
+            
+            // Initialize product card states based on existing cart
+            updateAllProductCardQuantities();
             
             // Close category overlay when clicking outside
             document.getElementById('category-overlay').addEventListener('click', function(e) {

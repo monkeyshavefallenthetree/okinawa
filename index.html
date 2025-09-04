@@ -5,10 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Okinawa - Japanese Grocery Store</title>
     
-    <!-- Google Fonts - Shojumaru -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Shojumaru&display=swap" rel="stylesheet">
+    <!-- Simple, clean fonts -->
     
     <style>
         * {
@@ -18,15 +15,15 @@
         }
 
         body {
-            font-family: 'Shojumaru', cursive;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background-color: #ffffff;
             color: #000000;
             line-height: 1.6;
         }
 
-        /* Apply Shojumaru font to all elements */
+        /* Apply simple font to all elements */
         *, *::before, *::after {
-            font-family: 'Shojumaru', cursive !important;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
         }
 
         /* Font adjustments for better readability */
@@ -42,40 +39,249 @@
             letter-spacing: 0.5px;
         }
 
-        /* Header Styles */
+        /* Header Styles - Liquid Glass Effect */
         header {
-            background: linear-gradient(135deg, rgba(166, 31, 35, 0.6), rgba(207, 32, 41, 0.6));
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.25) 0%,
+                rgba(255, 255, 255, 0.15) 25%,
+                rgba(166, 31, 35, 0.1) 50%,
+                rgba(207, 32, 41, 0.15) 75%,
+                rgba(255, 255, 255, 0.2) 100%
+            );
             padding: 0.8rem 1rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.3);
-            backdrop-filter: blur(20px);
+            
+            /* Liquid Glass Effects */
+            backdrop-filter: blur(30px) saturate(1.8);
+            -webkit-backdrop-filter: blur(30px) saturate(1.8);
+            border-radius: 0 0 30px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-top: none;
+            
+            /* Glassmorphism Shadow */
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.1),
+                0 4px 16px rgba(0, 0, 0, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+            
+            /* Smooth transitions */
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Liquid animation */
+            animation: liquidFloat 6s ease-in-out infinite;
+            
+            /* Additional glass effect */
+            background-blend-mode: overlay;
+        }
+
+        /* Liquid floating animation */
+        @keyframes liquidFloat {
+            0%, 100% {
+                transform: translateY(0px);
+                backdrop-filter: blur(30px) saturate(1.8);
+            }
+            50% {
+                transform: translateY(-2px);
+                backdrop-filter: blur(35px) saturate(2);
+            }
+        }
+
+        /* Hover effect for liquid glass */
+        header:hover {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.35) 0%,
+                rgba(255, 255, 255, 0.25) 25%,
+                rgba(166, 31, 35, 0.15) 50%,
+                rgba(207, 32, 41, 0.2) 75%,
+                rgba(255, 255, 255, 0.3) 100%
+            );
+            backdrop-filter: blur(40px) saturate(2.2);
+            -webkit-backdrop-filter: blur(40px) saturate(2.2);
+            box-shadow: 
+                0 12px 40px rgba(0, 0, 0, 0.15),
+                0 6px 20px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        /* Pseudo-element for additional liquid effect */
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(
+                ellipse 800px 600px at 50% 0%,
+                rgba(255, 255, 255, 0.1) 0%,
+                transparent 50%
+            );
+            border-radius: 0 0 30px 30px;
+            pointer-events: none;
+            animation: liquidShimmer 8s ease-in-out infinite;
+        }
+
+        @keyframes liquidShimmer {
+            0%, 100% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.05);
+            }
         }
 
         nav {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
             position: relative;
             height: 80px;
+            width: 100%;
         }
 
         .logo {
             height: 70px;
             width: auto;
-            transition: transform 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 1001;
             object-fit: contain;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+            position: relative;
+            order: 1; /* Ensure logo is first (left side) */
         }
 
         .logo:hover {
-            transform: scale(1.05);
+            transform: scale(1.05) translateY(-2px);
+            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
+        }
+
+        /* Translation Button */
+        .translation-btn {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-left: 1rem;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(44, 62, 80, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            order: 999; /* Ensure translation button is last (right side) */
+        }
+
+        .translation-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.4);
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+        }
+
+        .translation-btn:active {
+            transform: translateY(0);
+        }
+
+        .lang-text {
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        .lang-icon {
+            font-size: 1.1rem;
+        }
+
+        /* Header element positioning */
+        .auth-buttons, .user-info, .guest-cart {
+            order: 2; /* Middle position between logo and translation button */
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* RTL Support for Arabic */
+        [dir="rtl"] {
+            direction: rtl;
+            text-align: right;
+        }
+
+        [dir="rtl"] .translation-btn {
+            margin-left: 0;
+            margin-right: 1rem;
+        }
+
+        [dir="rtl"] .guest-cart {
+            margin-left: 0;
+            margin-right: 1rem;
+        }
+
+        /* RTL Support for Mobile Categories */
+        [dir="rtl"] .category-tabs {
+            flex-direction: row-reverse;
+        }
+
+        [dir="rtl"] .category-tab {
+            text-align: center;
+        }
+
+        [dir="rtl"] .category-panels-container {
+            direction: rtl;
+        }
+
+        [dir="rtl"] .category-panel {
+            direction: rtl;
+        }
+
+        [dir="rtl"] .mobile-main-category {
+            text-align: center;
+        }
+
+        [dir="rtl"] .mobile-subcategories {
+            direction: rtl;
+        }
+
+        [dir="rtl"] .mobile-subcategory-card {
+            text-align: center;
+        }
+
+        [dir="rtl"] .category-indicators {
+            flex-direction: row-reverse;
+        }
+
+        [dir="rtl"] .swipe-arrow {
+            transform: scaleX(-1);
+        }
+
+        /* Fix RTL animations */
+        [dir="rtl"] .category-item::after {
+            left: 100%;
+            right: -100%;
+        }
+
+        [dir="rtl"] .category-item:hover::after {
+            left: -100%;
+            right: 100%;
+        }
+
+        [dir="rtl"] .mobile-subcategory-card::after {
+            right: -50%;
+            left: -50%;
+        }
+
+        [dir="rtl"] .mobile-subcategory-card:hover::after {
+            right: 150%;
+            left: 150%;
         }
 
         /* Mobile Menu Toggle */
@@ -117,64 +323,202 @@
             display: none !important;
         }
 
-        /* Hero Section */
-        .hero {
-            background: url('https://images.unsplash.com/photo-1553621042-f6e147245754?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2025&q=80');
-            background-size: cover;
-            background-position: center;
-            height: 80vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            margin-top: 80px;
-            position: relative;
-            overflow: hidden;
+        /* Ensure header layout works on all screen sizes */
+        @media (max-width: 768px) {
+            nav {
+                padding: 0 1rem;
+                justify-content: space-between;
+            }
+            
+            .logo {
+                order: 1;
+                flex-shrink: 0;
+            }
+            
+            .translation-btn {
+                order: 999;
+                flex-shrink: 0;
+                margin-left: 0.5rem;
+            }
+            
+            .auth-buttons, .user-info, .guest-cart {
+                order: 2;
+                flex-shrink: 0;
+            }
         }
 
-        /* Animated Japanese product showcase */
-        .hero::before {
+        @media (max-width: 480px) {
+            nav {
+                padding: 0 0.5rem;
+            }
+            
+            .logo {
+                height: 60px;
+            }
+            
+            .translation-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Hero Section */
+        .search-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 4rem 2rem 6rem 2rem;
+            margin-top: 80px;
+            text-align: center;
+            position: relative;
+            overflow: visible;
+        }
+
+        .search-section::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background-size: cover;
-            background-position: center;
-            opacity: 0.4;
-            z-index: -1;
-            animation: heroSlideshow 12s infinite;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23A61f23" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="%23cf2029" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="%23A61f23" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="%23cf2029" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="%23A61f23" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+            z-index: 1;
         }
 
-        @keyframes heroSlideshow {
-            0%, 25% { 
-                background-image: url('https://images.unsplash.com/photo-1553621042-f6e147245754?ixlib=rb-4.0.3&auto=format&fit=crop&w=2025&q=80');
-            }
-            26%, 50% { 
-                background-image: url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
-            }
-            51%, 75% { 
-                background-image: url('https://images.unsplash.com/photo-1563612116625-3012372fccce?ixlib=rb-4.0.3&auto=format&fit=crop&w=2064&q=80');
-            }
-            76%, 100% { 
-                background-image: url('https://images.unsplash.com/photo-1606491956689-2ea866880c84?ixlib=rb-4.0.3&auto=format&fit=crop&w=2064&q=80');
-            }
+        .search-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            padding-bottom: 2rem;
         }
 
 
 
-        .hero-content h1 {
+        .search-content h1 {
             font-size: 3.5rem;
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.6);
+            color: #A61f23;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
-        .hero-content p {
+        .search-content p {
             font-size: 1.2rem;
-            margin-bottom: 2rem;
-            text-shadow: 1px 1px 6px rgba(0,0,0,0.8), 0 0 15px rgba(0,0,0,0.6);
+            margin-bottom: 2.5rem;
+            color: #666;
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            border: 2px solid transparent;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            background: white;
+            color: #333;
+            outline: none;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #A61f23;
+            box-shadow: 0 8px 32px rgba(166, 31, 35, 0.2);
+        }
+
+        .search-input::placeholder {
+            color: #999;
+        }
+
+        .search-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 0 0 25px 25px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            z-index: 1000;
+            max-height: 400px;
+            overflow-y: auto;
+            display: none;
+            margin-top: 5px;
+        }
+
+        .search-dropdown.show {
+            display: block;
+        }
+
+        .search-results {
+            padding: 0;
+        }
+
+        .search-result-item {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-result-item:hover {
+            background: #f8f9fa;
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+            border-radius: 0 0 25px 25px;
+        }
+
+        .search-result-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .search-result-info {
+            flex: 1;
+        }
+
+        .search-result-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+
+        .search-result-price {
+            color: #A61f23;
+            font-weight: 600;
+        }
+
+        .search-result-category {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* RTL Support for Search */
+        [dir="rtl"] .search-container {
+            direction: rtl;
+        }
+
+        [dir="rtl"] .search-input {
+            text-align: right;
+        }
+
+        [dir="rtl"] .search-result-item {
+            flex-direction: row-reverse;
+        }
+
+        [dir="rtl"] .search-result-info {
+            text-align: right;
         }
 
         .cta-button {
@@ -248,7 +592,309 @@
 
 
         /* Modern Category Grid - Mobile First Design */
-        /* Category Hierarchy */
+        /* Mobile Tab Navigation */
+        .category-mobile-nav {
+            display: none;
+            position: sticky;
+            top: 120px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 1rem 0;
+            margin: -1rem -2rem 2rem -2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .category-tabs-wrapper {
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            -webkit-overflow-scrolling: touch;
+            padding: 0 1rem;
+        }
+
+        .category-tabs-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-tabs {
+            display: flex;
+            gap: 0.8rem;
+            padding: 0 0.5rem;
+            min-width: max-content;
+        }
+
+        .category-tab {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: white;
+            border: 2px solid rgba(166, 31, 35, 0.1);
+            border-radius: 30px;
+            color: #666;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
+            user-select: none;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .category-tab-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .category-tab.active {
+            background: linear-gradient(135deg, #A61f23, #cf2029);
+            color: white;
+            border-color: #A61f23;
+            box-shadow: 0 4px 15px rgba(166, 31, 35, 0.3);
+            transform: scale(1.05);
+        }
+
+        .category-tab.active .category-tab-icon {
+            transform: rotate(5deg) scale(1.1);
+        }
+
+        .category-tab:not(.active):hover {
+            background: rgba(166, 31, 35, 0.05);
+            border-color: rgba(166, 31, 35, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Tab animation */
+        .category-tab::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.4s, height 0.4s;
+        }
+
+        .category-tab:active::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Mobile Content Panels */
+        .category-mobile-panels {
+            display: none;
+            position: relative;
+            overflow: hidden;
+            min-height: 400px;
+        }
+
+        .category-panels-container {
+            display: flex;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+
+        .category-panel {
+            width: 100%;
+            flex-shrink: 0;
+            padding: 0 0.5rem;
+        }
+
+        .mobile-main-category {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(166, 31, 35, 0.05), rgba(207, 32, 41, 0.05));
+            border-radius: 20px;
+            border: 2px solid rgba(166, 31, 35, 0.1);
+        }
+
+        .mobile-main-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .mobile-main-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #A61f23;
+            margin-bottom: 0.5rem;
+        }
+
+        .mobile-main-desc {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .mobile-subcategories {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+            padding-bottom: 1rem;
+        }
+
+        .mobile-subcategory-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.2rem;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            border: 2px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mobile-subcategory-card:active {
+            transform: scale(0.97);
+        }
+
+        .mobile-subcategory-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.5) 50%, transparent 70%);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+            opacity: 0;
+        }
+
+        .mobile-subcategory-card:hover::after {
+            top: 150%;
+            right: 150%;
+            opacity: 1;
+        }
+
+        .mobile-subcategory-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-subcategory-card:hover .mobile-subcategory-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .mobile-subcategory-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.3rem;
+        }
+
+        .mobile-subcategory-desc {
+            font-size: 0.75rem;
+            color: #666;
+            line-height: 1.3;
+            opacity: 0.8;
+        }
+
+        /* Swipe indicators */
+        .category-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            padding: 0.5rem;
+        }
+
+        .indicator-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(166, 31, 35, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .indicator-dot.active {
+            width: 32px;
+            border-radius: 4px;
+            background: #A61f23;
+        }
+
+        .indicator-dot.active::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            border-radius: 4px;
+            background: #A61f23;
+            transform: translate(-50%, -50%);
+            animation: ripple 1.5s ease-in-out infinite;
+        }
+
+        @keyframes ripple {
+            0% {
+                width: 100%;
+                height: 100%;
+                opacity: 1;
+            }
+            100% {
+                width: 150%;
+                height: 150%;
+                opacity: 0;
+            }
+        }
+
+        /* Touch gesture hints */
+        .swipe-hint {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            opacity: 0;
+            animation: hintFadeInOut 4s ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes hintFadeInOut {
+            0%, 100% { opacity: 0; }
+            10%, 90% { opacity: 1; }
+        }
+
+        .swipe-arrow {
+            display: inline-block;
+            animation: swipeArrow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes swipeArrow {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
+        }
+
+        /* Desktop Category Hierarchy (existing) */
         .category-hierarchy {
             display: flex;
             flex-direction: column;
@@ -1135,6 +1781,15 @@
 
         .product-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .product-card[style*="cursor: pointer"] {
+            transition: all 0.3s ease;
+        }
+
+        .product-card[style*="cursor: pointer"]:hover {
+            border-color: #A61f23;
         }
 
         .product-image {
@@ -1164,20 +1819,95 @@
             margin-bottom: 1rem;
         }
 
+        /* Quantity Controls */
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 0.8rem 0;
+            padding: 0.5rem;
+            background: rgba(248, 249, 250, 0.5);
+            border-radius: 25px;
+            border: 1px solid rgba(166, 31, 35, 0.1);
+        }
+
+        .quantity-btn {
+            width: 32px;
+            height: 32px;
+            border: 2px solid #A61f23;
+            background: linear-gradient(135deg, rgba(166, 31, 35, 0.1), rgba(207, 32, 41, 0.1));
+            color: #A61f23;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            user-select: none;
+        }
+
+        .quantity-btn:hover {
+            background: linear-gradient(135deg, #A61f23, #cf2029);
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(166, 31, 35, 0.3);
+        }
+
+        .quantity-btn:active {
+            transform: scale(0.95);
+        }
+
+        .quantity-btn.minus:hover {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            border-color: #dc3545;
+        }
+
+        .quantity-display {
+            min-width: 40px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #A61f23;
+            padding: 0.3rem 0.6rem;
+            background: white;
+            border-radius: 15px;
+            border: 2px solid rgba(166, 31, 35, 0.2);
+            transition: all 0.3s ease;
+        }
+
         .add-to-cart {
-            background-color: #cf2029;
+            background: linear-gradient(135deg, #A61f23, #cf2029);
             color: white;
             border: none;
             padding: 0.8rem 1.5rem;
-            border-radius: 5px;
+            border-radius: 25px;
             cursor: pointer;
             font-size: 1rem;
-            transition: background-color 0.3s ease;
+            font-weight: 600;
+            transition: all 0.3s ease;
             width: 100%;
+            margin-top: auto;
         }
 
         .add-to-cart:hover {
-            background-color: #A61f23;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(166, 31, 35, 0.3);
+            background: linear-gradient(135deg, #cf2029, #A61f23);
+        }
+
+        /* Animation for quantity controls appearance */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         /* Footer */
@@ -1263,8 +1993,30 @@
                 gap: 1rem;
             }
 
-            .hero-content h1 {
+            .search-content h1 {
                 font-size: 2.5rem;
+            }
+
+            .search-container {
+                max-width: 500px;
+            }
+
+            .search-input {
+                padding: 1rem 1.2rem;
+                font-size: 1rem;
+            }
+
+            .search-result-item {
+                padding: 0.8rem 1.2rem;
+            }
+
+            .search-result-image {
+                width: 40px;
+                height: 40px;
+            }
+
+            .search-dropdown {
+                max-height: 300px;
             }
 
             .category-grid {
@@ -1294,8 +2046,43 @@
                 display: none;
             }
 
-            .hero-content h1 {
+            .search-content h1 {
                 font-size: 2rem;
+            }
+
+            .search-container {
+                max-width: 400px;
+            }
+
+            .search-input {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+                border-radius: 25px;
+            }
+
+            .search-result-item {
+                padding: 0.7rem 1rem;
+            }
+
+            .search-result-image {
+                width: 35px;
+                height: 35px;
+            }
+
+            .search-dropdown {
+                max-height: 250px;
+            }
+
+            .search-result-name {
+                font-size: 0.9rem;
+            }
+
+            .search-result-price {
+                font-size: 0.9rem;
+            }
+
+            .search-result-category {
+                font-size: 0.8rem;
             }
 
             .category-circle {
@@ -1513,19 +2300,55 @@
         }
 
         .auth-buttons button {
-            background-color: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            color: #ffffff;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.25) 0%,
+                rgba(255, 255, 255, 0.1) 100%
+            );
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.95);
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(15px) saturate(1.5);
+            -webkit-backdrop-filter: blur(15px) saturate(1.5);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .auth-buttons button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent
+            );
+            transition: left 0.6s ease;
         }
 
         .auth-buttons button:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 255, 255, 0.8);
-            color: white;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.35) 0%,
+                rgba(255, 255, 255, 0.2) 100%
+            );
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.15),
+                0 4px 12px rgba(0, 0, 0, 0.1);
+            border-color: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px) saturate(1.8);
+            -webkit-backdrop-filter: blur(20px) saturate(1.8);
+        }
+
+        .auth-buttons button:hover::before {
+            left: 100%;
         }
 
         /* Cart Styles */
@@ -2220,6 +3043,41 @@
                 display: block;
             }
 
+            /* Mobile quantity controls */
+            .quantity-controls {
+                padding: 0.3rem;
+                gap: 0.3rem;
+            }
+
+            .quantity-btn {
+                width: 28px;
+                height: 28px;
+                font-size: 1rem;
+            }
+
+            .quantity-display {
+                min-width: 35px;
+                font-size: 1rem;
+                padding: 0.2rem 0.4rem;
+            }
+
+            /* Mobile category panels fine-tuning */
+            .category-mobile-nav {
+                margin: 0 -1rem 1.5rem -1rem;
+                padding: 0.8rem 0;
+            }
+
+            .mobile-subcategory-card {
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+                border: 1px solid rgba(0, 0, 0, 0.05);
+            }
+
+            .mobile-subcategory-card:active {
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+                background: rgba(166, 31, 35, 0.05);
+                border-color: rgba(166, 31, 35, 0.2);
+            }
+
             /* Old grid fallback */
             .overlay-category-grid {
                 grid-template-columns: 1fr;
@@ -2282,11 +3140,14 @@
         @media (max-width: 768px) {
             header {
                 padding: 0.8rem 1rem;
+                border-radius: 0 0 25px 25px;
+                backdrop-filter: blur(25px) saturate(1.6);
+                -webkit-backdrop-filter: blur(25px) saturate(1.6);
             }
 
             nav {
                 height: 70px;
-                justify-content: center;
+              
             }
 
             .logo {
@@ -2331,26 +3192,35 @@
                 right: 0;
             }
 
-            /* Hero adjustments */
-            .hero {
+            /* Search adjustments */
+            .search-section {
                 margin-top: 80px;
+                padding: 3rem 1rem 5rem 1rem;
             }
 
-
-
-            .hero-content h1 {
+            .search-content h1 {
                 font-size: 2.2rem;
             }
 
-            .hero-content p {
+            .search-content p {
                 font-size: 1rem;
+            }
+
+            .search-container {
+                max-width: 450px;
             }
 
             /* Categories - Mobile Optimized */
             .category-hierarchy {
-                display: flex; /* Show hierarchy on mobile */
-                flex-direction: column;
-                gap: 20px;
+                display: none; /* Hide desktop hierarchy on mobile */
+            }
+
+            .category-mobile-nav {
+                display: block;
+            }
+
+            .category-mobile-panels {
+                display: block;
             }
 
             .category-grid {
@@ -2450,20 +3320,25 @@
         @media (max-width: 480px) {
             header {
                 padding: 0.6rem 1rem;
+                border-radius: 0 0 20px 20px;
+                backdrop-filter: blur(20px) saturate(1.4);
+                -webkit-backdrop-filter: blur(20px) saturate(1.4);
             }
 
             .logo {
                 height: 50px;
             }
 
-            .hero-content h1 {
+            .search-content h1 {
                 font-size: 1.8rem;
             }
 
-
-
-            .hero-content p {
+            .search-content p {
                 font-size: 0.9rem;
+            }
+
+            .search-container {
+                max-width: 350px;
             }
 
             /* Categories - Extra Small Mobile */
@@ -2532,6 +3407,12 @@
                 </button>
             </div>
 
+            <!-- Translation Button -->
+            <button class="translation-btn" onclick="toggleLanguage()" title="Toggle Language">
+                <span class="lang-text">EN</span>
+                <span class="lang-icon">🌐</span>
+            </button>
+
             <!-- Mobile Menu Toggle -->
             <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
                 <span id="menu-icon">☰</span>
@@ -2548,12 +3429,17 @@
 
     <!-- Main Content (hidden when dashboard is active) -->
     <div id="main-content">
-        <!-- Hero Section -->
-        <section class="hero" id="home">
-            <div class="hero-content">
+        <!-- Search Section -->
+        <section class="search-section" id="search">
+            <div class="search-content">
                 <h1>Welcome to Okinawa</h1>
                 <p>Authentic Japanese groceries delivered to your door</p>
-                <a href="#products" class="cta-button">Shop Now</a>
+                <div class="search-container">
+                    <input type="text" id="main-search" placeholder="Search products..." class="search-input" autocomplete="off">
+                    <div class="search-dropdown" id="search-dropdown">
+                        <div class="search-results" id="search-results"></div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -2595,6 +3481,152 @@
         <section class="categories" id="categories">
             <div class="container">
                 <h2 class="section-title">Shop by Category</h2>
+                
+                <!-- Mobile Tab Navigation -->
+                <div class="category-mobile-nav">
+                    <div class="category-tabs-wrapper">
+                        <div class="category-tabs">
+                            <div class="category-tab active" onclick="switchCategory(0)">
+                                <span class="category-tab-icon">🎋</span>
+                                <span>Lifestyle</span>
+                    </div>
+                            <div class="category-tab" onclick="switchCategory(1)">
+                                <span class="category-tab-icon">🌸</span>
+                                <span>Beauty</span>
+                    </div>
+                            <div class="category-tab" onclick="switchCategory(2)">
+                                <span class="category-tab-icon">🍱</span>
+                                <span>Food & Beverage</span>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Content Panels -->
+                <div class="category-mobile-panels">
+                    <div class="category-panels-container">
+                        <!-- Lifestyle Panel -->
+                        <div class="category-panel">
+                            <div class="mobile-main-category">
+                                <span class="mobile-main-icon">🎋</span>
+                                <h3 class="mobile-main-title">Lifestyle</h3>
+                                <p class="mobile-main-desc">Japanese lifestyle products and accessories</p>
+                            </div>
+                            <div class="mobile-subcategories">
+                                <div class="mobile-subcategory-card" onclick="navigateToCategory('chopsticks-holders')">
+                                    <span class="mobile-subcategory-icon">🥢</span>
+                                    <h4 class="mobile-subcategory-name">Chopsticks & Holders</h4>
+                                    <p class="mobile-subcategory-desc">Elegant Japanese chopsticks</p>
+                                </div>
+                                <div class="mobile-subcategory-card" onclick="navigateToCategory('matcha-set')">
+                                    <span class="mobile-subcategory-icon">🍃</span>
+                                    <h4 class="mobile-subcategory-name">Matcha Set</h4>
+                                    <p class="mobile-subcategory-desc">Complete tea preparation</p>
+                                </div>
+                                <div class="mobile-subcategory-card" onclick="navigateToCategory('bag-hanger')">
+                                    <span class="mobile-subcategory-icon">👜</span>
+                                    <h4 class="mobile-subcategory-name">Bag Hanger</h4>
+                                    <p class="mobile-subcategory-desc">Japanese-inspired design</p>
+                                </div>
+                                <div class="mobile-subcategory-card" onclick="navigateToCategory('rice-soup-spoon')">
+                                    <span class="mobile-subcategory-icon">🥄</span>
+                                    <h4 class="mobile-subcategory-name">Rice/Soup Spoon</h4>
+                                    <p class="mobile-subcategory-desc">Practical dining tools</p>
+                                </div>
+                                <div class="mobile-subcategory-card" onclick="navigateToCategory('sushi-set')">
+                                    <span class="mobile-subcategory-icon">🍣</span>
+                                    <h4 class="mobile-subcategory-name">Sushi Set</h4>
+                                    <p class="mobile-subcategory-desc">Make sushi at home</p>
+                                </div>
+                                <div class="mobile-subcategory-card" onclick="navigateToCategory('keychain')">
+                                    <span class="mobile-subcategory-icon">🔑</span>
+                                    <h4 class="mobile-subcategory-name">Keychain</h4>
+                                    <p class="mobile-subcategory-desc">Cultural accessories</p>
+                                </div>
+                                <div class="mobile-subcategory-card" onclick="navigateToCategory('anime-drawing-book')">
+                                    <span class="mobile-subcategory-icon">📚</span>
+                                    <h4 class="mobile-subcategory-name">Anime Drawing Book</h4>
+                                    <p class="mobile-subcategory-desc">For anime enthusiasts</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Beauty Panel -->
+                        <div class="category-panel">
+                            <div class="mobile-main-category">
+                                <span class="mobile-main-icon">🌸</span>
+                                <h3 class="mobile-main-title">Beauty</h3>
+                                <p class="mobile-main-desc">Japanese beauty and skincare essentials</p>
+                            </div>
+                            <div class="mobile-subcategories">
+                                <div class="mobile-subcategory-card" onclick="navigateToCategory('body-soap')">
+                                    <span class="mobile-subcategory-icon">🧼</span>
+                                    <h4 class="mobile-subcategory-name">Body Soap</h4>
+                                    <p class="mobile-subcategory-desc">Natural pure skin</p>
+                                </div>
+                                <div class="mobile-subcategory-card" onclick="navigateToCategory('hand-cream')">
+                                    <span class="mobile-subcategory-icon">🤲</span>
+                                    <h4 class="mobile-subcategory-name">Hand Cream</h4>
+                                    <p class="mobile-subcategory-desc">Nourishing essence</p>
+                                </div>
+                                <div class="mobile-subcategory-card" onclick="navigateToCategory('face-mask')">
+                                    <span class="mobile-subcategory-icon">😌</span>
+                                    <h4 class="mobile-subcategory-name">Face Mask</h4>
+                                    <p class="mobile-subcategory-desc">Hydration & radiance</p>
+                                </div>
+                                <div class="mobile-subcategory-card" onclick="navigateToCategory('facial-tissue')">
+                                    <span class="mobile-subcategory-icon">🧻</span>
+                                    <h4 class="mobile-subcategory-name">Facial Tissue</h4>
+                                    <p class="mobile-subcategory-desc">Ultra-soft quality</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Food & Beverage Panel -->
+                        <div class="category-panel">
+                            <div class="mobile-main-category">
+                                <span class="mobile-main-icon">🍱</span>
+                                <h3 class="mobile-main-title">Food & Beverage</h3>
+                                <p class="mobile-main-desc">Authentic Japanese food & drinks</p>
+                            </div>
+                            <div class="mobile-subcategories">
+                                <div class="mobile-subcategory-card" onclick="navigateToCategory('togarashi-furikake')">
+                                    <span class="mobile-subcategory-icon">🌶️</span>
+                                    <h4 class="mobile-subcategory-name">Togarashi / Furikake</h4>
+                                    <p class="mobile-subcategory-desc">Elevate your rice</p>
+                                </div>
+                                <div class="mobile-subcategory-card" onclick="navigateToCategory('miso')">
+                                    <span class="mobile-subcategory-icon">🥣</span>
+                                    <h4 class="mobile-subcategory-name">Miso</h4>
+                                    <p class="mobile-subcategory-desc">Traditional soups</p>
+                                </div>
+                                <div class="mobile-subcategory-card" onclick="navigateToCategory('yuzu')">
+                                    <span class="mobile-subcategory-icon">🍊</span>
+                                    <h4 class="mobile-subcategory-name">Yuzu</h4>
+                                    <p class="mobile-subcategory-desc">Citrus with taste</p>
+                                </div>
+                                <div class="mobile-subcategory-card" onclick="navigateToCategory('matcha')">
+                                    <span class="mobile-subcategory-icon">🍵</span>
+                                    <h4 class="mobile-subcategory-name">Matcha</h4>
+                                    <p class="mobile-subcategory-desc">Energy & focus</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Swipe Indicators -->
+                    <div class="category-indicators">
+                        <span class="indicator-dot active" onclick="switchCategory(0)"></span>
+                        <span class="indicator-dot" onclick="switchCategory(1)"></span>
+                        <span class="indicator-dot" onclick="switchCategory(2)"></span>
+                    </div>
+
+                    <!-- Swipe Hint -->
+                    <div class="swipe-hint">
+                        <span>Swipe for more categories</span>
+                        <span class="swipe-arrow">→</span>
+                    </div>
+                </div>
                 
                 <!-- Desktop Hierarchical View -->
                 <div class="category-hierarchy">
@@ -3427,6 +4459,7 @@
 
         let currentFilter = 'all';
         let cart = JSON.parse(localStorage.getItem('okinawa-cart')) || [];
+        console.log('Cart initialized from localStorage:', cart);
         let currentUser = null;
         let userOrders = [];
 
@@ -3469,17 +4502,51 @@
                 const productCard = document.createElement('div');
                 productCard.className = 'product-card';
                 const price = product.sellPrice || product.price || 0;
+                const isInCart = cart.some(item => item.id === product.id);
+                const cartItem = cart.find(item => item.id === product.id);
+                
                 productCard.innerHTML = `
                     <div class="product-image">
                         Product Image<br>${product.name}
                     </div>
                     <div class="product-name">${product.name}</div>
                     <div class="product-price">$${price.toFixed(2)}</div>
-                    <button class="add-to-cart" onclick="addToCart('${product.id}', '${product.name}', ${price})">
+                    <div class="quantity-controls" id="qty-controls-${product.id}" style="display: ${isInCart ? 'flex' : 'none'}">
+                        <button class="quantity-btn minus" onclick="event.stopPropagation(); adjustCartQuantity('${product.id}', -1)">-</button>
+                        <span class="quantity-display" id="qty-${product.id}">${isInCart ? cartItem.quantity : 1}</span>
+                        <button class="quantity-btn plus" onclick="event.stopPropagation(); adjustCartQuantity('${product.id}', 1)">+</button>
+                    </div>
+                    <button class="add-to-cart" id="add-btn-${product.id}" onclick="event.stopPropagation(); addToCartFirst('${product.id}', '${product.name}', ${price})" style="display: ${isInCart ? 'none' : 'block'}">
                         Add to Cart
                     </button>
                 `;
+                
+                // Make entire card clickable
+                productCard.onclick = function(e) {
+                    console.log('Product card clicked!');
+                    console.log('Product ID:', product.id);
+                    console.log('Product name:', product.name);
+                    console.log('Click target:', e.target);
+                    console.log('Closest button:', e.target.closest('button'));
+                    console.log('Closest quantity controls:', e.target.closest('.quantity-controls'));
+                    
+                    // Don't navigate if clicking on buttons or quantity controls
+                    if (e.target.closest('button') || e.target.closest('.quantity-controls')) {
+                        console.log('Click blocked - button or quantity control clicked');
+                        return;
+                    }
+                    
+                    console.log('Navigating to product...');
+                    navigateToProduct(product.id);
+                };
+                productCard.style.cursor = 'pointer';
+                
                 productsGrid.appendChild(productCard);
+                
+                // Initialize the product card state immediately after adding to DOM
+                if (isInCart && cartItem) {
+                    initializeProductCardState(product.id, cartItem.quantity);
+                }
             });
         }
 
@@ -3503,17 +4570,51 @@
                 const productCard = document.createElement('div');
                 productCard.className = horizontal ? 'horizontal-product-card' : 'product-card';
                 const price = product.sellPrice || product.price || 0;
+                const isInCart = cart.some(item => item.id === product.id);
+                const cartItem = cart.find(item => item.id === product.id);
+                
                 productCard.innerHTML = `
                     <div class="product-image">
                         Product Image<br>${product.name}
                     </div>
                     <div class="product-name">${product.name}</div>
                     <div class="product-price">$${price.toFixed(2)}</div>
-                    <button class="add-to-cart" onclick="addToCart('${product.id}', '${product.name}', ${price})">
+                    <div class="quantity-controls" id="qty-controls-${product.id}" style="display: ${isInCart ? 'flex' : 'none'}">
+                        <button class="quantity-btn minus" onclick="event.stopPropagation(); adjustCartQuantity('${product.id}', -1)">-</button>
+                        <span class="quantity-display" id="qty-${product.id}">${isInCart ? cartItem.quantity : 1}</span>
+                        <button class="quantity-btn plus" onclick="event.stopPropagation(); adjustCartQuantity('${product.id}', 1)">+</button>
+                    </div>
+                    <button class="add-to-cart" id="add-btn-${product.id}" onclick="event.stopPropagation(); addToCartFirst('${product.id}', '${product.name}', ${price})" style="display: ${isInCart ? 'none' : 'block'}">
                         Add to Cart
                     </button>
                 `;
+                
+                // Make entire card clickable
+                productCard.onclick = function(e) {
+                    console.log('Product card clicked!');
+                    console.log('Product ID:', product.id);
+                    console.log('Product name:', product.name);
+                    console.log('Click target:', e.target);
+                    console.log('Closest button:', e.target.closest('button'));
+                    console.log('Closest quantity controls:', e.target.closest('.quantity-controls'));
+                    
+                    // Don't navigate if clicking on buttons or quantity controls
+                    if (e.target.closest('button') || e.target.closest('.quantity-controls')) {
+                        console.log('Click blocked - button or quantity control clicked');
+                        return;
+                    }
+                    
+                    console.log('Navigating to product...');
+                    navigateToProduct(product.id);
+                };
+                productCard.style.cursor = 'pointer';
+                
                 container.appendChild(productCard);
+                
+                // Initialize the product card state immediately after adding to DOM
+                if (isInCart && cartItem) {
+                    initializeProductCardState(product.id, cartItem.quantity);
+                }
             });
         }
 
@@ -3702,7 +4803,8 @@
                 userInfo.style.display = 'flex';
                 guestCart.style.display = 'none';
                 accountLink.style.display = 'block';
-                userName.textContent = `Welcome, ${user.displayName || user.email}!`;
+                const welcomeText = isEnglish ? 'Welcome' : 'مرحباً';
+                userName.textContent = `${welcomeText}, ${user.displayName || user.email}!`;
                 currentUser = user;
             } else {
                 // User is logged out
@@ -3715,8 +4817,14 @@
                 document.getElementById('dashboard').classList.remove('active');
                 document.getElementById('main-content').style.display = 'block';
             }
-            updateCartUI();
+            updateCartCounts();
+            updateCartItemsDisplay();
+            
+            // Update FAB auth (if it exists)
+            const fabAuthMenu = document.getElementById('fab-auth-menu');
+            if (fabAuthMenu) {
             updateFabAuth();
+            }
         }
 
         // DASHBOARD FUNCTIONS
@@ -3767,7 +4875,8 @@
                 if (userDoc.exists) {
                     const userData = userDoc.data();
                     // Update dashboard header with user info
-                    document.querySelector('.dashboard-header h1').textContent = `Welcome, ${userData.fullName}!`;
+                    const welcomeText = isEnglish ? 'Welcome' : 'مرحباً';
+                    document.querySelector('.dashboard-header h1').textContent = `${welcomeText}, ${userData.fullName}!`;
                 }
             } catch (error) {
                 console.error('Error loading user data:', error);
@@ -3908,6 +5017,210 @@
             }
         }
 
+        // Update quantity displays on all visible product cards
+        function updateAllProductCardQuantities() {
+            console.log('Updating all product card quantities...');
+            
+            // Get all product cards
+            const allProductCards = document.querySelectorAll('.product-card, .horizontal-product-card');
+            
+            allProductCards.forEach(card => {
+                // Find the product ID from the quantity display element
+                const quantityDisplay = card.querySelector('.quantity-display');
+                if (!quantityDisplay) return;
+                
+                const productId = quantityDisplay.id.replace('qty-', '');
+                console.log('Processing product card:', productId);
+                
+                // Check if this product is in cart
+                const cartItem = cart.find(item => item.id === productId);
+                const quantityControls = card.querySelector('.quantity-controls');
+                const addButton = card.querySelector('.add-to-cart');
+                
+                if (cartItem) {
+                    // Product is in cart - show quantity controls
+                    console.log(`Product ${productId} is in cart with quantity ${cartItem.quantity}`);
+                    
+                    if (quantityDisplay) {
+                        quantityDisplay.textContent = cartItem.quantity;
+                    }
+                    
+                    if (quantityControls) {
+                        quantityControls.style.display = 'flex';
+                    }
+                    
+                    if (addButton) {
+                        addButton.style.display = 'none';
+                    }
+                } else {
+                    // Product is not in cart - show add to cart button
+                    console.log(`Product ${productId} is not in cart`);
+                    
+                    if (quantityControls) {
+                        quantityControls.style.display = 'none';
+                    }
+                    
+                    if (addButton) {
+                        addButton.style.display = 'block';
+                    }
+                }
+            });
+            
+            console.log('All product card quantities updated');
+        }
+
+        // DYNAMIC CART FUNCTIONS
+        
+        function addToCartFirst(id, name, price) {
+            console.log('Adding product to cart:', id, name, price);
+            console.log('Cart before adding:', cart);
+            
+            // Add to cart
+            cart.push({ id, name, price, quantity: 1 });
+            localStorage.setItem('okinawa-cart', JSON.stringify(cart));
+            
+            console.log('Cart after adding:', cart);
+            
+            // Get DOM elements
+            const addButton = document.getElementById(`add-btn-${id}`);
+            const quantityControls = document.getElementById(`qty-controls-${id}`);
+            const quantityDisplay = document.getElementById(`qty-${id}`);
+            
+            console.log('DOM elements found:', {
+                addButton: !!addButton,
+                quantityControls: !!quantityControls,
+                quantityDisplay: !!quantityDisplay
+            });
+            
+            // Hide add button
+            if (addButton) {
+                addButton.style.display = 'none';
+                console.log('Add button hidden');
+            }
+            
+            // Show quantity controls
+            if (quantityControls) {
+                quantityControls.style.display = 'flex';
+                quantityControls.style.animation = 'slideInUp 0.3s ease-out';
+                console.log('Quantity controls shown');
+            }
+            
+            // Set quantity to 1
+            if (quantityDisplay) {
+                quantityDisplay.textContent = '1';
+                console.log('Quantity set to 1');
+            }
+            
+            // Update cart counts and totals without recreating cart items
+            updateCartCounts();
+            
+            // Update product card quantities
+            updateAllProductCardQuantities();
+            
+            // Update cart items display to show new items
+            updateCartItemsDisplay();
+            
+            // Visual feedback
+            if (event && event.target) {
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = 'Added!';
+                button.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = 'linear-gradient(135deg, #A61f23, #cf2029)';
+                }, 1000);
+            }
+        }
+        
+        function adjustCartQuantity(productId, change) {
+            console.log('Adjusting cart quantity:', productId, 'change:', change);
+            
+            // Find item in cart
+            const existingItem = cart.find(item => item.id === productId);
+            if (!existingItem) {
+                console.log('Item not found in cart');
+                return;
+            }
+            
+            // Calculate new quantity
+            const newQuantity = existingItem.quantity + change;
+            console.log('New quantity will be:', newQuantity);
+            
+            // If quantity goes to 0 or below, remove from cart
+            if (newQuantity <= 0) {
+                console.log('Removing item from cart');
+                cart = cart.filter(item => item.id !== productId);
+                
+                // Hide quantity controls
+                const quantityControls = document.getElementById(`qty-controls-${productId}`);
+                if (quantityControls) {
+                    quantityControls.style.display = 'none';
+                    console.log('Quantity controls hidden');
+                }
+                
+                // Show add to cart button
+                const addButton = document.getElementById(`add-btn-${productId}`);
+                if (addButton) {
+                    addButton.style.display = 'block';
+                    console.log('Add to cart button shown');
+                }
+            } else {
+                // Update quantity in cart
+                existingItem.quantity = newQuantity;
+                console.log('Quantity updated in cart to:', newQuantity);
+                
+                // Update quantity display on product card
+                const quantityDisplay = document.getElementById(`qty-${productId}`);
+                if (quantityDisplay) {
+                    quantityDisplay.textContent = newQuantity;
+                    console.log('Quantity display updated to:', newQuantity);
+                    
+                    // Visual feedback
+                    quantityDisplay.style.transform = 'scale(1.2)';
+                    quantityDisplay.style.background = 'rgba(166, 31, 35, 0.2)';
+                    
+                    setTimeout(() => {
+                        quantityDisplay.style.transform = 'scale(1)';
+                        quantityDisplay.style.background = 'white';
+                    }, 200);
+                }
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('okinawa-cart', JSON.stringify(cart));
+            console.log('Cart saved to localStorage');
+            
+            // Update cart counts and totals without recreating cart items
+            updateCartCounts();
+            
+            // Update product card quantities
+            updateAllProductCardQuantities();
+            console.log('Cart UI updated');
+        }
+
+        // Initialize product card state
+        function initializeProductCardState(productId, quantity) {
+            const quantityDisplay = document.getElementById(`qty-${productId}`);
+            const quantityControls = document.getElementById(`qty-controls-${productId}`);
+            const addButton = document.getElementById(`add-btn-${productId}`);
+            
+            if (quantityDisplay) {
+                quantityDisplay.textContent = quantity;
+            }
+            
+            if (quantityControls) {
+                quantityControls.style.display = 'flex';
+            }
+            
+            if (addButton) {
+                addButton.style.display = 'none';
+            }
+        }
+
+        // This function is no longer needed - removed for simplicity
+
         // CART FUNCTIONS
         
         function addToCart(id, name, price) {
@@ -3921,7 +5234,15 @@
             
             // Save to localStorage
             localStorage.setItem('okinawa-cart', JSON.stringify(cart));
-            updateCartUI();
+            
+            // Update cart counts and totals without recreating cart items
+            updateCartCounts();
+            
+            // Update product card quantities
+            updateAllProductCardQuantities();
+            
+            // Update cart items display to show new items
+            updateCartItemsDisplay();
             
             // Show feedback
             const button = event.target;
@@ -3939,7 +5260,15 @@
             const itemId = parseInt(id);
             cart = cart.filter(item => item.id !== itemId && item.id !== id);
             localStorage.setItem('okinawa-cart', JSON.stringify(cart));
-            updateCartUI();
+            
+            // Update cart counts and totals without recreating cart items
+            updateCartCounts();
+            
+            // Update product card quantities
+            updateAllProductCardQuantities();
+            
+            // Update cart items display
+            updateCartItemsDisplay();
         }
 
         function updateCartQuantity(id, change) {
@@ -3948,33 +5277,78 @@
             const item = cart.find(item => item.id === itemId || item.id === id);
             
             if (item) {
-                item.quantity += change;
-                if (item.quantity <= 0) {
+                const newQuantity = item.quantity + change;
+                
+                if (newQuantity <= 0) {
                     removeFromCart(item.id);
                 } else {
+                    // Update quantity in cart
+                    item.quantity = newQuantity;
+                    
+                    // Save to localStorage
                     localStorage.setItem('okinawa-cart', JSON.stringify(cart));
-                    updateCartUI();
+                    
+                    // Update cart counts and totals without recreating cart items
+                    updateCartCounts();
+                    
+                    // Update the specific quantity display in the cart
+                    updateCartItemQuantity(id, newQuantity);
+                    
+                    // Update product card quantities
+                    updateAllProductCardQuantities();
                 }
             }
         }
 
-        function updateCartUI() {
+        // Update cart counts and totals without recreating cart items
+        function updateCartCounts() {
+            console.log('updateCartCounts called, cart:', cart);
             const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
             const cartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             
+            console.log('Cart count:', cartCount, 'Cart total:', cartTotal);
+            
             // Update cart counts
-            document.getElementById('cart-count').textContent = cartCount;
-            document.getElementById('guest-cart-count').textContent = cartCount;
-            document.getElementById('cart-total').textContent = `$${cartTotal.toFixed(2)}`;
+            const cartCountElement = document.getElementById('cart-count');
+            const guestCartCountElement = document.getElementById('guest-cart-count');
+            const cartTotalElement = document.getElementById('cart-total');
+            
+            if (cartCountElement) cartCountElement.textContent = cartCount;
+            if (guestCartCountElement) guestCartCountElement.textContent = cartCount;
+            if (cartTotalElement) cartTotalElement.textContent = `$${cartTotal.toFixed(2)}`;
             
             // Update mobile FAB cart count
             updateFabAuth();
+        }
+
+        // Update specific cart item quantity display
+        function updateCartItemQuantity(itemId, newQuantity) {
+            const dataElement = document.querySelector(`[data-id="${itemId}"]`);
+            if (dataElement) {
+                const cartItem = dataElement.closest('.cart-item');
+                if (cartItem) {
+                    const quantitySpan = cartItem.querySelector('.cart-item-controls span');
+                    if (quantitySpan) {
+                        quantitySpan.textContent = newQuantity;
+                    }
+                }
+            }
+        }
+
+        // Update cart items display without recreating existing items
+        function updateCartItemsDisplay() {
+            console.log('updateCartItemsDisplay called, cart length:', cart.length);
+            console.log('Cart contents:', cart);
             
-            // Update cart items display
             const cartItemsContainer = document.getElementById('cart-items');
             const cartTotalSection = document.getElementById('cart-total-section');
             
+            // Force clear the container first to avoid conflicts
+            cartItemsContainer.innerHTML = '';
+            
             if (cart.length === 0) {
+                console.log('Cart is empty, showing empty message');
+                // Add empty cart message
                 cartItemsContainer.innerHTML = `
                     <div class="empty-cart">
                         <p>Your cart is empty</p>
@@ -3982,8 +5356,15 @@
                     </div>
                 `;
                 cartTotalSection.style.display = 'none';
-            } else {
-                cartItemsContainer.innerHTML = '';
+                return;
+            }
+            
+            console.log('Cart has items, displaying cart items');
+            
+            // Show cart total section
+            cartTotalSection.style.display = 'block';
+            
+            // Add all cart items
                 cart.forEach(item => {
                     const cartItem = document.createElement('div');
                     cartItem.className = 'cart-item';
@@ -4004,7 +5385,7 @@
                     `;
                     cartItemsContainer.appendChild(cartItem);
                     
-                    // Add event listeners to the buttons
+                // Add event listeners to the new buttons
                     const decreaseBtn = cartItem.querySelector('.decrease-btn');
                     const increaseBtn = cartItem.querySelector('.increase-btn');
                     const removeBtn = cartItem.querySelector('.remove-btn');
@@ -4013,13 +5394,20 @@
                     increaseBtn.addEventListener('click', () => updateCartQuantity(item.id, 1));
                     removeBtn.addEventListener('click', () => removeFromCart(item.id));
                 });
-                cartTotalSection.style.display = 'block';
-            }
         }
+
+        // This function is no longer needed - replaced with targeted updates
 
         function toggleCart() {
             const cartSidebar = document.getElementById('cart-sidebar');
             cartSidebar.classList.toggle('active');
+            
+            // If opening cart, refresh the display
+            if (cartSidebar.classList.contains('active')) {
+                console.log('Cart opened, refreshing display');
+                updateCartItemsDisplay();
+                updateCartCounts();
+            }
         }
 
         // CHECKOUT FUNCTIONS
@@ -4131,7 +5519,8 @@
                 // Clear cart
                 cart = [];
                 localStorage.setItem('okinawa-cart', JSON.stringify(cart));
-                updateCartUI();
+                updateCartCounts();
+                updateCartItemsDisplay();
                 
                 // Close checkout modal
                 closeCheckout();
@@ -4169,14 +5558,18 @@
             
             // Update auth menu content
             if (currentUser) {
+                const myAccountText = isEnglish ? 'My Account' : 'حسابي';
+                const logoutText = isEnglish ? 'Logout' : 'تسجيل الخروج';
                 fabAuthMenu.innerHTML = `
-                    <button onclick="showDashboard(); closeFabMenus();">My Account</button>
-                    <button onclick="logout(); closeFabMenus();">Logout</button>
+                    <button onclick="showDashboard(); closeFabMenus();">${myAccountText}</button>
+                    <button onclick="logout(); closeFabMenus();">${logoutText}</button>
                 `;
             } else {
+                const loginText = isEnglish ? 'Login' : 'تسجيل الدخول';
+                const registerText = isEnglish ? 'Register' : 'تسجيل';
                 fabAuthMenu.innerHTML = `
-                    <button onclick="openModal('login'); closeFabMenus();">Login</button>
-                    <button onclick="openModal('register'); closeFabMenus();">Register</button>
+                    <button onclick="openModal('login'); closeFabMenus();">${loginText}</button>
+                    <button onclick="openModal('register'); closeFabMenus();">${registerText}</button>
                 `;
             }
         }
@@ -4219,25 +5612,135 @@
             // Close the overlay first
             closeCategoryOverlay();
             
-            // Filter products by selected category
-            filterProducts(category);
-            
-            // Scroll to products section
-            setTimeout(() => {
-                const productsSection = document.getElementById('products');
-                if (productsSection) {
-                    productsSection.scrollIntoView({ 
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            }, 300);
+            if (category === 'all-products') {
+                // Navigate to all products page
+                window.location.href = 'all-products.html';
+            } else {
+                // Navigate to all products page with category filter
+                window.location.href = `all-products.html?type=${category}`;
+            }
         }
 
         // Navigate to all-products page with category filter
         function navigateToCategory(category) {
             window.location.href = `all-products.html?type=${category}`;
         }
+
+        // Mobile category navigation
+        let currentCategoryIndex = 0;
+        const totalCategories = 3;
+
+        function switchCategory(index) {
+            currentCategoryIndex = index;
+            
+            // Update panel position
+            const panelsContainer = document.querySelector('.category-panels-container');
+            if (panelsContainer) {
+                // Check if RTL is enabled
+                const isRTL = document.documentElement.dir === 'rtl';
+                if (isRTL) {
+                    // In RTL, move panels from right to left
+                    panelsContainer.style.transform = `translateX(${index * 100}%)`;
+                } else {
+                    // In LTR, move panels from left to right
+                    panelsContainer.style.transform = `translateX(-${index * 100}%)`;
+                }
+            }
+            
+            // Update tabs
+            const tabs = document.querySelectorAll('.category-tab');
+            tabs.forEach((tab, i) => {
+                tab.classList.toggle('active', i === index);
+            });
+            
+            // Update indicators
+            const dots = document.querySelectorAll('.indicator-dot');
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+
+        // Touch gesture support for mobile categories
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let isDragging = false;
+
+        function initCategorySwipe() {
+            const mobilePanels = document.querySelector('.category-mobile-panels');
+            if (!mobilePanels) return;
+
+            mobilePanels.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+                isDragging = true;
+            }, { passive: true });
+
+            mobilePanels.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                touchEndX = e.changedTouches[0].screenX;
+                
+                // Optional: Add live swipe feedback
+                const diff = touchEndX - touchStartX;
+                const panelsContainer = document.querySelector('.category-panels-container');
+                if (panelsContainer) {
+                    const baseTransform = currentCategoryIndex * -100;
+                    const swipeOffset = (diff / window.innerWidth) * 100;
+                    panelsContainer.style.transform = `translateX(${baseTransform + swipeOffset}%)`;
+                }
+            }, { passive: true });
+
+            mobilePanels.addEventListener('touchend', (e) => {
+                if (!isDragging) return;
+                isDragging = false;
+                
+                touchEndX = e.changedTouches[0].screenX;
+                handleCategorySwipe();
+            });
+        }
+
+        function handleCategorySwipe() {
+            const swipeThreshold = 50;
+            const diff = touchEndX - touchStartX;
+
+            if (Math.abs(diff) < swipeThreshold) {
+                // Snap back to current position
+                switchCategory(currentCategoryIndex);
+                return;
+            }
+
+            // Check if RTL is enabled
+            const isRTL = document.documentElement.dir === 'rtl';
+            
+            if (isRTL) {
+                // In RTL, swipe directions are reversed
+                if (diff > swipeThreshold && currentCategoryIndex < totalCategories - 1) {
+                    // Swipe right in RTL - go to next category
+                    switchCategory(currentCategoryIndex + 1);
+                } else if (diff < -swipeThreshold && currentCategoryIndex > 0) {
+                    // Swipe left in RTL - go to previous category
+                    switchCategory(currentCategoryIndex - 1);
+                } else {
+                    // Snap back if at boundaries
+                    switchCategory(currentCategoryIndex);
+                }
+            } else {
+                // In LTR, normal swipe directions
+                if (diff > swipeThreshold && currentCategoryIndex > 0) {
+                    // Swipe right - go to previous category
+                    switchCategory(currentCategoryIndex - 1);
+                } else if (diff < -swipeThreshold && currentCategoryIndex < totalCategories - 1) {
+                    // Swipe left - go to next category
+                    switchCategory(currentCategoryIndex + 1);
+                } else {
+                    // Snap back if at boundaries
+                    switchCategory(currentCategoryIndex);
+                }
+            }
+        }
+
+        // Initialize swipe on DOM load
+        document.addEventListener('DOMContentLoaded', () => {
+            initCategorySwipe();
+        });
 
         // HORIZONTAL SCROLLING FUNCTIONS
         
@@ -4276,10 +5779,960 @@
 
 
 
+        // SIMPLE TRANSLATION SYSTEM - REBUILT FROM ZERO
+        
+        let isEnglish = true; // Simple boolean flag
+        
+
+
+        // Simple translation function
+        function toggleLanguage() {
+            console.log('Toggle language clicked, current state:', isEnglish);
+            
+            // Toggle the language
+            isEnglish = !isEnglish;
+            
+            // Update button text
+            const langText = document.querySelector('.lang-text');
+            if (langText) {
+                langText.textContent = isEnglish ? 'EN' : 'AR';
+                console.log('Button text updated to:', langText.textContent);
+            }
+            
+            // Update document direction
+            document.documentElement.dir = isEnglish ? 'ltr' : 'rtl';
+            
+            // Translate the page
+            translateAllText();
+            
+            // Force mobile category translation
+            forceMobileCategoryTranslation();
+            
+            // Save preference
+            localStorage.setItem('index-lang', isEnglish ? 'en' : 'ar');
+        }
+
+        // Force mobile category translation
+        function forceMobileCategoryTranslation() {
+            console.log('Force mobile category translation called');
+            
+            // Try multiple times with different delays
+            [0, 100, 300, 500, 1000].forEach(delay => {
+                setTimeout(() => {
+                    console.log(`Force translation attempt ${delay}ms`);
+                    
+                    // Method 1: Target mobile tab spans (Lifestyle, Beauty, Food & Beverage)
+                    const mobileTabSpans = document.querySelectorAll('.category-tab span:not(.category-tab-icon)');
+                    console.log('Found mobile tab spans:', mobileTabSpans.length);
+                    mobileTabSpans.forEach(span => {
+                        const text = span.textContent.trim();
+                        if (isEnglish) {
+                            if (text === 'نمط الحياة') {
+                                span.textContent = 'Lifestyle';
+                                console.log('Mobile tab: نمط الحياة → Lifestyle');
+                            } else if (text === 'الجمال') {
+                                span.textContent = 'Beauty';
+                                console.log('Mobile tab: الجمال → Beauty');
+                            } else if (text === 'الطعام والمشروبات') {
+                                span.textContent = 'Food & Beverage';
+                                console.log('Mobile tab: الطعام والمشروبات → Food & Beverage');
+                            }
+                        } else {
+                            if (text === 'Lifestyle') {
+                                span.textContent = 'نمط الحياة';
+                                console.log('Mobile tab: Lifestyle → نمط الحياة');
+                            } else if (text === 'Beauty') {
+                                span.textContent = 'الجمال';
+                                console.log('Mobile tab: Beauty → الجمال');
+                            } else if (text === 'Food & Beverage') {
+                                span.textContent = 'الطعام والمشروبات';
+                                console.log('Mobile tab: Food & Beverage → الطعام والمشروبات');
+                            }
+                        }
+                    });
+                    
+                    // Method 2: Target mobile main titles (h3 elements)
+                    const mobileMainTitles = document.querySelectorAll('.mobile-main-title');
+                    console.log('Found mobile main titles:', mobileMainTitles.length);
+                    mobileMainTitles.forEach(title => {
+                        const text = title.textContent.trim();
+                        if (isEnglish) {
+                            if (text === 'نمط الحياة') {
+                                title.textContent = 'Lifestyle';
+                                console.log('Mobile main title: نمط الحياة → Lifestyle');
+                            } else if (text === 'الجمال') {
+                                title.textContent = 'Beauty';
+                                console.log('Mobile main title: الجمال → Beauty');
+                            } else if (text === 'الطعام والمشروبات') {
+                                title.textContent = 'Food & Beverage';
+                                console.log('Mobile main title: الطعام والمشروبات → Food & Beverage');
+                            }
+                        } else {
+                            if (text === 'Lifestyle') {
+                                title.textContent = 'نمط الحياة';
+                                console.log('Mobile main title: Lifestyle → نمط الحياة');
+                            } else if (text === 'Beauty') {
+                                title.textContent = 'الجمال';
+                                console.log('Mobile main title: Beauty → الجمال');
+                            } else if (text === 'Food & Beverage') {
+                                title.textContent = 'الطعام والمشروبات';
+                                console.log('Mobile main title: Food & Beverage → الطعام والمشروبات');
+                            }
+                        }
+                    });
+                    
+                    // Method 3: Target mobile subcategory names (h4 elements)
+                    const mobileSubcategoryNames = document.querySelectorAll('.mobile-subcategory-name');
+                    console.log('Found mobile subcategory names:', mobileSubcategoryNames.length);
+                    mobileSubcategoryNames.forEach(name => {
+                        const text = name.textContent.trim();
+                        if (isEnglish) {
+                            if (text === 'توجاراشي / فوريكاكي') name.textContent = 'Togarashi / Furikake';
+                            else if (text === 'ميسو') name.textContent = 'Miso';
+                            else if (text === 'يوزو') name.textContent = 'Yuzu';
+                            else if (text === 'ماتشا') name.textContent = 'Matcha';
+                            else if (text === 'صابون الجسم') name.textContent = 'Body Soap';
+                            else if (text === 'كريم اليدين') name.textContent = 'Hand Cream';
+                            else if (text === 'قناع الوجه') name.textContent = 'Face Mask';
+                            else if (text === 'مناديل الوجه') name.textContent = 'Facial Tissue';
+                            else if (text === 'عصي الطعام والحوامل') name.textContent = 'Chopsticks & Holders';
+                            else if (text === 'طقم ماتشا') name.textContent = 'Matcha Set';
+                            else if (text === 'علاقة الحقيبة') name.textContent = 'Bag Hanger';
+                            else if (text === 'ملعقة الأرز/الحساء') name.textContent = 'Rice/Soup Spoon';
+                            else if (text === 'طقم السوشي') name.textContent = 'Sushi Set';
+                            else if (text === 'مفتاح') name.textContent = 'Keychain';
+                            else if (text === 'كتاب رسم الأنمي') name.textContent = 'Anime Drawing Book';
+                        } else {
+                            if (text === 'Togarashi / Furikake') name.textContent = 'توجاراشي / فوريكاكي';
+                            else if (text === 'Miso') name.textContent = 'ميسو';
+                            else if (text === 'Yuzu') name.textContent = 'يوزو';
+                            else if (text === 'Matcha') name.textContent = 'ماتشا';
+                            else if (text === 'Body Soap') name.textContent = 'صابون الجسم';
+                            else if (text === 'Hand Cream') name.textContent = 'كريم اليدين';
+                            else if (text === 'Face Mask') name.textContent = 'قناع الوجه';
+                            else if (text === 'Facial Tissue') name.textContent = 'مناديل الوجه';
+                            else if (text === 'Chopsticks & Holders') name.textContent = 'عصي الطعام والحوامل';
+                            else if (text === 'Matcha Set') name.textContent = 'طقم ماتشا';
+                            else if (text === 'Bag Hanger') name.textContent = 'علاقة الحقيبة';
+                            else if (text === 'Rice/Soup Spoon') name.textContent = 'ملعقة الأرز/الحساء';
+                            else if (text === 'Sushi Set') name.textContent = 'طقم السوشي';
+                            else if (text === 'Keychain') name.textContent = 'مفتاح';
+                            else if (text === 'Anime Drawing Book') name.textContent = 'كتاب رسم الأنمي';
+                        }
+                    });
+                    
+                    // Method 4: Target mobile main descriptions (p elements)
+                    const mobileMainDescs = document.querySelectorAll('.mobile-main-desc');
+                    console.log('Found mobile main descriptions:', mobileMainDescs.length);
+                    mobileMainDescs.forEach(desc => {
+                        const text = desc.textContent.trim();
+                        if (isEnglish) {
+                            if (text === 'منتجات وملحقات نمط الحياة اليابانية') {
+                                desc.textContent = 'Japanese lifestyle products and accessories';
+                                console.log('Mobile main desc: منتجات وملحقات نمط الحياة اليابانية → Japanese lifestyle products and accessories');
+                            } else if (text === 'أساسيات الجمال والعناية بالبشرة اليابانية') {
+                                desc.textContent = 'Japanese beauty and skincare essentials';
+                                console.log('Mobile main desc: أساسيات الجمال والعناية بالبشرة اليابانية → Japanese beauty and skincare essentials');
+                            } else if (text === 'طعام ومشروبات يابانية أصيلة') {
+                                desc.textContent = 'Authentic Japanese food & drinks';
+                                console.log('Mobile main desc: طعام ومشروبات يابانية أصيلة → Authentic Japanese food & drinks');
+                            }
+                        } else {
+                            if (text === 'Japanese lifestyle products and accessories') {
+                                desc.textContent = 'منتجات وملحقات نمط الحياة اليابانية';
+                                console.log('Mobile main desc: Japanese lifestyle products and accessories → منتجات وملحقات نمط الحياة اليابانية');
+                            } else if (text === 'Japanese beauty and skincare essentials') {
+                                desc.textContent = 'أساسيات الجمال والعناية بالبشرة اليابانية';
+                                console.log('Mobile main desc: Japanese beauty and skincare essentials → أساسيات الجمال والعناية بالبشرة اليابانية');
+                            } else if (text === 'Authentic Japanese food & drinks') {
+                                desc.textContent = 'طعام ومشروبات يابانية أصيلة';
+                                console.log('Mobile main desc: Authentic Japanese food & drinks → طعام ومشروبات يابانية أصيلة');
+                            }
+                        }
+                    });
+                    
+                    // Method 5: Target mobile subcategory descriptions (p elements)
+                    const mobileSubcategoryDescs = document.querySelectorAll('.mobile-subcategory-desc');
+                    console.log('Found mobile subcategory descriptions:', mobileSubcategoryDescs.length);
+                    mobileSubcategoryDescs.forEach(desc => {
+                        const text = desc.textContent.trim();
+                        if (isEnglish) {
+                            if (text === 'عصي طعام يابانية أنيقة') desc.textContent = 'Elegant Japanese chopsticks';
+                            else if (text === 'تحضير الشاي الكامل') desc.textContent = 'Complete tea preparation';
+                            else if (text === 'تصميم مستوحى من اليابان') desc.textContent = 'Japanese-inspired design';
+                            else if (text === 'أدوات طعام عملية') desc.textContent = 'Practical dining tools';
+                            else if (text === 'اصنع السوشي في المنزل') desc.textContent = 'Make sushi at home';
+                            else if (text === 'إكسسوارات ثقافية') desc.textContent = 'Cultural accessories';
+                            else if (text === 'لعشاق الأنمي') desc.textContent = 'For anime enthusiasts';
+                            else if (text === 'بشرة نقية طبيعية') desc.textContent = 'Natural pure skin';
+                            else if (text === 'جوهر مغذي') desc.textContent = 'Nourishing essence';
+                            else if (text === 'ترطيب وإشراق') desc.textContent = 'Hydration & radiance';
+                            else if (text === 'جودة فائقة النعومة') desc.textContent = 'Ultra-soft quality';
+                            else if (text === 'ارفع مستوى الأرز') desc.textContent = 'Elevate your rice';
+                            else if (text === 'حساء تقليدي') desc.textContent = 'Traditional soups';
+                            else if (text === 'حمضيات بطعم') desc.textContent = 'Citrus with taste';
+                            else if (text === 'طاقة وتركيز') desc.textContent = 'Energy & focus';
+                        } else {
+                            if (text === 'Elegant Japanese chopsticks') desc.textContent = 'عصي طعام يابانية أنيقة';
+                            else if (text === 'Complete tea preparation') desc.textContent = 'تحضير الشاي الكامل';
+                            else if (text === 'Japanese-inspired design') desc.textContent = 'تصميم مستوحى من اليابان';
+                            else if (text === 'Practical dining tools') desc.textContent = 'أدوات طعام عملية';
+                            else if (text === 'Make sushi at home') desc.textContent = 'اصنع السوشي في المنزل';
+                            else if (text === 'Cultural accessories') desc.textContent = 'إكسسوارات ثقافية';
+                            else if (text === 'For anime enthusiasts') desc.textContent = 'لعشاق الأنمي';
+                            else if (text === 'Natural pure skin') desc.textContent = 'بشرة نقية طبيعية';
+                            else if (text === 'Nourishing essence') desc.textContent = 'جوهر مغذي';
+                            else if (text === 'Hydration & radiance') desc.textContent = 'ترطيب وإشراق';
+                            else if (text === 'Ultra-soft quality') desc.textContent = 'جودة فائقة النعومة';
+                            else if (text === 'Elevate your rice') desc.textContent = 'ارفع مستوى الأرز';
+                            else if (text === 'Traditional soups') desc.textContent = 'حساء تقليدي';
+                            else if (text === 'Citrus with taste') desc.textContent = 'حمضيات بطعم';
+                            else if (text === 'Energy & focus') desc.textContent = 'طاقة وتركيز';
+                        }
+                    });
+                }, delay);
+            });
+        }
+
+        // Simple translation function
+        function translateAllText() {
+            console.log('translateAllText called, isEnglish:', isEnglish);
+            
+            if (isEnglish) {
+                // Convert to English
+                console.log('Calling translateToEnglish');
+                translateToEnglish();
+            } else {
+                // Convert to Arabic
+                console.log('Calling translateToArabic');
+                translateToArabic();
+            }
+            
+            // Also translate after a short delay to catch any dynamically loaded elements
+            setTimeout(() => {
+                console.log('Delayed translation called');
+                if (isEnglish) {
+                    translateToEnglish();
+                } else {
+                    translateToArabic();
+                }
+            }, 100);
+        }
+        
+        // Convert all text to English
+        function translateToEnglish() {
+            console.log('translateToEnglish called');
+            // Search section
+            const searchTitle = document.querySelector('.search-content h1');
+            if (searchTitle) searchTitle.textContent = 'Welcome to Okinawa';
+            
+            const searchSubtitle = document.querySelector('.search-content p');
+            if (searchSubtitle) searchSubtitle.textContent = 'Authentic Japanese groceries delivered to your door';
+            
+            const searchInput = document.getElementById('main-search');
+            if (searchInput) searchInput.placeholder = 'Search products...';
+            
+            // Section titles
+            const sectionTitles = document.querySelectorAll('.section-title');
+            sectionTitles.forEach(title => {
+                const text = title.textContent.trim();
+                if (text === 'وصل حديثاً') title.textContent = 'New Arrivals';
+                else if (text === 'الأكثر مبيعاً') title.textContent = 'Best Selling';
+                else if (text === 'تسوق حسب الفئة') title.textContent = 'Shop by Category';
+            });
+            
+            // View all buttons
+            const viewAllButtons = document.querySelectorAll('.view-all-button');
+            viewAllButtons.forEach(button => {
+                const text = button.textContent.trim();
+                if (text === 'عرض جميع الوافدين الجدد') button.textContent = 'View All New Arrivals';
+                else if (text === 'عرض جميع الأكثر مبيعاً') button.textContent = 'View All Best Selling';
+            });
+            
+            // Category names (desktop and overlay)
+            const categoryNames = document.querySelectorAll('.category-name, .overlay-category-name');
+            categoryNames.forEach(name => {
+                const text = name.textContent.trim();
+                if (text === 'نمط الحياة') name.textContent = 'Lifestyle';
+                else if (text === 'الجمال') name.textContent = 'Beauty';
+                else if (text === 'الطعام والمشروبات (أوشي)') name.textContent = 'Food & Beverage (Oishii)';
+                else if (text === 'توجاراشي / فوريكاكي') name.textContent = 'Togarashi / Furikake';
+                else if (text === 'ميسو') name.textContent = 'Miso';
+                else if (text === 'يوزو') name.textContent = 'Yuzu';
+                else if (text === 'ماتشا') name.textContent = 'Matcha';
+                else if (text === 'صابون الجسم') name.textContent = 'Body Soap';
+                else if (text === 'كريم اليدين') name.textContent = 'Hand Cream';
+                else if (text === 'قناع الوجه') name.textContent = 'Face Mask';
+                else if (text === 'مناديل الوجه') name.textContent = 'Facial Tissue';
+                else if (text === 'عصي الطعام والحوامل') name.textContent = 'Chopsticks & Holders';
+                else if (text === 'طقم ماتشا') name.textContent = 'Matcha Set';
+                else if (text === 'علاقة الحقيبة') name.textContent = 'Bag Hanger';
+                else if (text === 'ملعقة الأرز/الحساء') name.textContent = 'Rice/Soup Spoon';
+                else if (text === 'طقم السوشي') name.textContent = 'Sushi Set';
+                else if (text === 'مفتاح') name.textContent = 'Keychain';
+                else if (text === 'كتاب رسم الأنمي') name.textContent = 'Anime Drawing Book';
+            });
+            
+            // Mobile category tabs - multiple targeting methods
+            const categoryTabs = document.querySelectorAll('.category-tab');
+            console.log('Found category tabs:', categoryTabs.length);
+            
+            // Also try direct span targeting
+            const categoryTabSpans = document.querySelectorAll('.category-tab span:not(.category-tab-icon)');
+            console.log('Found category tab spans:', categoryTabSpans.length);
+            
+            // Method 1: Target through parent tabs
+            categoryTabs.forEach((tab, index) => {
+                const textSpan = tab.querySelector('span:not(.category-tab-icon)');
+                if (textSpan) {
+                    const text = textSpan.textContent.trim();
+                    console.log(`Tab ${index} text:`, text);
+                    if (text === 'نمط الحياة') {
+                        textSpan.textContent = 'Lifestyle';
+                        console.log('Translated to Lifestyle');
+                    } else if (text === 'الجمال') {
+                        textSpan.textContent = 'Beauty';
+                        console.log('Translated to Beauty');
+                    } else if (text === 'الطعام والمشروبات') {
+                        textSpan.textContent = 'Food & Beverage';
+                        console.log('Translated to Food & Beverage');
+                    }
+                }
+            });
+            
+            // Method 2: Direct span targeting
+            categoryTabSpans.forEach((span, index) => {
+                const text = span.textContent.trim();
+                console.log(`Direct span ${index} text:`, text);
+                if (text === 'نمط الحياة') {
+                    span.textContent = 'Lifestyle';
+                    console.log('Direct translated to Lifestyle');
+                } else if (text === 'الجمال') {
+                    span.textContent = 'Beauty';
+                    console.log('Direct translated to Beauty');
+                } else if (text === 'الطعام والمشروبات') {
+                    span.textContent = 'Food & Beverage';
+                    console.log('Direct translated to Food & Beverage');
+                }
+            });
+            
+            // Category descriptions (desktop and overlay)
+            const categoryDescriptions = document.querySelectorAll('.category-description, .overlay-category-desc');
+            categoryDescriptions.forEach(desc => {
+                const text = desc.textContent.trim();
+                if (text === 'توابل يابانية لرفع مستوى الأرز والأطباق اليومية') desc.textContent = 'Japanese seasonings to elevate rice and everyday dishes';
+                else if (text === 'ميسو تقليدي غني - مثالي للحساء والصلصات') desc.textContent = 'Rich, traditional Miso – perfect for soups and sauces';
+                else if (text === 'فاكهة حمضية يابانية منعشة بطعم فريد') desc.textContent = 'Refreshing Japanese citrus fruit with a unique taste';
+                else if (text === 'شاي ماتشا فاخر للطاقة والتركيز') desc.textContent = 'Premium Matcha tea for energy and focus';
+                else if (text === 'صابون ياباني طبيعي للبشرة النقية') desc.textContent = 'Natural Japanese soap for pure skin';
+                else if (text === 'كريم ياباني لليدين مع جوهر مغذي') desc.textContent = 'Japanese hand cream with nourishing essence';
+                else if (text === 'أقنعة يابانية للترطيب والإشراق') desc.textContent = 'Japanese masks for hydration and radiance';
+                else if (text === 'مناديل فائقة النعومة مع الحرفية اليابانية') desc.textContent = 'Ultra-soft tissues with Japanese craftsmanship';
+                else if (text === 'عصي طعام يابانية أنيقة مع حوامل') desc.textContent = 'Elegant Japanese chopsticks with holders';
+                else if (text === 'طقم كامل لتحضير شاي ماتشا الياباني') desc.textContent = 'Complete set for preparing Japanese Matcha tea';
+                else if (text === 'علاقة حقيبة مستوحاة من اليابان') desc.textContent = 'Japanese-inspired bag hanger';
+                else if (text === 'ملاعق عملية للطعام') desc.textContent = 'Practical spoons for dining';
+                else if (text === 'أدوات لصنع السوشي في المنزل') desc.textContent = 'Tools for making sushi at home';
+                else if (text === 'مفاتيح مستوحاة من الثقافة اليابانية الفريدة') desc.textContent = 'Keychains inspired by Japan\'s unique culture';
+                else if (text === 'كتاب رسم لعشاق الأنمي') desc.textContent = 'A drawing book for anime enthusiasts';
+                else if (text === 'منتجات وملحقات نمط الحياة اليابانية') desc.textContent = 'Japanese lifestyle products and accessories';
+            });
+            
+            // Navigation links
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                const text = link.textContent.trim();
+                if (text === 'الرئيسية') link.textContent = 'Home';
+                else if (text === 'الفئات') link.textContent = 'Categories';
+                else if (text === 'حسابي') link.textContent = 'My Account';
+                else if (text === 'اتصل بنا') link.textContent = 'Contact';
+            });
+
+            // Auth buttons
+            const authButtons = document.querySelectorAll('.auth-buttons button');
+            authButtons.forEach(button => {
+                const text = button.textContent.trim();
+                if (text === 'تسجيل الدخول') button.textContent = 'Login';
+                else if (text === 'تسجيل') button.textContent = 'Register';
+            });
+
+            // User info elements
+            const userName = document.getElementById('user-name');
+            if (userName) {
+                const text = userName.textContent.trim();
+                if (text === 'مرحباً!') userName.textContent = 'Welcome!';
+            }
+
+            const logoutBtn = document.querySelector('button[onclick="logout()"]');
+            if (logoutBtn) {
+                const text = logoutBtn.textContent.trim();
+                if (text === 'تسجيل الخروج') logoutBtn.textContent = 'Logout';
+            }
+
+            // Modal content
+            const loginModal = document.getElementById('login-modal');
+            if (loginModal) {
+                const loginTitle = loginModal.querySelector('h2');
+                if (loginTitle && loginTitle.textContent.trim() === 'تسجيل الدخول إلى حسابك') {
+                    loginTitle.textContent = 'Login to Your Account';
+                }
+                
+                const loginBtn = loginModal.querySelector('button[type="submit"]');
+                if (loginBtn && loginBtn.textContent.trim() === 'تسجيل الدخول') {
+                    loginBtn.textContent = 'Login';
+                }
+                
+                const loginLink = loginModal.querySelector('.auth-link');
+                if (loginLink && loginLink.textContent.trim() === 'ليس لديك حساب؟ سجل هنا') {
+                    loginLink.textContent = 'Don\'t have an account? Register here';
+                }
+            }
+
+            const registerModal = document.getElementById('register-modal');
+            if (registerModal) {
+                const registerBtn = registerModal.querySelector('button[type="submit"]');
+                if (registerBtn && registerBtn.textContent.trim() === 'تسجيل') {
+                    registerBtn.textContent = 'Register';
+                }
+                
+                const registerLink = registerModal.querySelector('.auth-link');
+                if (registerLink && registerLink.textContent.trim() === 'لديك حساب بالفعل؟ سجل دخولك هنا') {
+                    registerLink.textContent = 'Already have an account? Login here';
+                }
+            }
+
+            // Dashboard content
+            const dashboardTitle = document.querySelector('.dashboard-header h1');
+            if (dashboardTitle && dashboardTitle.textContent.trim() === 'لوحة تحكم حسابي') {
+                dashboardTitle.textContent = 'My Account Dashboard';
+            }
+
+            const dashboardSubtitle = document.querySelector('.dashboard-header p');
+            if (dashboardSubtitle && dashboardSubtitle.textContent.trim() === 'مرحباً بعودتك! إدارة طلباتك وإعدادات حسابك.') {
+                dashboardSubtitle.textContent = 'Welcome back! Manage your orders and account settings.';
+            }
+
+            // Swipe hint
+            const swipeHint = document.querySelector('.swipe-hint span');
+            if (swipeHint && swipeHint.textContent.trim() === 'اسحب لمزيد من الفئات') {
+                swipeHint.textContent = 'Swipe for more categories';
+            }
+
+            // Buttons
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                const text = button.textContent.trim();
+                if (text === 'أضف إلى السلة') button.textContent = 'Add to Cart';
+                else if (text === 'إزالة') button.textContent = 'Remove';
+                else if (text === 'متابعة التسوق') button.textContent = 'Continue Shopping';
+            });
+        }
+        
+        // Convert all text to Arabic
+        function translateToArabic() {
+            console.log('translateToArabic called');
+            // Search section
+            const searchTitle = document.querySelector('.search-content h1');
+            if (searchTitle) searchTitle.textContent = 'مرحباً بكم في أوكيناوا';
+            
+            const searchSubtitle = document.querySelector('.search-content p');
+            if (searchSubtitle) searchSubtitle.textContent = 'بقالة يابانية أصيلة تُوصل إلى باب منزلك';
+            
+            const searchInput = document.getElementById('main-search');
+            if (searchInput) searchInput.placeholder = 'البحث في المنتجات...';
+            
+            // Section titles
+            const sectionTitles = document.querySelectorAll('.section-title');
+            sectionTitles.forEach(title => {
+                const text = title.textContent.trim();
+                if (text === 'New Arrivals') title.textContent = 'وصل حديثاً';
+                else if (text === 'Best Selling') title.textContent = 'الأكثر مبيعاً';
+                else if (text === 'Shop by Category') title.textContent = 'تسوق حسب الفئة';
+            });
+            
+            // View all buttons
+            const viewAllButtons = document.querySelectorAll('.view-all-button');
+            viewAllButtons.forEach(button => {
+                const text = button.textContent.trim();
+                if (text === 'View All New Arrivals') button.textContent = 'عرض جميع الوافدين الجدد';
+                else if (text === 'View All Best Selling') button.textContent = 'عرض جميع الأكثر مبيعاً';
+            });
+            
+            // Category names (desktop and overlay)
+            const categoryNames = document.querySelectorAll('.category-name, .overlay-category-name');
+            categoryNames.forEach(name => {
+                const text = name.textContent.trim();
+                if (text === 'Lifestyle') name.textContent = 'نمط الحياة';
+                else if (text === 'Beauty') name.textContent = 'الجمال';
+                else if (text === 'Food & Beverage (Oishii)') name.textContent = 'الطعام والمشروبات (أوشي)';
+                else if (text === 'Togarashi / Furikake') name.textContent = 'توجاراشي / فوريكاكي';
+                else if (text === 'Miso') name.textContent = 'ميسو';
+                else if (text === 'Yuzu') name.textContent = 'يوزو';
+                else if (text === 'Matcha') name.textContent = 'ماتشا';
+                else if (text === 'Body Soap') name.textContent = 'صابون الجسم';
+                else if (text === 'Hand Cream') name.textContent = 'كريم اليدين';
+                else if (text === 'Face Mask') name.textContent = 'قناع الوجه';
+                else if (text === 'Facial Tissue') name.textContent = 'مناديل الوجه';
+                else if (text === 'Chopsticks & Holders') name.textContent = 'عصي الطعام والحوامل';
+                else if (text === 'Matcha Set') name.textContent = 'طقم ماتشا';
+                else if (text === 'Bag Hanger') name.textContent = 'علاقة الحقيبة';
+                else if (text === 'Rice/Soup Spoon') name.textContent = 'ملعقة الأرز/الحساء';
+                else if (text === 'Sushi Set') name.textContent = 'طقم السوشي';
+                else if (text === 'Keychain') name.textContent = 'مفتاح';
+                else if (text === 'Anime Drawing Book') name.textContent = 'كتاب رسم الأنمي';
+            });
+            
+            // Mobile category tabs - multiple targeting methods
+            const categoryTabs = document.querySelectorAll('.category-tab');
+            console.log('Found category tabs (Arabic):', categoryTabs.length);
+            
+            // Also try direct span targeting
+            const categoryTabSpans = document.querySelectorAll('.category-tab span:not(.category-tab-icon)');
+            console.log('Found category tab spans (Arabic):', categoryTabSpans.length);
+            
+            // Method 1: Target through parent tabs
+            categoryTabs.forEach((tab, index) => {
+                const textSpan = tab.querySelector('span:not(.category-tab-icon)');
+                if (textSpan) {
+                    const text = textSpan.textContent.trim();
+                    console.log(`Tab ${index} text (Arabic):`, text);
+                    if (text === 'Lifestyle') {
+                        textSpan.textContent = 'نمط الحياة';
+                        console.log('Translated to نمط الحياة');
+                    } else if (text === 'Beauty') {
+                        textSpan.textContent = 'الجمال';
+                        console.log('Translated to الجمال');
+                    } else if (text === 'Food & Beverage') {
+                        textSpan.textContent = 'الطعام والمشروبات';
+                        console.log('Translated to الطعام والمشروبات');
+                    }
+                }
+            });
+            
+            // Method 2: Direct span targeting
+            categoryTabSpans.forEach((span, index) => {
+                const text = span.textContent.trim();
+                console.log(`Direct span ${index} text (Arabic):`, text);
+                if (text === 'Lifestyle') {
+                    span.textContent = 'نمط الحياة';
+                    console.log('Direct translated to نمط الحياة');
+                } else if (text === 'Beauty') {
+                    span.textContent = 'الجمال';
+                    console.log('Direct translated to الجمال');
+                } else if (text === 'Food & Beverage') {
+                    span.textContent = 'الطعام والمشروبات';
+                    console.log('Direct translated to الطعام والمشروبات');
+                }
+            });
+            
+            // Category descriptions (desktop and overlay)
+            const categoryDescriptions = document.querySelectorAll('.category-description, .overlay-category-desc');
+            categoryDescriptions.forEach(desc => {
+                const text = desc.textContent.trim();
+                if (text === 'Japanese seasonings to elevate rice and everyday dishes') desc.textContent = 'توابل يابانية لرفع مستوى الأرز والأطباق اليومية';
+                else if (text === 'Rich, traditional Miso – perfect for soups and sauces') desc.textContent = 'ميسو تقليدي غني - مثالي للحساء والصلصات';
+                else if (text === 'Refreshing Japanese citrus fruit with a unique taste') desc.textContent = 'فاكهة حمضية يابانية منعشة بطعم فريد';
+                else if (text === 'Premium Matcha tea for energy and focus') desc.textContent = 'شاي ماتشا فاخر للطاقة والتركيز';
+                else if (text === 'Natural Japanese soap for pure skin') desc.textContent = 'صابون ياباني طبيعي للبشرة النقية';
+                else if (text === 'Japanese hand cream with nourishing essence') desc.textContent = 'كريم ياباني لليدين مع جوهر مغذي';
+                else if (text === 'Japanese masks for hydration and radiance') desc.textContent = 'أقنعة يابانية للترطيب والإشراق';
+                else if (text === 'Ultra-soft tissues with Japanese craftsmanship') desc.textContent = 'مناديل فائقة النعومة مع الحرفية اليابانية';
+                else if (text === 'Elegant Japanese chopsticks with holders') desc.textContent = 'عصي طعام يابانية أنيقة مع حوامل';
+                else if (text === 'Complete set for preparing Japanese Matcha tea') desc.textContent = 'طقم كامل لتحضير شاي ماتشا الياباني';
+                else if (text === 'Japanese-inspired bag hanger') desc.textContent = 'علاقة حقيبة مستوحاة من اليابان';
+                else if (text === 'Practical spoons for dining') desc.textContent = 'ملاعق عملية للطعام';
+                else if (text === 'Tools for making sushi at home') desc.textContent = 'أدوات لصنع السوشي في المنزل';
+                else if (text === 'Keychains inspired by Japan\'s unique culture') desc.textContent = 'مفاتيح مستوحاة من الثقافة اليابانية الفريدة';
+                else if (text === 'A drawing book for anime enthusiasts') desc.textContent = 'كتاب رسم لعشاق الأنمي';
+                else if (text === 'Japanese lifestyle products and accessories') desc.textContent = 'منتجات وملحقات نمط الحياة اليابانية';
+            });
+            
+            // Navigation links
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                const text = link.textContent.trim();
+                if (text === 'Home') link.textContent = 'الرئيسية';
+                else if (text === 'Categories') link.textContent = 'الفئات';
+                else if (text === 'My Account') link.textContent = 'حسابي';
+                else if (text === 'Contact') link.textContent = 'اتصل بنا';
+            });
+
+            // Auth buttons
+            const authButtons = document.querySelectorAll('.auth-buttons button');
+            authButtons.forEach(button => {
+                const text = button.textContent.trim();
+                if (text === 'Login') button.textContent = 'تسجيل الدخول';
+                else if (text === 'Register') button.textContent = 'تسجيل';
+            });
+
+            // User info elements
+            const userName = document.getElementById('user-name');
+            if (userName) {
+                const text = userName.textContent.trim();
+                if (text === 'Welcome!') userName.textContent = 'مرحباً!';
+            }
+
+            const logoutBtn = document.querySelector('button[onclick="logout()"]');
+            if (logoutBtn) {
+                const text = logoutBtn.textContent.trim();
+                if (text === 'Logout') logoutBtn.textContent = 'تسجيل الخروج';
+            }
+
+            // Modal content
+            const loginModal = document.getElementById('login-modal');
+            if (loginModal) {
+                const loginTitle = loginModal.querySelector('h2');
+                if (loginTitle && loginTitle.textContent.trim() === 'Login to Your Account') {
+                    loginTitle.textContent = 'تسجيل الدخول إلى حسابك';
+                }
+                
+                const loginBtn = loginModal.querySelector('button[type="submit"]');
+                if (loginBtn && loginBtn.textContent.trim() === 'Login') {
+                    loginBtn.textContent = 'تسجيل الدخول';
+                }
+                
+                const loginLink = loginModal.querySelector('.auth-link');
+                if (loginLink && loginLink.textContent.trim() === 'Don\'t have an account? Register here') {
+                    loginLink.textContent = 'ليس لديك حساب؟ سجل هنا';
+                }
+            }
+
+            const registerModal = document.getElementById('register-modal');
+            if (registerModal) {
+                const registerBtn = registerModal.querySelector('button[type="submit"]');
+                if (registerBtn && registerBtn.textContent.trim() === 'Register') {
+                    registerBtn.textContent = 'تسجيل';
+                }
+                
+                const registerLink = registerModal.querySelector('.auth-link');
+                if (registerLink && registerLink.textContent.trim() === 'Already have an account? Login here') {
+                    registerLink.textContent = 'لديك حساب بالفعل؟ سجل دخولك هنا';
+                }
+            }
+
+            // Dashboard content
+            const dashboardTitle = document.querySelector('.dashboard-header h1');
+            if (dashboardTitle && dashboardTitle.textContent.trim() === 'My Account Dashboard') {
+                dashboardTitle.textContent = 'لوحة تحكم حسابي';
+            }
+
+            const dashboardSubtitle = document.querySelector('.dashboard-header p');
+            if (dashboardSubtitle && dashboardSubtitle.textContent.trim() === 'Welcome back! Manage your orders and account settings.') {
+                dashboardSubtitle.textContent = 'مرحباً بعودتك! إدارة طلباتك وإعدادات حسابك.';
+            }
+
+            // Swipe hint
+            const swipeHint = document.querySelector('.swipe-hint span');
+            if (swipeHint && swipeHint.textContent.trim() === 'Swipe for more categories') {
+                swipeHint.textContent = 'اسحب لمزيد من الفئات';
+            }
+
+            // Buttons
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                const text = button.textContent.trim();
+                if (text === 'Add to Cart') button.textContent = 'أضف إلى السلة';
+                else if (text === 'Remove') button.textContent = 'إزالة';
+                else if (text === 'Continue Shopping') button.textContent = 'متابعة التسوق';
+            });
+        }
+        
+        // Load saved language preference
+        function loadLanguagePreference() {
+            const saved = localStorage.getItem('index-lang');
+            if (saved === 'ar') {
+                isEnglish = false;
+                const langText = document.querySelector('.lang-text');
+                if (langText) langText.textContent = 'AR';
+                document.documentElement.dir = 'rtl';
+                translateToArabic();
+            } else {
+                isEnglish = true;
+                const langText = document.querySelector('.lang-text');
+                if (langText) langText.textContent = 'EN';
+                document.documentElement.dir = 'ltr';
+                translateToEnglish();
+            }
+            
+            // Also translate after a longer delay to ensure mobile elements are loaded
+            setTimeout(() => {
+                console.log('Delayed mobile translation called');
+                if (isEnglish) {
+                    translateToEnglish();
+                } else {
+                    translateToArabic();
+                }
+                // Force mobile category translation
+                forceMobileCategoryTranslation();
+            }, 500);
+        }
+
+
+        // NEW SEARCH FUNCTIONALITY - BUILT FROM SCRATCH
+        let searchProducts = [];
+        let searchTimeout = null;
+
+        // Initialize search when page loads
+        function initSearch() {
+            console.log('Initializing new search system...');
+            
+            const searchInput = document.getElementById('main-search');
+            const dropdown = document.getElementById('search-dropdown');
+            
+            if (!searchInput || !dropdown) {
+                console.error('Search elements not found!');
+                return;
+            }
+            
+            console.log('Search elements found, setting up...');
+            
+            // Load products for search
+            loadProductsForSearch();
+            
+            // Add event listeners
+            searchInput.addEventListener('input', handleSearchInput);
+            searchInput.addEventListener('focus', handleSearchFocus);
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!searchInput.contains(e.target) && !dropdown.contains(e.target)) {
+                    hideDropdown();
+                }
+            });
+            
+            console.log('Search system initialized successfully!');
+        }
+
+        // Load products for search
+        async function loadProductsForSearch() {
+            try {
+                console.log('Loading products for search...');
+                const snapshot = await db.collection('products').get();
+                searchProducts = [];
+                snapshot.forEach(doc => {
+                    const productData = { id: doc.id, ...doc.data() };
+                    searchProducts.push(productData);
+                    console.log('Loaded product:', productData.id, productData.name);
+                });
+                console.log('Products loaded for search:', searchProducts.length);
+                console.log('Sample product structure:', searchProducts[0]);
+            } catch (error) {
+                console.error('Error loading products for search:', error);
+                searchProducts = [];
+            }
+        }
+
+        // Handle search input
+        function handleSearchInput(e) {
+            const searchTerm = e.target.value.trim();
+            console.log('Search input:', searchTerm);
+            
+            // Clear previous timeout
+            if (searchTimeout) {
+                clearTimeout(searchTimeout);
+            }
+            
+            if (searchTerm.length < 1) {
+                hideDropdown();
+                return;
+            }
+            
+            // Debounce search
+            searchTimeout = setTimeout(() => {
+                performSearch(searchTerm);
+            }, 200);
+        }
+
+        // Handle search focus
+        function handleSearchFocus(e) {
+            const searchTerm = e.target.value.trim();
+            if (searchTerm.length >= 1) {
+                performSearch(searchTerm);
+            }
+        }
+
+        // Perform the actual search
+        function performSearch(searchTerm) {
+            console.log('Performing search for:', searchTerm);
+            
+            if (searchProducts.length === 0) {
+                console.log('No products available for search');
+                return;
+            }
+            
+            const filtered = searchProducts.filter(product => {
+                const name = (product.name || '').toLowerCase();
+                const category = (product.category || '').toLowerCase();
+                const subcategory = (product.subcategory || '').toLowerCase();
+                const term = searchTerm.toLowerCase();
+                
+                return name.includes(term) || category.includes(term) || subcategory.includes(term);
+            });
+            
+            console.log('Search results:', filtered.length);
+            displaySearchResults(filtered);
+        }
+
+        // Display search results
+        function displaySearchResults(products) {
+            const dropdown = document.getElementById('search-dropdown');
+            const resultsContainer = document.getElementById('search-results');
+            
+            if (!dropdown || !resultsContainer) {
+                console.error('Search dropdown elements not found!');
+                return;
+            }
+            
+            // Clear previous results
+            resultsContainer.innerHTML = '';
+            
+            if (products.length === 0) {
+                resultsContainer.innerHTML = '<div class="search-result-item">No products found</div>';
+            } else {
+                // Limit to 8 results
+                const limitedProducts = products.slice(0, 8);
+                
+                limitedProducts.forEach(product => {
+                    const resultItem = document.createElement('div');
+                    resultItem.className = 'search-result-item';
+                    resultItem.style.cursor = 'pointer';
+                    
+                    resultItem.innerHTML = `
+                        <img src="${product.image || 'https://via.placeholder.com/50x50?text=No+Image'}" 
+                             alt="${product.name}" 
+                             class="search-result-image" 
+                             onerror="this.src='https://via.placeholder.com/50x50?text=No+Image'">
+                        <div class="search-result-info">
+                            <div class="search-result-name">${product.name || 'Unknown Product'}</div>
+                            <div class="search-result-price">$${product.price || '0.00'}</div>
+                            <div class="search-result-category">${product.category || ''} - ${product.subcategory || ''}</div>
+                        </div>
+                    `;
+                    
+                    // Add click handler
+                    resultItem.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log('Search result clicked!');
+                        console.log('Product ID:', product.id);
+                        console.log('Product name:', product.name);
+                        console.log('Full product data:', product);
+                        
+                        if (product.id) {
+                            console.log('Navigating to product page...');
+                            window.location.href = `product.html?id=${product.id}`;
+                        } else {
+                            console.error('No product ID found!');
+                        }
+                    });
+                    
+                    resultsContainer.appendChild(resultItem);
+                });
+            }
+            
+            // Show dropdown
+            showDropdown();
+        }
+
+        // Show dropdown
+        function showDropdown() {
+            const dropdown = document.getElementById('search-dropdown');
+            if (dropdown) {
+                dropdown.classList.add('show');
+                dropdown.style.display = 'block';
+                console.log('Dropdown shown');
+            }
+        }
+
+        // Hide dropdown
+        function hideDropdown() {
+            const dropdown = document.getElementById('search-dropdown');
+            if (dropdown) {
+                dropdown.classList.remove('show');
+                dropdown.style.display = 'none';
+                console.log('Dropdown hidden');
+            }
+        }
+
+        // Initialize search when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM ready, initializing search...');
+            setTimeout(initSearch, 1000); // Wait 1 second for everything to load
+        });
+
+        // Test function for debugging
+        function testNewSearch() {
+            console.log('=== NEW SEARCH TEST ===');
+            console.log('Search products loaded:', searchProducts.length);
+            console.log('Sample products:', searchProducts.slice(0, 3));
+            
+            const searchInput = document.getElementById('main-search');
+            const dropdown = document.getElementById('search-dropdown');
+            
+            console.log('Search input exists:', !!searchInput);
+            console.log('Dropdown exists:', !!dropdown);
+            
+            if (searchProducts.length > 0) {
+                console.log('Testing search with "m"...');
+                const testTerm = 'm';
+                const filtered = searchProducts.filter(product => {
+                    const name = (product.name || '').toLowerCase();
+                    const category = (product.category || '').toLowerCase();
+                    const subcategory = (product.subcategory || '').toLowerCase();
+                    return name.includes(testTerm) || category.includes(testTerm) || subcategory.includes(testTerm);
+                });
+                console.log('Test results for single character:', filtered.length, filtered);
+            }
+        }
+
+        // Make test function available globally
+        window.testNewSearch = testNewSearch;
+
+        // Test navigation function
+        function testNavigation() {
+            console.log('=== NAVIGATION TEST ===');
+            if (searchProducts.length > 0) {
+                const firstProduct = searchProducts[0];
+                console.log('Testing navigation with first product:', firstProduct);
+                console.log('Product ID:', firstProduct.id);
+                console.log('Product name:', firstProduct.name);
+                
+                if (firstProduct.id) {
+                    console.log('Attempting navigation...');
+                    window.location.href = `product.html?id=${firstProduct.id}`;
+                } else {
+                    console.error('No product ID available for testing');
+                }
+            } else {
+                console.error('No products loaded for navigation test');
+            }
+        }
+
+        // Make navigation test available globally
+        window.testNavigation = testNavigation;
+
+        // Navigation function for product cards
+        function navigateToProduct(productId) {
+            console.log('Navigating to product page:', productId);
+            if (productId) {
+                window.location.href = `product.html?id=${productId}`;
+            } else {
+                console.error('No product ID provided for navigation');
+            }
+        }
+
+
         // Initialize the application
         document.addEventListener('DOMContentLoaded', async function() {
-            const products = await loadProducts();
-            displayProducts(products);
+            console.log('Main app initialization started...');
+            try {
+                const products = await loadProducts();
+                console.log('Products loaded successfully:', products.length);
+                displayProducts(products);
+
+            } catch (error) {
+                console.error('Error during app initialization:', error);
+            }
 
             // Load new sections
             await loadNewArrivals();
@@ -4295,8 +6748,15 @@
                 }
             });
 
+            // Load language preference
+            loadLanguagePreference();
+
             // Initialize cart UI
-            updateCartUI();
+            updateCartCounts();
+            updateCartItemsDisplay();
+            
+            // Initialize product card states based on existing cart
+            updateAllProductCardQuantities();
             
             // Check if page was accessed with cart hash (from all-products page)
             if (window.location.hash === '#cart') {
@@ -4357,6 +6817,58 @@
             });
 
 
+
+                    // Toggle mobile menu
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('nav-links');
+            const menuIcon = document.getElementById('menu-icon');
+            
+            if (navLinks.style.display === 'flex') {
+                navLinks.style.display = 'none';
+                menuIcon.textContent = '☰';
+            } else {
+                navLinks.style.display = 'flex';
+                menuIcon.textContent = '✕';
+            }
+        }
+        
+        // Close mobile menu
+        function closeMobileMenu() {
+            const navLinks = document.getElementById('nav-links');
+            const menuIcon = document.getElementById('menu-icon');
+            navLinks.style.display = 'none';
+            menuIcon.textContent = '☰';
+        }
+
+        // Update FAB auth
+        function updateFabAuth() {
+            const fabAuthMenu = document.getElementById('fab-auth-menu');
+            if (fabAuthMenu) {
+                if (currentUser) {
+                    const myAccountText = isEnglish ? 'My Account' : 'حسابي';
+                    const logoutText = isEnglish ? 'Logout' : 'تسجيل الخروج';
+                    fabAuthMenu.innerHTML = `
+                        <button onclick="showDashboard(); closeFabMenus();">${myAccountText}</button>
+                        <button onclick="logout(); closeFabMenus();">${logoutText}</button>
+                    `;
+                } else {
+                    const loginText = isEnglish ? 'Login' : 'تسجيل الدخول';
+                    const registerText = isEnglish ? 'Register' : 'تسجيل';
+                    fabAuthMenu.innerHTML = `
+                        <button onclick="openModal('login'); closeFabMenus();">${loginText}</button>
+                        <button onclick="openModal('register'); closeFabMenus();">${registerText}</button>
+                    `;
+                }
+            }
+        }
+
+        // Close FAB menus
+        function closeFabMenus() {
+            const fabAuthMenu = document.getElementById('fab-auth-menu');
+            if (fabAuthMenu) {
+                fabAuthMenu.classList.remove('active');
+            }
+        }
 
             // Close cart when clicking outside
             document.addEventListener('click', function(e) {
