@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Okinawa</title>
+    
+    <!-- TailwindCSS v3.4.10 CDN -->
+    <script src="https://cdn.tailwindcss.com?v=3.4.10"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#A61f23',
+                        primaryDark: '#8a1a1f',
+                        accent: '#cf2029'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/custom.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header -->
+    <header class="fixed w-full top-0 z-50 bg-white/90 backdrop-blur-lg shadow-lg border-b border-gray-100">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center">
+                    <img src="oki.png" alt="Okinawa" class="h-12 w-auto object-contain hover:opacity-80 transition-opacity">
+                </a>
+
+                <!-- Navigation & Buttons -->
+                <div class="flex items-center gap-4">
+                    <!-- Cart Button -->
+                    <a href="index.html#cart" class="relative p-2 text-gray-700 hover:text-primary transition-colors">
+                        <i class="fas fa-shopping-cart text-2xl"></i>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">0</span>
+                    </a>
+
+                    <!-- Language Toggle -->
+                    <button onclick="toggleLanguage()" class="hidden md:flex items-center gap-2 px-4 py-2 bg-gray-800 text-white rounded-full hover:bg-gray-700 transition-colors font-medium">
+                        <span id="lang-text">EN</span>
+                        <i class="fas fa-globe"></i>
+                    </button>
+
+                    <!-- User Info (Always Visible on Profile Page) -->
+                    <div class="hidden md:flex items-center gap-4">
+                        <a href="profile.html" class="flex items-center gap-2 text-gray-700 hover:text-primary transition-colors">
+                            <i class="fas fa-user-circle text-2xl"></i>
+                            <span id="user-name-display" class="font-medium">Profile</span>
+                        </a>
+                        <button onclick="logout()" class="px-4 py-2 border border-primary text-primary hover:bg-primary hover:text-white rounded-full transition-colors font-medium">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-16 min-h-screen">
+        <div class="container mx-auto px-4">
+            <!-- Login Required Message -->
+            <div id="login-required" class="hidden max-w-2xl mx-auto">
+                <div class="bg-white rounded-2xl shadow-xl p-12 text-center">
+                    <div class="text-6xl mb-6">🔒</div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Login Required</h2>
+                    <p class="text-gray-600 mb-8">Please login to access your profile and view your orders.</p>
+                    <a href="index.html#login" class="inline-block px-8 py-3 bg-primary text-white rounded-full hover:bg-primaryDark transition-colors font-medium shadow-lg">
+                        <i class="fas fa-sign-in-alt mr-2"></i>
+                        Go to Login
+                    </a>
+                </div>
+            </div>
+
+            <!-- Profile Content -->
+            <div id="profile-content" class="hidden">
+                <!-- Profile Header -->
+                <div class="bg-gradient-to-r from-primary to-accent text-white rounded-2xl shadow-xl p-8 mb-8">
+                    <div class="flex flex-col md:flex-row items-center gap-6">
+                        <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center text-4xl text-primary font-bold shadow-lg">
+                            <span id="user-avatar">U</span>
+                        </div>
+                        <div class="text-center md:text-left flex-1">
+                            <h1 id="user-name" class="text-3xl font-bold mb-2">User Profile</h1>
+                            <p id="user-email" class="text-white/90 mb-2">user@example.com</p>
+                            <p class="text-sm text-white/80">Member since <span id="member-since">2024</span></p>
+                        </div>
+                        <button onclick="logout()" class="px-6 py-2 bg-white text-primary rounded-full hover:bg-gray-100 transition-colors font-medium shadow-lg">
+                            <i class="fas fa-sign-out-alt mr-2"></i>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden mb-8">
+                    <div class="flex flex-wrap border-b border-gray-200">
+                        <button onclick="switchTab('orders')" class="tab-btn active px-6 py-4 font-medium text-primary border-b-2 border-primary transition-colors">
+                            <i class="fas fa-shopping-bag mr-2"></i>
+                            Order History
+                        </button>
+                        <button onclick="switchTab('wishlist')" class="tab-btn px-6 py-4 font-medium text-gray-600 hover:text-primary hover:bg-gray-50 transition-colors">
+                            <i class="fas fa-heart mr-2"></i>
+                            Wishlist
+                        </button>
+                        <button onclick="switchTab('addresses')" class="tab-btn px-6 py-4 font-medium text-gray-600 hover:text-primary hover:bg-gray-50 transition-colors">
+                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            Saved Addresses
+                        </button>
+                        <button onclick="switchTab('reviews')" class="tab-btn px-6 py-4 font-medium text-gray-600 hover:text-primary hover:bg-gray-50 transition-colors">
+                            <i class="fas fa-star mr-2"></i>
+                            My Reviews
+                        </button>
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div class="p-6">
+                        <!-- Orders Tab -->
+                        <div id="orders-tab" class="tab-content">
+                            <h2 class="text-2xl font-bold text-gray-900 mb-6">Order History</h2>
+                            <div id="orders-list">
+                                <div class="text-center py-12">
+                                    <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent mb-4"></div>
+                                    <p class="text-gray-600">Loading orders...</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Wishlist Tab -->
+                        <div id="wishlist-tab" class="tab-content hidden">
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-2xl font-bold text-gray-900">My Wishlist</h2>
+                                <button onclick="shareWishlist()" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
+                                    <i class="fas fa-share-alt mr-2"></i>
+                                    Share Wishlist
+                                </button>
+                            </div>
+                            <div id="wishlist-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                                <div class="col-span-full text-center py-12">
+                                    <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent mb-4"></div>
+                                    <p class="text-gray-600">Loading wishlist...</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Addresses Tab -->
+                        <div id="addresses-tab" class="tab-content hidden">
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-2xl font-bold text-gray-900">Saved Addresses</h2>
+                                <button onclick="openAddressModal()" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primaryDark transition-colors">
+                                    <i class="fas fa-plus mr-2"></i>
+                                    Add Address
+                                </button>
+                            </div>
+                            <div id="addresses-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div class="col-span-full text-center py-12">
+                                    <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent mb-4"></div>
+                                    <p class="text-gray-600">Loading addresses...</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Reviews Tab -->
+                        <div id="reviews-tab" class="tab-content hidden">
+                            <h2 class="text-2xl font-bold text-gray-900 mb-6">My Reviews</h2>
+                            <div id="reviews-list">
+                                <div class="text-center py-12">
+                                    <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent mb-4"></div>
+                                    <p class="text-gray-600">Loading reviews...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Address Modal -->
+    <div id="address-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-2xl font-bold text-gray-900">Add New Address</h3>
+                    <button onclick="closeAddressModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                        <i class="fas fa-times text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            <form id="address-form" class="p-6 space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Label *</label>
+                        <input type="text" id="address-label" required placeholder="e.g., Home, Office" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+                        <input type="text" id="address-name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
+                    <input type="tel" id="address-phone" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Street Address *</label>
+                    <input type="text" id="address-street" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">City *</label>
+                        <input type="text" id="address-city" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">State/Province</label>
+                        <input type="text" id="address-state" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Postal Code *</label>
+                        <input type="text" id="address-postal" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Country *</label>
+                    <input type="text" id="address-country" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="address-default" class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary">
+                    <label for="address-default" class="ml-2 text-sm text-gray-700">Set as default address</label>
+                </div>
+                <div class="flex gap-4 pt-4">
+                    <button type="submit" class="flex-1 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primaryDark transition-colors font-medium">
+                        <i class="fas fa-save mr-2"></i>
+                        Save Address
+                    </button>
+                    <button type="button" onclick="closeAddressModal()" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDzitihiLQetctKmv2-VLTvbZfftB3zOmw",
+            authDomain: "okinawa-e5948.firebaseapp.com",
+            projectId: "okinawa-e5948",
+            storageBucket: "okinawa-e5948.firebasestorage.app",
+            messagingSenderId: "1079558060579",
+            appId: "1:1079558060579:web:93b7cc521ec819205bcf96",
+            measurementId: "G-9GLB5N0GS2"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const auth = firebase.auth();
+
+        let currentUser = null;
+
+        // Initialize page
+        auth.onAuthStateChanged(async function(user) {
+            if (user) {
+                currentUser = user;
+                showProfile();
+                updateCartCount();
+                await loadUserData();
+            } else {
+                showLoginRequired();
+            }
+        });
+
+        function showLoginRequired() {
+            document.getElementById('login-required').classList.remove('hidden');
+            document.getElementById('profile-content').classList.add('hidden');
+        }
+
+        function showProfile() {
+            document.getElementById('login-required').classList.add('hidden');
+            document.getElementById('profile-content').classList.remove('hidden');
+        }
+
+        async function loadUserData() {
+            try {
+                // Get user data from Firestore
+                const userDoc = await db.collection('users').doc(currentUser.uid).get();
+                const userData = userDoc.data() || {};
+
+                // Update profile header
+                document.getElementById('user-name').textContent = userData.name || currentUser.displayName || 'User';
+                document.getElementById('user-name-display').textContent = userData.name?.split(' ')[0] || 'Profile';
+                document.getElementById('user-email').textContent = currentUser.email;
+                document.getElementById('user-avatar').textContent = (userData.name || currentUser.email)[0].toUpperCase();
+                
+                // Member since
+                const createdAt = currentUser.metadata.creationTime;
+                document.getElementById('member-since').textContent = new Date(createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+
+                // Load initial tab data
+                await loadOrders();
+
+            } catch (error) {
+                console.error('Error loading user data:', error);
+            }
+        }
+
+        // Tab switching
+        function switchTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active', 'text-primary', 'border-b-2', 'border-primary');
+                btn.classList.add('text-gray-600');
+            });
+            event.target.closest('.tab-btn').classList.add('active', 'text-primary', 'border-b-2', 'border-primary');
+            event.target.closest('.tab-btn').classList.remove('text-gray-600');
+
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            document.getElementById(`${tabName}-tab`).classList.remove('hidden');
+
+            // Load tab data
+            switch(tabName) {
+                case 'orders':
+                    loadOrders();
+                    break;
+                case 'wishlist':
+                    loadWishlist();
+                    break;
+                case 'addresses':
+                    loadAddresses();
+                    break;
+                case 'reviews':
+                    loadReviews();
+                    break;
+            }
+        }
+
+        // Load Orders
+        let loadedOrdersCount = 0;
+        const ORDERS_PER_PAGE = 10;
+        
+        async function loadOrders(loadMore = false) {
+            const ordersList = document.getElementById('orders-list');
+            if (!loadMore) {
+                ordersList.innerHTML = '<div class="text-center py-12"><div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent mb-4"></div><p class="text-gray-600">Loading orders...</p></div>';
+                loadedOrdersCount = 0;
+            }
+
+            try {
+                const snapshot = await db.collection('orders')
+                    .where('userId', '==', currentUser.uid)
+                    .get();
+
+                if (snapshot.empty) {
+                    ordersList.innerHTML = `
+                        <div class="text-center py-12">
+                            <div class="text-6xl mb-4">📦</div>
+                            <h3 class="text-xl font-semibold text-gray-600 mb-2">No orders yet</h3>
+                            <p class="text-gray-500 mb-6">Start shopping to see your orders here!</p>
+                            <a href="all-products.html" class="inline-block px-6 py-3 bg-primary text-white rounded-full hover:bg-primaryDark transition-colors">
+                                Browse Products
+                            </a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Convert to array and sort by date (newest first) - no index needed
+                const orders = [];
+                snapshot.forEach(doc => {
+                    orders.push({ id: doc.id, ...doc.data() });
+                });
+                orders.sort((a, b) => {
+                    if (!a.date) return 1;
+                    if (!b.date) return -1;
+                    return b.date.toMillis() - a.date.toMillis();
+                });
+
+                // Limit orders shown for better performance
+                const ordersToShow = loadMore ? orders : orders.slice(0, ORDERS_PER_PAGE);
+                loadedOrdersCount = ordersToShow.length;
+                const hasMore = orders.length > loadedOrdersCount;
+
+                let ordersHTML = '<div class="space-y-4">';
+                ordersToShow.forEach(order => {
+                    const date = order.date ? order.date.toDate().toLocaleDateString() : 'N/A';
+                    const itemsCount = order.items?.length || 0;
+                    
+                    ordersHTML += `
+                        <div class="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow">
+                            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
+                                <div>
+                                    <h3 class="font-bold text-lg text-gray-900">Order #${order.id.substring(0, 8).toUpperCase()}</h3>
+                                    <p class="text-sm text-gray-600">Placed on ${date}</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-2xl font-bold text-primary">$${(order.totalAmount || order.total || 0).toFixed(2)}</p>
+                                    <span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
+                                        ${order.orderStatus || order.status || 'Pending'}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="border-t border-gray-200 pt-4">
+                                <p class="text-sm text-gray-600 mb-2"><strong>Items:</strong> ${itemsCount}</p>
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+                                    ${(order.items || []).slice(0, 4).map(item => `
+                                        <div class="text-sm text-gray-700">• ${item.name} (x${item.quantity})</div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                ordersHTML += '</div>';
+                
+                // Add "Load More" button if there are more orders
+                if (hasMore && !loadMore) {
+                    ordersHTML += `
+                        <div class="text-center mt-6">
+                            <button onclick="loadOrders(true)" class="px-6 py-3 bg-primary text-white rounded-full hover:bg-primaryDark transition-colors">
+                                Load More Orders (${orders.length - loadedOrdersCount} remaining)
+                            </button>
+                        </div>
+                    `;
+                }
+                
+                ordersList.innerHTML = ordersHTML;
+
+            } catch (error) {
+                console.error('Error loading orders:', error);
+                ordersList.innerHTML = '<div class="text-center py-12 text-red-500">Error loading orders</div>';
+            }
+        }
+
+        // Load Wishlist
+        async function loadWishlist() {
+            const wishlistGrid = document.getElementById('wishlist-grid');
+            wishlistGrid.innerHTML = '<div class="col-span-full text-center py-12"><div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent mb-4"></div><p class="text-gray-600">Loading wishlist...</p></div>';
+
+            try {
+                const wishlistDoc = await db.collection('wishlists').doc(currentUser.uid).get();
+                const wishlistData = wishlistDoc.data();
+                const productIds = wishlistData?.products || [];
+
+                if (productIds.length === 0) {
+                    wishlistGrid.innerHTML = `
+                        <div class="col-span-full text-center py-12">
+                            <div class="text-6xl mb-4">❤️</div>
+                            <h3 class="text-xl font-semibold text-gray-600 mb-2">Your wishlist is empty</h3>
+                            <p class="text-gray-500 mb-6">Save your favorite products here!</p>
+                            <a href="all-products.html" class="inline-block px-6 py-3 bg-primary text-white rounded-full hover:bg-primaryDark transition-colors">
+                                Browse Products
+                            </a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Load product details in parallel (much faster!)
+                const productPromises = productIds.map(productId => 
+                    db.collection('products').doc(productId).get()
+                );
+                const productDocs = await Promise.all(productPromises);
+                
+                const products = productDocs
+                    .filter(doc => doc.exists)
+                    .map(doc => ({ id: doc.id, ...doc.data() }));
+
+                wishlistGrid.innerHTML = products.map(product => {
+                    const price = product.sellPrice || product.price || 0;
+                    return `
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-2xl transition-all">
+                            <div class="relative aspect-square bg-gray-100">
+                                <img src="${product.image || 'https://via.placeholder.com/300'}" 
+                                     alt="${product.name}" 
+                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                                <button onclick="removeFromWishlist('${product.id}')" class="absolute top-2 right-2 w-10 h-10 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors shadow-lg">
+                                    <i class="fas fa-heart-broken"></i>
+                                </button>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-gray-900 mb-2">${product.name}</h3>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xl font-bold text-primary">$${price.toFixed(2)}</span>
+                                    <button onclick="addToCartFromWishlist('${product.id}', '${product.name.replace(/'/g, "\\'")}', ${price}, '${product.image}')" class="px-4 py-2 bg-primary text-white rounded-full hover:bg-primaryDark transition-colors">
+                                        <i class="fas fa-cart-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+            } catch (error) {
+                console.error('Error loading wishlist:', error);
+                wishlistGrid.innerHTML = '<div class="col-span-full text-center py-12 text-red-500">Error loading wishlist</div>';
+            }
+        }
+
+        // Load Addresses
+        async function loadAddresses() {
+            const addressesList = document.getElementById('addresses-list');
+            addressesList.innerHTML = '<div class="col-span-full text-center py-12"><div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent mb-4"></div><p class="text-gray-600">Loading addresses...</p></div>';
+
+            try {
+                const snapshot = await db.collection('addresses')
+                    .where('userId', '==', currentUser.uid)
+                    .get();
+
+                if (snapshot.empty) {
+                    addressesList.innerHTML = `
+                        <div class="col-span-full text-center py-12">
+                            <div class="text-6xl mb-4">📍</div>
+                            <h3 class="text-xl font-semibold text-gray-600 mb-2">No saved addresses</h3>
+                            <p class="text-gray-500 mb-6">Add an address for faster checkout!</p>
+                            <button onclick="openAddressModal()" class="px-6 py-3 bg-primary text-white rounded-full hover:bg-primaryDark transition-colors">
+                                <i class="fas fa-plus mr-2"></i>
+                                Add Address
+                            </button>
+                        </div>
+                    `;
+                    return;
+                }
+
+                let addressesHTML = '';
+                snapshot.forEach(doc => {
+                    const address = { id: doc.id, ...doc.data() };
+                    addressesHTML += `
+                        <div class="bg-white border-2 ${address.isDefault ? 'border-primary' : 'border-gray-200'} rounded-xl p-6 hover:shadow-lg transition-shadow">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h3 class="font-bold text-lg text-gray-900">${address.label}</h3>
+                                    ${address.isDefault ? '<span class="inline-block mt-1 px-2 py-1 bg-primary text-white rounded text-xs font-medium">Default</span>' : ''}
+                                </div>
+                                <button onclick="deleteAddress('${address.id}')" class="text-red-500 hover:text-red-600 transition-colors">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                            <div class="text-gray-600 space-y-1">
+                                <p class="font-medium">${address.name}</p>
+                                <p>${address.street}</p>
+                                <p>${address.city}, ${address.state || ''} ${address.postal}</p>
+                                <p>${address.country}</p>
+                                <p><i class="fas fa-phone mr-2"></i>${address.phone}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+                addressesList.innerHTML = addressesHTML;
+
+            } catch (error) {
+                console.error('Error loading addresses:', error);
+                addressesList.innerHTML = '<div class="col-span-full text-center py-12 text-red-500">Error loading addresses</div>';
+            }
+        }
+
+        // Load Reviews
+        async function loadReviews() {
+            const reviewsList = document.getElementById('reviews-list');
+            reviewsList.innerHTML = '<div class="text-center py-12"><div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent mb-4"></div><p class="text-gray-600">Loading reviews...</p></div>';
+
+            try {
+                const snapshot = await db.collection('reviews')
+                    .where('userId', '==', currentUser.uid)
+                    .get();
+
+                if (snapshot.empty) {
+                    reviewsList.innerHTML = `
+                        <div class="text-center py-12">
+                            <div class="text-6xl mb-4">⭐</div>
+                            <h3 class="text-xl font-semibold text-gray-600 mb-2">No reviews yet</h3>
+                            <p class="text-gray-500 mb-6">Share your experience with products you've purchased!</p>
+                            <a href="all-products.html" class="inline-block px-6 py-3 bg-primary text-white rounded-full hover:bg-primaryDark transition-colors">
+                                Browse Products
+                            </a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Convert to array and sort by date (newest first) - no index needed
+                const reviews = [];
+                snapshot.forEach(doc => {
+                    reviews.push({ id: doc.id, ...doc.data() });
+                });
+                reviews.sort((a, b) => {
+                    if (!a.createdAt) return 1;
+                    if (!b.createdAt) return -1;
+                    return b.createdAt.toMillis() - a.createdAt.toMillis();
+                });
+
+                // Load all product details in parallel (much faster!)
+                const uniqueProductIds = [...new Set(reviews.map(r => r.productId))];
+                const productPromises = uniqueProductIds.map(productId => 
+                    db.collection('products').doc(productId).get()
+                );
+                const productDocs = await Promise.all(productPromises);
+                
+                // Create a map for quick lookups
+                const productsMap = {};
+                productDocs.forEach(doc => {
+                    if (doc.exists) {
+                        productsMap[doc.id] = doc.data();
+                    }
+                });
+                
+                let reviewsHTML = '<div class="space-y-4">';
+                for (const review of reviews) {
+                    const product = productsMap[review.productId];
+                    const date = review.createdAt ? review.createdAt.toDate().toLocaleDateString() : 'N/A';
+                    
+                    reviewsHTML += `
+                        <div class="bg-gray-50 rounded-xl p-6">
+                            <div class="flex gap-4">
+                                <img src="${product?.image || 'https://via.placeholder.com/100'}" alt="${product?.name || 'Product'}" class="w-20 h-20 object-cover rounded-lg">
+                                <div class="flex-1">
+                                    <h3 class="font-bold text-lg text-gray-900 mb-1">${product?.name || 'Product'}</h3>
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="flex text-yellow-500">
+                                            ${[1,2,3,4,5].map(i => `<i class="fas fa-star ${i <= review.rating ? '' : 'opacity-30'}"></i>`).join('')}
+                                        </div>
+                                        <span class="text-sm text-gray-600">${date}</span>
+                                    </div>
+                                    <p class="text-gray-700 mb-2">${review.comment}</p>
+                                    ${review.photos && review.photos.length > 0 ? `
+                                        <div class="flex gap-2">
+                                            ${review.photos.map(photo => `
+                                                <img src="${photo}" alt="Review photo" class="w-16 h-16 object-cover rounded-lg cursor-pointer hover:opacity-80" onclick="viewImage('${photo}')">
+                                            `).join('')}
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+                reviewsHTML += '</div>';
+                reviewsList.innerHTML = reviewsHTML;
+
+            } catch (error) {
+                console.error('Error loading reviews:', error);
+                reviewsList.innerHTML = '<div class="text-center py-12 text-red-500">Error loading reviews</div>';
+            }
+        }
+
+        // Address Modal
+        function openAddressModal() {
+            document.getElementById('address-modal').classList.remove('hidden');
+        }
+
+        function closeAddressModal() {
+            document.getElementById('address-modal').classList.add('hidden');
+            document.getElementById('address-form').reset();
+        }
+
+        // Add Address
+        document.getElementById('address-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            try {
+                const addressData = {
+                    userId: currentUser.uid,
+                    label: document.getElementById('address-label').value,
+                    name: document.getElementById('address-name').value,
+                    phone: document.getElementById('address-phone').value,
+                    street: document.getElementById('address-street').value,
+                    city: document.getElementById('address-city').value,
+                    state: document.getElementById('address-state').value,
+                    postal: document.getElementById('address-postal').value,
+                    country: document.getElementById('address-country').value,
+                    isDefault: document.getElementById('address-default').checked,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                };
+
+                // If setting as default, remove default from other addresses
+                if (addressData.isDefault) {
+                    const snapshot = await db.collection('addresses')
+                        .where('userId', '==', currentUser.uid)
+                        .get();
+                    
+                    // Filter for default addresses in JavaScript (no index needed)
+                    snapshot.forEach(async (doc) => {
+                        if (doc.data().isDefault === true) {
+                            await db.collection('addresses').doc(doc.id).update({ isDefault: false });
+                        }
+                    });
+                }
+
+                await db.collection('addresses').add(addressData);
+                closeAddressModal();
+                await loadAddresses();
+                showToast('Address added successfully!');
+
+            } catch (error) {
+                console.error('Error adding address:', error);
+                alert('Error adding address. Please try again.');
+            }
+        });
+
+        // Delete Address
+        async function deleteAddress(addressId) {
+            if (!confirm('Are you sure you want to delete this address?')) return;
+
+            try {
+                await db.collection('addresses').doc(addressId).delete();
+                await loadAddresses();
+                showToast('Address deleted');
+            } catch (error) {
+                console.error('Error deleting address:', error);
+                alert('Error deleting address');
+            }
+        }
+
+        // Wishlist functions
+        async function removeFromWishlist(productId) {
+            try {
+                const wishlistRef = db.collection('wishlists').doc(currentUser.uid);
+                await wishlistRef.update({
+                    products: firebase.firestore.FieldValue.arrayRemove(productId)
+                });
+                await loadWishlist();
+                showToast('Removed from wishlist');
+            } catch (error) {
+                console.error('Error removing from wishlist:', error);
+            }
+        }
+
+        function addToCartFromWishlist(productId, productName, productPrice, productImage) {
+            let cart = JSON.parse(localStorage.getItem('okinawa-cart') || '[]');
+            
+            const existingItem = cart.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: productId,
+                    name: productName,
+                    price: parseFloat(productPrice),
+                    image: productImage,
+                    quantity: 1
+                });
+            }
+            
+            localStorage.setItem('okinawa-cart', JSON.stringify(cart));
+            updateCartCount();
+            showToast('Added to cart!');
+        }
+
+        function shareWishlist() {
+            const wishlistUrl = `${window.location.origin}/wishlist.html?user=${currentUser.uid}`;
+            if (navigator.share) {
+                navigator.share({
+                    title: 'My Okinawa Wishlist',
+                    text: 'Check out my favorite products!',
+                    url: wishlistUrl
+                });
+            } else {
+                navigator.clipboard.writeText(wishlistUrl);
+                showToast('Wishlist link copied to clipboard!');
+            }
+        }
+
+        // Update cart count
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('okinawa-cart') || '[]');
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').textContent = count;
+        }
+
+        // Language toggle
+        function toggleLanguage() {
+            const isEnglish = document.getElementById('lang-text').textContent === 'EN';
+            document.getElementById('lang-text').textContent = isEnglish ? 'AR' : 'EN';
+            document.documentElement.dir = isEnglish ? 'rtl' : 'ltr';
+            localStorage.setItem('okinawa-language', isEnglish ? 'ar' : 'en');
+        }
+
+        // Logout
+        async function logout() {
+            try {
+                await auth.signOut();
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error('Error logging out:', error);
+            }
+        }
+
+        // Toast notification
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed top-24 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-slide-up';
+            toast.innerHTML = `<i class="fas fa-check-circle mr-2"></i>${message}`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // View image
+        function viewImage(url) {
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
+

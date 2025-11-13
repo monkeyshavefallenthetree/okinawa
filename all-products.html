@@ -5,919 +5,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Products - Okinawa</title>
     
-    <!-- Simple, clean fonts -->
+    <!-- TailwindCSS v3.4.10 CDN -->
+    <script src="https://cdn.tailwindcss.com?v=3.4.10"></script>
     
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: #ffffff;
-            color: #000000;
-            line-height: 1.6;
-        }
-
-        /* Apply simple font to all elements */
-        *, *::before, *::after {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
-        }
-
-        /* Font adjustments for better readability */
-        h1, h2, h3, h4, h5, h6 {
-            letter-spacing: 0.5px;
-        }
-
-        p, span, div, a, button, input, textarea, select {
-            letter-spacing: 0.3px;
-        }
-
-        /* Header Styles - Liquid Glass Effect */
-        header {
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.25) 0%,
-                rgba(255, 255, 255, 0.15) 25%,
-                rgba(166, 31, 35, 0.1) 50%,
-                rgba(207, 32, 41, 0.15) 75%,
-                rgba(255, 255, 255, 0.2) 100%
-            );
-            padding: 0.8rem 1rem;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            
-            /* Liquid Glass Effects */
-            backdrop-filter: blur(30px) saturate(1.8);
-            -webkit-backdrop-filter: blur(30px) saturate(1.8);
-            border-radius: 0 0 30px 30px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-top: none;
-            
-            /* Glassmorphism Shadow */
-            box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.1),
-                0 4px 16px rgba(0, 0, 0, 0.05),
-                inset 0 1px 0 rgba(255, 255, 255, 0.4),
-                inset 0 -1px 0 rgba(255, 255, 255, 0.1);
-            
-            /* Smooth transitions */
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            
-            /* Liquid animation */
-            animation: liquidFloat 6s ease-in-out infinite;
-            
-            /* Additional glass effect */
-            background-blend-mode: overlay;
-        }
-
-        /* Liquid floating animation */
-        @keyframes liquidFloat {
-            0%, 100% {
-                transform: translateY(0px);
-                backdrop-filter: blur(30px) saturate(1.8);
-            }
-            50% {
-                transform: translateY(-2px);
-                backdrop-filter: blur(35px) saturate(2);
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#A61f23',
+                        primaryDark: '#8a1a1f',
+                        accent: '#cf2029'
+                    }
+                }
             }
         }
-
-        /* Hover effect for liquid glass */
-        header:hover {
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.35) 0%,
-                rgba(255, 255, 255, 0.25) 25%,
-                rgba(166, 31, 35, 0.15) 50%,
-                rgba(207, 32, 41, 0.2) 75%,
-                rgba(255, 255, 255, 0.3) 100%
-            );
-            backdrop-filter: blur(40px) saturate(2.2);
-            -webkit-backdrop-filter: blur(40px) saturate(2.2);
-            box-shadow: 
-                0 12px 40px rgba(0, 0, 0, 0.15),
-                0 6px 20px rgba(0, 0, 0, 0.08),
-                inset 0 1px 0 rgba(255, 255, 255, 0.5),
-                inset 0 -1px 0 rgba(255, 255, 255, 0.2);
-        }
-
-        /* Pseudo-element for additional liquid effect */
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(
-                ellipse 800px 600px at 50% 0%,
-                rgba(255, 255, 255, 0.1) 0%,
-                transparent 50%
-            );
-            border-radius: 0 0 30px 30px;
-            pointer-events: none;
-            animation: liquidShimmer 8s ease-in-out infinite;
-        }
-
-        @keyframes liquidShimmer {
-            0%, 100% {
-                opacity: 0.5;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.8;
-                transform: scale(1.05);
-            }
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            height: 80px;
-        }
-
-        .logo {
-            height: 70px;
-            width: auto;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 1001;
-            object-fit: contain;
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
-            position: relative;
-        }
-
-        .logo:hover {
-            transform: scale(1.05) translateY(-2px);
-            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
-        }
-
-        /* Translation Button */
-        .translation-btn {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            margin-left: 1rem;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            box-shadow: 0 2px 8px rgba(44, 62, 80, 0.3);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .translation-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.4);
-            background: linear-gradient(135deg, #34495e, #2c3e50);
-        }
-
-        .translation-btn:active {
-            transform: translateY(0);
-        }
-
-        .lang-text {
-            font-weight: bold;
-            letter-spacing: 0.5px;
-        }
-
-        .lang-icon {
-            font-size: 1.1rem;
-        }
-
-        /* RTL Support for Arabic */
-        [dir="rtl"] {
-            direction: rtl;
-            text-align: right;
-        }
-
-        [dir="rtl"] .translation-btn {
-            margin-left: 0;
-            margin-right: 1rem;
-        }
-
-        .back-to-home {
-            background: linear-gradient(135deg, #666, #888);
-            color: white;
-            padding: 0.8rem 2rem;
-            border: none;
-            border-radius: 25px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 4px 15px rgba(102, 102, 102, 0.3);
-        }
-
-        .back-to-home:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(102, 102, 102, 0.4);
-        }
-
-        /* Main Content */
-        .main-content {
-            padding: 120px 2rem 2rem;
-            background-color: #ffffff;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .page-title {
-            text-align: center;
-            font-size: 2.5rem;
-            color: #A61f23;
-            margin-bottom: 3rem;
-        }
-
-        /* Products Controls */
-        .products-controls {
-            background-color: #f8f9fa;
-            padding: 2rem;
-            border-radius: 10px;
-            margin-bottom: 2rem;
-            border: 1px solid #e0e0e0;
-        }
-
-        .controls-row {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .control-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .control-group label {
-            font-weight: 600;
-            color: #A61f23;
-            font-size: 0.9rem;
-        }
-
-        .control-group input,
-        .control-group select {
-            padding: 0.8rem;
-            border: 1px solid #e0e0e0;
-            border-radius: 5px;
-            background-color: #ffffff;
-            color: #000000;
-            font-size: 1rem;
-            min-width: 200px;
-        }
-
-        .control-group input:focus,
-        .control-group select:focus {
-            outline: none;
-            border-color: #A61f23;
-        }
-
-        .products-count {
-            color: #666;
-            font-style: italic;
-            margin-bottom: 1rem;
-        }
-
-        /* Products Grid */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .product-card {
-            background-color: #f8f9fa;
-            border-radius: 10px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-            text-align: center;
-            border: 1px solid #e0e0e0;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-
-        .product-card[style*="cursor: pointer"] {
-            transition: all 0.3s ease;
-        }
-
-        .product-card[style*="cursor: pointer"]:hover {
-            border-color: #A61f23;
-        }
-
-        .product-image {
-            width: 100%;
-            height: 200px;
-            background-color: #e9ecef;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #666666;
-            font-size: 0.9rem;
-        }
-
-        .product-name {
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            color: #000000;
-        }
-
-        .product-price {
-            font-size: 1.5rem;
-            color: #A61f23;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        /* Quantity Controls */
-        .quantity-controls {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            margin: 0.8rem 0;
-            padding: 0.5rem;
-            background: rgba(248, 249, 250, 0.5);
-            border-radius: 25px;
-            border: 1px solid rgba(166, 31, 35, 0.1);
-        }
-
-        .quantity-btn {
-            width: 32px;
-            height: 32px;
-            border: 2px solid #A61f23;
-            background: linear-gradient(135deg, rgba(166, 31, 35, 0.1), rgba(207, 32, 41, 0.1));
-            color: #A61f23;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            font-weight: bold;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            user-select: none;
-        }
-
-        .quantity-btn:hover {
-            background: linear-gradient(135deg, #A61f23, #cf2029);
-            color: white;
-            transform: scale(1.1);
-            box-shadow: 0 4px 12px rgba(166, 31, 35, 0.3);
-        }
-
-        .quantity-btn:active {
-            transform: scale(0.95);
-        }
-
-        .quantity-btn.minus:hover {
-            background: linear-gradient(135deg, #dc3545, #c82333);
-            border-color: #dc3545;
-        }
-
-        .quantity-display {
-            min-width: 40px;
-            text-align: center;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #A61f23;
-            padding: 0.3rem 0.6rem;
-            background: white;
-            border-radius: 15px;
-            border: 2px solid rgba(166, 31, 35, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .add-to-cart {
-            background: linear-gradient(135deg, #A61f23, #cf2029);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            width: 100%;
-            margin-top: auto;
-        }
-
-        .add-to-cart:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(166, 31, 35, 0.3);
-            background: linear-gradient(135deg, #cf2029, #A61f23);
-        }
-
-        /* Animation for quantity controls appearance */
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px) scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .controls-row {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .control-group input,
-            .control-group select {
-                min-width: 100%;
-            }
-
-            .products-grid {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            }
-
-            .page-title {
-                font-size: 2rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .page-title {
-                font-size: 1.8rem;
-            }
-
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Cart Styles (same as main page for consistency) */
-        .cart-button {
-            background: linear-gradient(135deg, #A61f23, #cf2029);
-            color: white;
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            box-shadow: 0 2px 10px rgba(166, 31, 35, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cart-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .cart-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(166, 31, 35, 0.4);
-        }
-
-        .cart-button:hover::before {
-            left: 100%;
-        }
-
-        /* Mobile FAB for cart */
-        .mobile-fab {
-            display: flex;
-            position: fixed;
-            bottom: 2rem;
-            right: 1rem;
-            z-index: 999;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .fab-button {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            border: none;
-            background: linear-gradient(135deg, #A61f23, #cf2029);
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(166, 31, 35, 0.4);
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .fab-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 25px rgba(166, 31, 35, 0.5);
-        }
-
-        .fab-cart-count {
-            position: absolute;
-            top: -4px;
-            right: -4px;
-            background: #cf2029;
-            color: white;
-            border-radius: 50%;
-            min-width: 20px;
-            height: 20px;
-            font-size: 0.7rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            border: 2px solid white;
-        }
-
-        /* Category FAB - Above Cart */
-        .fab-categories {
-            background: linear-gradient(135deg, #2E7D32, #388E3C);
-            margin-bottom: 0.5rem;
-        }
-
-        .fab-categories:hover {
-            background: linear-gradient(135deg, #1B5E20, #2E7D32);
-        }
-
-        /* Auth Menu */
-        .fab-auth-menu {
-            position: absolute;
-            bottom: 70px;
-            right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 1rem;
-            min-width: 150px;
-            transform: scale(0) translateY(20px);
-            opacity: 0;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            border: 1px solid #e0e0e0;
-        }
-
-        .fab-auth-menu.active {
-            transform: scale(1) translateY(0);
-            opacity: 1;
-        }
-
-        .fab-auth-menu button {
-            width: 100%;
-            background: #A61f23;
-            color: white;
-            border: none;
-            padding: 0.8rem;
-            border-radius: 8px;
-            margin-bottom: 0.5rem;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .fab-auth-menu button:hover {
-            background: #cf2029;
-        }
-
-        .fab-auth-menu button:last-child {
-            margin-bottom: 0;
-        }
-
-        /* Category Overlay */
-        .category-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            z-index: 3000;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-
-        .category-overlay.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .category-overlay-content {
-            background: #ffffff;
-            border-radius: 20px;
-            padding: 2rem;
-            max-width: 90vw;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            transform: scale(0.8) translateY(50px);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .category-overlay.active .category-overlay-content {
-            transform: scale(1) translateY(0);
-        }
-
-        .overlay-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #f8f9fa;
-        }
-
-        .overlay-title {
-            font-size: 1.8rem;
-            color: #A61f23;
-            font-weight: bold;
-            margin: 0;
-        }
-
-        .close-overlay {
-            background: none;
-            border: none;
-            font-size: 2rem;
-            color: #666;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .close-overlay:hover {
-            background: #f8f9fa;
-            color: #A61f23;
-            transform: rotate(90deg);
-        }
-
-        /* Overlay Category Grid */
-        .overlay-category-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-        }
-
-        .overlay-category-item {
-            position: relative;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 15px;
-            overflow: hidden;
-            height: 120px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(166, 31, 35, 0.1);
-        }
-
-        .overlay-category-item:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(166, 31, 35, 0.2);
-        }
-
-        .overlay-category-card {
-            position: relative;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            padding: 1rem;
-            background: linear-gradient(135deg, transparent 0%, rgba(166, 31, 35, 0.05) 100%);
-            transition: all 0.3s ease;
-        }
-
-        .overlay-category-item:hover .overlay-category-card {
-            background: linear-gradient(135deg, rgba(166, 31, 35, 0.9) 0%, rgba(207, 32, 41, 0.95) 100%);
-        }
-
-        .overlay-category-icon {
-            font-size: 2.5rem;
-            margin-right: 1rem;
-            transition: all 0.3s ease;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-        }
-
-        .overlay-category-item:hover .overlay-category-icon {
-            transform: scale(1.1);
-            filter: drop-shadow(0 4px 8px rgba(255, 255, 255, 0.3));
-        }
-
-        .overlay-category-info {
-            flex: 1;
-        }
-
-        .overlay-category-name {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #333;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: all 0.3s ease;
-            margin-bottom: 0.3rem;
-        }
-
-        .overlay-category-item:hover .overlay-category-name {
-            color: #ffffff;
-        }
-
-        .overlay-category-desc {
-            font-size: 0.8rem;
-            color: #666;
-            transition: all 0.3s ease;
-        }
-
-        .overlay-category-item:hover .overlay-category-desc {
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        /* Category-specific styles for overlay */
-        .overlay-category-item[data-category="rice"] {
-            background: linear-gradient(135deg, #f8f4e6 0%, #f0e6d2 100%);
-        }
-
-        .overlay-category-item[data-category="rice"]:hover {
-            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
-        }
-
-        .overlay-category-item[data-category="soy-sauce"] {
-            background: linear-gradient(135deg, #f4f0e6 0%, #e8dcc0 100%);
-        }
-
-        .overlay-category-item[data-category="soy-sauce"]:hover {
-            background: linear-gradient(135deg, #3A2F20 0%, #5D4037 100%);
-        }
-
-        .overlay-category-item[data-category="tea"] {
-            background: linear-gradient(135deg, #e8f5e8 0%, #d4f1d4 100%);
-        }
-
-        .overlay-category-item[data-category="tea"]:hover {
-            background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%);
-        }
-
-        .overlay-category-item[data-category="snacks"] {
-            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
-        }
-
-        .overlay-category-item[data-category="snacks"]:hover {
-            background: linear-gradient(135deg, #C2185B 0%, #E91E63 100%);
-        }
-
-        .overlay-category-item[data-category="noodles"] {
-            background: linear-gradient(135deg, #fff3e0 0%, #ffcc02 100%);
-        }
-
-        .overlay-category-item[data-category="noodles"]:hover {
-            background: linear-gradient(135deg, #F57C00 0%, #FF9800 100%);
-        }
-
-        /* All Products styling */
-        .overlay-all-products {
-            background: linear-gradient(135deg, #A61f23 0%, #cf2029 100%) !important;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .overlay-all-products .overlay-category-name {
-            color: #ffffff !important;
-        }
-
-        .overlay-all-products .overlay-category-desc {
-            color: rgba(255, 255, 255, 0.9) !important;
-        }
-
-        .overlay-all-products:hover {
-            background: linear-gradient(135deg, #8B0000 0%, #A61f23 100%) !important;
-            transform: translateY(-6px) scale(1.05);
-            box-shadow: 0 20px 40px rgba(166, 31, 35, 0.4);
-        }
-
-        /* Mobile responsiveness for overlay */
-        @media (max-width: 768px) {
-            .category-overlay-content {
-                margin: 1rem;
-                padding: 1.5rem;
-                max-height: 85vh;
-            }
-
-            .overlay-category-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .overlay-category-item {
-                height: 100px;
-            }
-
-            .overlay-category-icon {
-                font-size: 2rem;
-            }
-
-            .overlay-category-name {
-                font-size: 1rem;
-            }
-
-            .overlay-category-desc {
-                font-size: 0.7rem;
-            }
-
-            /* Mobile quantity controls */
-            .quantity-controls {
-                padding: 0.3rem;
-                gap: 0.3rem;
-            }
-
-            .quantity-btn {
-                width: 28px;
-                height: 28px;
-                font-size: 1rem;
-            }
-
-            .quantity-display {
-                min-width: 35px;
-                font-size: 1rem;
-                padding: 0.2rem 0.4rem;
-            }
-        }
-    </style>
+    </script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/custom.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
+<body class="bg-white">
+
     <!-- Header -->
-    <header>
-        <nav>
-            <a href="index.html">
-                <img src="oki.png" alt="Okinawa" class="logo">
-            </a>
-            
-            <div style="display: flex; align-items: center; gap: 1rem;">
-                <button class="cart-button" onclick="openCart()">
-                    🛒 <span id="cart-count">0</span>
-                </button>
-                
-                <!-- Translation Button -->
-                <button class="translation-btn" onclick="toggleLanguage()" title="Toggle Language">
-                    <span class="lang-text">EN</span>
-                    <span class="lang-icon">🌐</span>
-                </button>
-                
-                <a href="index.html" class="back-to-home">
-                    ← Back to Home
+    <header class="fixed w-full top-0 z-50 bg-white/90 backdrop-blur-lg shadow-lg border-b border-gray-100">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center">
+                    <img src="oki.png" alt="Okinawa" class="h-12 w-auto object-contain hover:opacity-80 transition-opacity">
                 </a>
+
+                <!-- Navigation & Buttons -->
+                <div class="flex items-center gap-4">
+                    <!-- Cart Button -->
+                    <button onclick="openCart()" class="relative p-2 text-gray-700 hover:text-primary transition-colors">
+                        <i class="fas fa-shopping-cart text-2xl"></i>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">0</span>
+                </button>
+                
+                    <!-- Language Toggle -->
+                    <button onclick="toggleLanguage()" class="hidden md:flex items-center gap-2 px-4 py-2 bg-gray-800 text-white rounded-full hover:bg-gray-700 transition-colors font-medium">
+                    <span class="lang-text">EN</span>
+                        <i class="fas fa-globe"></i>
+                </button>
+                
+                    <!-- Auth Buttons (When Logged Out) -->
+                    <div id="auth-buttons" class="md:flex items-center gap-2">
+                        <a href="index.html#login" class="px-4 py-2 text-primary hover:text-primaryDark transition-colors font-medium">Login</a>
+                        <a href="index.html#register" class="px-6 py-2 bg-primary text-white rounded-full hover:bg-primaryDark transition-colors font-medium shadow-lg">Register</a>
+                    </div>
+
+                    <!-- User Info (When Logged In) -->
+                    <div id="user-info" class="hidden items-center gap-4">
+                        <a href="profile.html" class="flex items-center gap-2 text-gray-700 hover:text-primary transition-colors">
+                            <i class="fas fa-user-circle text-2xl"></i>
+                            <span id="user-name" class="font-medium">Profile</span>
+                        </a>
+                        <button onclick="logout()" class="px-4 py-2 border border-primary text-primary hover:bg-primary hover:text-white rounded-full transition-colors font-medium">Logout</button>
+                    </div>
+                </div>
             </div>
         </nav>
     </header>
 
     <!-- Main Content -->
-    <div class="main-content">
-        <div class="container">
-            <h1 class="page-title" id="page-title">All Products</h1>
-            
-            <div class="products-controls">
-                <div class="controls-row">
-                    <div class="control-group">
-                        <label for="product-search">Search Products</label>
-                        <input type="text" id="product-search" placeholder="Search by name..." oninput="filterProducts()">
+    <main class="pt-24 pb-16 min-h-screen bg-gradient-to-br from-gray-50 to-white">
+        <div class="container mx-auto px-4">
+            <!-- Page Title -->
+            <h1 id="page-title" class="text-4xl md:text-5xl font-bold text-center text-primary mb-8">
+                All Products
+            </h1>
+
+            <!-- Filters & Search -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Search -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Search Products</label>
+                        <input 
+                            type="text" 
+                            id="product-search" 
+                            placeholder="Search by name..." 
+                            oninput="filterProducts()"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                        >
                     </div>
                     
-                                            <div class="control-group">
-                            <label for="category-filter">Filter by Category</label>
-                            <select id="category-filter" onchange="filterProducts()">
+                    <!-- Category Filter -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Filter by Category</label>
+                        <select 
+                            id="category-filter" 
+                            onchange="filterProducts()"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                        >
                                 <option value="all">All Categories</option>
                                 <optgroup label="Food & Beverage">
                                     <option value="food-beverage">All Food & Beverage</option>
@@ -946,9 +132,14 @@
                             </select>
                         </div>
                     
-                    <div class="control-group">
-                        <label for="sort-by">Sort by</label>
-                        <select id="sort-by" onchange="filterProducts()">
+                    <!-- Sort By -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Sort by</label>
+                        <select 
+                            id="sort-by" 
+                            onchange="filterProducts()"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                        >
                             <option value="name">Name (A-Z)</option>
                             <option value="name-desc">Name (Z-A)</option>
                             <option value="price">Price (Low to High)</option>
@@ -957,258 +148,117 @@
                         </select>
                     </div>
                 </div>
+
+                <!-- Product Count -->
+                <div id="products-count" class="mt-4 text-gray-600 italic">
+                    Loading products...
+                </div>
             </div>
             
-            <div class="products-count" id="products-count">Loading products...</div>
-            
-            <div class="products-grid" id="products-grid">
+            <!-- Products Grid -->
+            <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 <!-- Products will be loaded here -->
+                <div class="col-span-full text-center py-12">
+                    <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
+                    <p class="mt-4 text-gray-600">Loading products...</p>
             </div>
         </div>
     </div>
+    </main>
 
     <!-- Mobile FAB -->
-    <div class="mobile-fab" id="mobile-fab">
+    <div class="fixed bottom-6 right-6 flex flex-col gap-3 z-40">
         <!-- Categories Button -->
-        <button class="fab-button fab-categories" onclick="toggleCategoryOverlay()" title="Shop by Category">
-            ☰
+        <button onclick="toggleCategoryOverlay()" class="w-14 h-14 bg-green-500 text-white rounded-full shadow-lg hover:bg-green-600 transition-all hover:scale-110 flex items-center justify-center">
+            <i class="fas fa-th-large text-xl"></i>
         </button>
         
         <!-- Cart Button -->
-        <button class="fab-button" onclick="openCart()" title="Shopping Cart">
-            🛒
-            <span class="fab-cart-count" id="fab-cart-count">0</span>
-        </button>
-        
-        <!-- Auth/User Button -->
-        <button class="fab-button" onclick="toggleFabAuth()" id="fab-auth-btn" title="Account">
-            👤
-            <div class="fab-auth-menu" id="fab-auth-menu">
-                <!-- Content will be populated by JavaScript -->
-            </div>
+        <button onclick="openCart()" class="w-14 h-14 bg-primary text-white rounded-full shadow-lg hover:bg-primaryDark transition-all hover:scale-110 flex items-center justify-center relative">
+            <i class="fas fa-shopping-cart text-xl"></i>
+            <span id="fab-cart-count" class="absolute -top-1 -right-1 bg-accent text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">0</span>
         </button>
     </div>
 
     <!-- Category Overlay -->
-    <div class="category-overlay" id="category-overlay">
-        <div class="category-overlay-content">
-            <div class="overlay-header">
-                <h2 class="overlay-title">Shop by Category</h2>
-                <button class="close-overlay" onclick="closeCategoryOverlay()">&times;</button>
+    <div id="category-overlay" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 animate-slide-up">
+            <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
+                <h2 class="text-2xl font-bold text-primary">Shop by Category</h2>
+                <button onclick="closeCategoryOverlay()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
             </div>
             
-            <div class="overlay-category-grid">
-                <!-- All Products Option -->
-                <div class="overlay-category-item overlay-all-products" data-category="all-products" onclick="selectCategoryAndClose('all-products')">
-                    <div class="overlay-category-card">
-                        <div class="overlay-category-icon">🛍️</div>
-                        <div class="overlay-category-info">
-                            <div class="overlay-category-name">All Products</div>
-                            <div class="overlay-category-desc">Browse our complete collection</div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- All Products -->
+                <div onclick="selectCategoryAndClose('all-products')" class="group cursor-pointer bg-gradient-to-br from-primary to-accent text-white p-6 rounded-xl hover:shadow-xl transition-all">
+                    <div class="text-4xl mb-3">🛍️</div>
+                    <h3 class="text-lg font-bold">All Products</h3>
+                    <p class="text-sm opacity-90">Browse everything</p>
+                </div>
+                
+                <!-- Food & Beverage -->
+                <div onclick="selectCategoryAndClose('food-beverage')" class="group cursor-pointer bg-gradient-to-br from-orange-100 to-orange-200 p-6 rounded-xl hover:shadow-xl transition-all hover:-translate-y-1">
+                    <div class="text-4xl mb-3">🍱</div>
+                    <h3 class="text-lg font-bold text-gray-900">Food & Beverage</h3>
+                    <p class="text-sm text-gray-600">Japanese cuisine</p>
+                </div>
+                
+                <!-- Beauty -->
+                <div onclick="selectCategoryAndClose('beauty')" class="group cursor-pointer bg-gradient-to-br from-pink-100 to-pink-200 p-6 rounded-xl hover:shadow-xl transition-all hover:-translate-y-1">
+                    <div class="text-4xl mb-3">🌸</div>
+                    <h3 class="text-lg font-bold text-gray-900">Beauty</h3>
+                    <p class="text-sm text-gray-600">Skincare & wellness</p>
+                </div>
+                
+                <!-- Lifestyle -->
+                <div onclick="selectCategoryAndClose('lifestyle')" class="group cursor-pointer bg-gradient-to-br from-green-100 to-green-200 p-6 rounded-xl hover:shadow-xl transition-all hover:-translate-y-1">
+                    <div class="text-4xl mb-3">🎋</div>
+                    <h3 class="text-lg font-bold text-gray-900">Lifestyle</h3>
+                    <p class="text-sm text-gray-600">Home accessories</p>
+                        </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Main Categories -->
-                <div class="overlay-category-item" data-category="food-beverage" onclick="selectCategoryAndClose('food-beverage')">
-                    <div class="overlay-category-card">
-                        <div class="overlay-category-icon">🍱</div>
-                        <div class="overlay-category-info">
-                            <div class="overlay-category-name">Food & Beverage</div>
-                            <div class="overlay-category-desc">Oishii - Authentic Japanese food & drinks</div>
+    <!-- Cart Sidebar (Reuse from index.html structure) -->
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-50">
+        <div class="flex flex-col h-full">
+            <div class="bg-primary text-white p-6 flex justify-between items-center">
+                <h2 class="text-2xl font-bold">Shopping Cart</h2>
+                <button onclick="closeCart()" class="text-white hover:text-gray-200 transition-colors">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+                </div>
+                
+            <div id="cart-items" class="flex-1 overflow-y-auto p-6">
+                <div class="text-center py-12 text-gray-400">
+                    <i class="fas fa-shopping-cart text-6xl mb-4"></i>
+                    <p class="text-lg">Your cart is empty</p>
+                    </div>
+                </div>
+                
+            <div id="cart-footer" class="hidden border-t border-gray-200 p-6 space-y-4">
+                <div class="flex justify-between items-center text-xl font-bold">
+                    <span>Total:</span>
+                    <span id="cart-total" class="text-primary">$0.00</span>
+                        </div>
+                <button onclick="openCheckout()" class="w-full px-6 py-4 bg-primary text-white rounded-full hover:bg-primaryDark transition-colors font-medium text-lg shadow-lg">
+                    Proceed to Checkout
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </button>
                         </div>
                     </div>
                 </div>
                 
-                <div class="overlay-category-item" data-category="beauty" onclick="selectCategoryAndClose('beauty')">
-                    <div class="overlay-category-card">
-                        <div class="overlay-category-icon">🌸</div>
-                        <div class="overlay-category-info">
-                            <div class="overlay-category-name">Beauty</div>
-                            <div class="overlay-category-desc">Japanese beauty and skincare essentials</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="overlay-category-item" data-category="lifestyle" onclick="selectCategoryAndClose('lifestyle')">
-                    <div class="overlay-category-card">
-                        <div class="overlay-category-icon">🎋</div>
-                        <div class="overlay-category-info">
-                            <div class="overlay-category-name">Lifestyle</div>
-                            <div class="overlay-category-desc">Japanese lifestyle products and accessories</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Food & Beverage Subcategories -->
-                <div class="overlay-category-item" data-category="togarashi-furikake" onclick="selectCategoryAndClose('togarashi-furikake')">
-                    <div class="overlay-category-card">
-                        <div class="overlay-category-icon">🌶️</div>
-                        <div class="overlay-category-info">
-                            <div class="overlay-category-name">Togarashi / Furikake</div>
-                            <div class="overlay-category-desc">Japanese seasonings to elevate rice and everyday dishes</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="overlay-category-item" data-category="miso" onclick="selectCategoryAndClose('miso')">
-                    <div class="overlay-category-card">
-                        <div class="overlay-category-icon">🥣</div>
-                        <div class="overlay-category-info">
-                            <div class="overlay-category-name">Miso</div>
-                            <div class="overlay-category-desc">Rich, traditional Miso – perfect for soups and sauces</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="overlay-category-item" data-category="yuzu" onclick="selectCategoryAndClose('yuzu')">
-                    <div class="overlay-category-card">
-                        <div class="overlay-category-icon">🍊</div>
-                        <div class="overlay-category-info">
-                            <div class="overlay-category-name">Yuzu</div>
-                            <div class="overlay-category-desc">Refreshing Japanese citrus fruit with a unique taste</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="overlay-category-item" data-category="matcha" onclick="selectCategoryAndClose('matcha')">
-                    <div class="overlay-category-card">
-                        <div class="overlay-category-icon">🍵</div>
-                        <div class="overlay-category-info">
-                            <div class="overlay-category-name">Matcha</div>
-                            <div class="overlay-category-desc">Premium Matcha tea for energy and focus</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Beauty Subcategories -->
-                <div class="overlay-category-item" data-category="body-soap" onclick="selectCategoryAndClose('body-soap')">
-                    <div class="overlay-category-card">
-                        <div class="overlay-category-icon">🧼</div>
-                        <div class="overlay-category-info">
-                            <div class="overlay-category-name">Body Soap</div>
-                            <div class="overlay-category-desc">Natural Japanese soap for pure skin</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="overlay-category-item" data-category="hand-cream" onclick="selectCategoryAndClose('hand-cream')">
-                    <div class="overlay-category-card">
-                        <div class="overlay-category-icon">🤲</div>
-                        <div class="overlay-category-info">
-                            <div class="overlay-category-name">Hand Cream</div>
-                            <div class="overlay-category-desc">Japanese hand cream with nourishing essence</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="overlay-category-item" data-category="face-mask" onclick="selectCategoryAndClose('face-mask')">
-                    <div class="overlay-category-card">
-                        <div class="overlay-category-icon">😌</div>
-                        <div class="overlay-category-info">
-                            <div class="overlay-category-name">Face Mask</div>
-                            <div class="overlay-category-desc">Japanese masks for hydration and radiance</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="overlay-category-item" data-category="facial-tissue" onclick="selectCategoryAndClose('facial-tissue')">
-                    <div class="overlay-category-card">
-                        <div class="overlay-category-icon">🧻</div>
-                        <div class="overlay-category-info">
-                            <div class="overlay-category-name">Facial Tissue</div>
-                            <div class="overlay-category-desc">Ultra-soft tissues with Japanese craftsmanship</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Lifestyle Subcategories -->
-                <div class="overlay-category-item" data-category="chopsticks-holders" onclick="selectCategoryAndClose('chopsticks-holders')">
-                    <div class="overlay-category-card">
-                        <div class="overlay-category-icon">🥢</div>
-                        <div class="overlay-category-info">
-                            <div class="overlay-category-name">Chopsticks & Holders</div>
-                            <div class="overlay-category-desc">Elegant Japanese chopsticks with holders</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="overlay-category-item" data-category="matcha-set" onclick="selectCategoryAndClose('matcha-set')">
-                    <div class="overlay-category-card">
-                        <div class="overlay-category-icon">🍃</div>
-                        <div class="overlay-category-info">
-                            <div class="overlay-category-name">Matcha Set</div>
-                            <div class="overlay-category-desc">Complete set for preparing Japanese Matcha tea</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="overlay-category-item" data-category="bag-hanger" onclick="selectCategoryAndClose('bag-hanger')">
-                    <div class="overlay-category-card">
-                        <div class="overlay-category-icon">👜</div>
-                        <div class="overlay-category-info">
-                            <div class="overlay-category-name">Bag Hanger</div>
-                            <div class="overlay-category-desc">Japanese-inspired bag hanger</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="overlay-category-item" data-category="rice-soup-spoon" onclick="selectCategoryAndClose('rice-soup-spoon')">
-                    <div class="overlay-category-card">
-                        <div class="overlay-category-icon">🥄</div>
-                        <div class="overlay-category-info">
-                            <div class="overlay-category-name">Rice/Soup Spoon</div>
-                            <div class="overlay-category-desc">Practical spoons for dining</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="overlay-category-item" data-category="sushi-set" onclick="selectCategoryAndClose('sushi-set')">
-                    <div class="overlay-category-card">
-                        <div class="overlay-category-icon">🍣</div>
-                        <div class="overlay-category-info">
-                            <div class="overlay-category-name">Sushi Set</div>
-                            <div class="overlay-category-desc">Tools for making sushi at home</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="overlay-category-item" data-category="keychain" onclick="selectCategoryAndClose('keychain')">
-                    <div class="overlay-category-card">
-                        <div class="overlay-category-icon">🔑</div>
-                        <div class="overlay-category-info">
-                            <div class="overlay-category-name">Keychain</div>
-                            <div class="overlay-category-desc">Keychains inspired by Japan's unique culture</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="overlay-category-item" data-category="anime-drawing-book" onclick="selectCategoryAndClose('anime-drawing-book')">
-                    <div class="overlay-category-card">
-                        <div class="overlay-category-icon">📚</div>
-                        <div class="overlay-category-info">
-                            <div class="overlay-category-name">Anime Drawing Book</div>
-                            <div class="overlay-category-desc">A drawing book for anime enthusiasts</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="overlay-category-item" data-category="all" onclick="selectCategoryAndClose('all')">
-                    <div class="overlay-category-card">
-                        <div class="overlay-category-icon">🏪</div>
-                        <div class="overlay-category-info">
-                            <div class="overlay-category-name">All Products</div>
-                            <div class="overlay-category-desc">Browse our complete collection</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Cart Overlay -->
+    <div id="cart-overlay" class="hidden fixed inset-0 bg-black/50 z-40" onclick="closeCart()"></div>
 
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 
     <script>
         // Firebase configuration
@@ -1222,167 +272,81 @@
             measurementId: "G-9GLB5N0GS2"
         };
 
-        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
+        const auth = firebase.auth();
 
         let allProducts = [];
         let filteredProducts = [];
         let cart = JSON.parse(localStorage.getItem('okinawa-cart')) || [];
+        let isEnglish = true;
 
-        // Get URL parameters to determine what products to show
+        // Get URL parameters
         const urlParams = new URLSearchParams(window.location.search);
         const productType = urlParams.get('type') || 'all';
 
-        // Function to load products from Firestore
+        // Load products from Firestore
         async function loadProducts() {
             try {
+                console.log('Loading products from Firebase...');
                 const snapshot = await db.collection('products').get();
                 const products = [];
                 snapshot.forEach(doc => {
                     products.push({ id: doc.id, ...doc.data() });
                 });
+                console.log(`Loaded ${products.length} products`);
                 return products;
             } catch (error) {
                 console.error('Error loading products:', error);
+                alert('Error loading products. Please check console for details.');
                 return [];
             }
         }
 
-        // Initialize page based on URL parameter
+        // Initialize page
         async function initializePage() {
             try {
+                console.log('Initializing page...');
                 const products = await loadProducts();
-                
-                // Set page title based on type
+                console.log(`Total products received: ${products.length}`);
                 const pageTitle = document.getElementById('page-title');
                 
+                // Filter based on URL parameter
                 if (productType === 'new-arrivals') {
                     pageTitle.textContent = 'New Arrivals';
-                    const newArrivals = products
-                        .filter(product => product.isNewArrival === true)
-                        .sort((a, b) => {
-                            const dateA = a.createdAt ? a.createdAt.toDate() : new Date(0);
-                            const dateB = b.createdAt ? b.createdAt.toDate() : new Date(0);
-                            return dateB - dateA;
-                        });
-                    allProducts = newArrivals.length > 0 ? newArrivals : products.sort((a, b) => {
-                        const dateA = a.createdAt ? a.createdAt.toDate() : new Date(0);
-                        const dateB = b.createdAt ? b.createdAt.toDate() : new Date(0);
-                        return dateB - dateA;
-                    });
+                    allProducts = products.filter(p => p.isNewArrival === true);
                 } else if (productType === 'best-selling') {
-                    pageTitle.textContent = 'Best Selling Products';
-                    const bestSelling = products.filter(product => product.isBestSelling === true);
-                    allProducts = bestSelling.length > 0 ? bestSelling : products;
+                    pageTitle.textContent = 'Best Selling';
+                    allProducts = products.filter(p => p.isBestSeller === true);
                 } else if (productType === 'food-beverage') {
-                    pageTitle.textContent = 'Food & Beverage (Oishii)';
-                    allProducts = products.filter(product => 
-                        product.category === 'food-beverage' || 
-                        product.category === 'togarashi-furikake' || 
-                        product.category === 'miso' || 
-                        product.category === 'yuzu' || 
-                        product.category === 'matcha'
-                    );
+                    pageTitle.textContent = 'Food & Beverage';
+                    allProducts = products.filter(p => ['food-beverage', 'togarashi-furikake', 'miso', 'yuzu', 'matcha'].includes(p.category));
                     document.getElementById('category-filter').value = 'food-beverage';
-                } else if (productType === 'togarashi-furikake') {
-                    pageTitle.textContent = 'Togarashi / Furikake';
-                    allProducts = products.filter(product => product.category === 'togarashi-furikake');
-                    document.getElementById('category-filter').value = 'togarashi-furikake';
-                } else if (productType === 'miso') {
-                    pageTitle.textContent = 'Miso';
-                    allProducts = products.filter(product => product.category === 'miso');
-                    document.getElementById('category-filter').value = 'miso';
-                } else if (productType === 'yuzu') {
-                    pageTitle.textContent = 'Yuzu';
-                    allProducts = products.filter(product => product.category === 'yuzu');
-                    document.getElementById('category-filter').value = 'yuzu';
-                } else if (productType === 'matcha') {
-                    pageTitle.textContent = 'Matcha';
-                    allProducts = products.filter(product => product.category === 'matcha');
-                    document.getElementById('category-filter').value = 'matcha';
                 } else if (productType === 'beauty') {
                     pageTitle.textContent = 'Beauty';
-                    allProducts = products.filter(product => 
-                        product.category === 'beauty' || 
-                        product.category === 'body-soap' || 
-                        product.category === 'hand-cream' || 
-                        product.category === 'face-mask' || 
-                        product.category === 'facial-tissue'
-                    );
+                    allProducts = products.filter(p => ['beauty', 'body-soap', 'hand-cream', 'face-mask', 'facial-tissue'].includes(p.category));
                     document.getElementById('category-filter').value = 'beauty';
-                } else if (productType === 'body-soap') {
-                    pageTitle.textContent = 'Body Soap';
-                    allProducts = products.filter(product => product.category === 'body-soap');
-                    document.getElementById('category-filter').value = 'body-soap';
-                } else if (productType === 'hand-cream') {
-                    pageTitle.textContent = 'Hand Cream';
-                    allProducts = products.filter(product => product.category === 'hand-cream');
-                    document.getElementById('category-filter').value = 'hand-cream';
-                } else if (productType === 'face-mask') {
-                    pageTitle.textContent = 'Face Mask';
-                    allProducts = products.filter(product => product.category === 'face-mask');
-                    document.getElementById('category-filter').value = 'face-mask';
-                } else if (productType === 'facial-tissue') {
-                    pageTitle.textContent = 'Facial Tissue';
-                    allProducts = products.filter(product => product.category === 'facial-tissue');
-                    document.getElementById('category-filter').value = 'facial-tissue';
                 } else if (productType === 'lifestyle') {
                     pageTitle.textContent = 'Lifestyle';
-                    allProducts = products.filter(product => 
-                        product.category === 'lifestyle' || 
-                        product.category === 'chopsticks-holders' || 
-                        product.category === 'matcha-set' || 
-                        product.category === 'bag-hanger' || 
-                        product.category === 'rice-soup-spoon' || 
-                        product.category === 'sushi-set' || 
-                        product.category === 'keychain' || 
-                        product.category === 'anime-drawing-book'
-                    );
+                    allProducts = products.filter(p => ['lifestyle', 'chopsticks-holders', 'matcha-set', 'bag-hanger', 'rice-soup-spoon', 'sushi-set', 'keychain', 'anime-drawing-book'].includes(p.category));
                     document.getElementById('category-filter').value = 'lifestyle';
-                } else if (productType === 'chopsticks-holders') {
-                    pageTitle.textContent = 'Chopsticks & Holders';
-                    allProducts = products.filter(product => product.category === 'chopsticks-holders');
-                    document.getElementById('category-filter').value = 'chopsticks-holders';
-                } else if (productType === 'matcha-set') {
-                    pageTitle.textContent = 'Matcha Set';
-                    allProducts = products.filter(product => product.category === 'matcha-set');
-                    document.getElementById('category-filter').value = 'matcha-set';
-                } else if (productType === 'bag-hanger') {
-                    pageTitle.textContent = 'Bag Hanger';
-                    allProducts = products.filter(product => product.category === 'bag-hanger');
-                    document.getElementById('category-filter').value = 'bag-hanger';
-                } else if (productType === 'rice-soup-spoon') {
-                    pageTitle.textContent = 'Rice/Soup Spoon';
-                    allProducts = products.filter(product => product.category === 'rice-soup-spoon');
-                    document.getElementById('category-filter').value = 'rice-soup-spoon';
-                } else if (productType === 'sushi-set') {
-                    pageTitle.textContent = 'Sushi Set';
-                    allProducts = products.filter(product => product.category === 'sushi-set');
-                    document.getElementById('category-filter').value = 'sushi-set';
-                } else if (productType === 'keychain') {
-                    pageTitle.textContent = 'Keychain';
-                    allProducts = products.filter(product => product.category === 'keychain');
-                    document.getElementById('category-filter').value = 'keychain';
-                } else if (productType === 'anime-drawing-book') {
-                    pageTitle.textContent = 'Anime Drawing Book';
-                    allProducts = products.filter(product => product.category === 'anime-drawing-book');
-                    document.getElementById('category-filter').value = 'anime-drawing-book';
                 } else {
                     pageTitle.textContent = 'All Products';
                     allProducts = products;
                 }
                 
+                console.log(`Filtered products: ${allProducts.length}`);
                 filterProducts();
                 updateCartUI();
                 
             } catch (error) {
                 console.error('Error initializing page:', error);
-                document.getElementById('products-count').textContent = 'Error loading products';
+                document.getElementById('products-count').textContent = 'Error loading products. Check console.';
+                alert('Error initializing page: ' + error.message);
             }
         }
 
-        // Filter and display products
+        // Filter products
         function filterProducts() {
             const searchTerm = document.getElementById('product-search').value.toLowerCase();
             const categoryFilter = document.getElementById('category-filter').value;
@@ -1390,53 +354,33 @@
             
             filteredProducts = [...allProducts];
             
-            // Apply search filter
+            // Search filter
             if (searchTerm) {
                 filteredProducts = filteredProducts.filter(product => 
                     product.name.toLowerCase().includes(searchTerm)
                 );
             }
             
-            // Apply category filter
+            // Category filter
             if (categoryFilter !== 'all') {
                 if (categoryFilter === 'food-beverage') {
-                    // Include all food & beverage subcategories
-                    filteredProducts = filteredProducts.filter(product => 
-                        product.category === 'food-beverage' || 
-                        product.category === 'togarashi-furikake' || 
-                        product.category === 'miso' || 
-                        product.category === 'yuzu' || 
-                        product.category === 'matcha'
+                    filteredProducts = filteredProducts.filter(p => 
+                        ['food-beverage', 'togarashi-furikake', 'miso', 'yuzu', 'matcha'].includes(p.category)
                     );
                 } else if (categoryFilter === 'beauty') {
-                    // Include all beauty subcategories
-                    filteredProducts = filteredProducts.filter(product => 
-                        product.category === 'beauty' || 
-                        product.category === 'body-soap' || 
-                        product.category === 'hand-cream' || 
-                        product.category === 'face-mask' || 
-                        product.category === 'facial-tissue'
+                    filteredProducts = filteredProducts.filter(p => 
+                        ['beauty', 'body-soap', 'hand-cream', 'face-mask', 'facial-tissue'].includes(p.category)
                     );
                 } else if (categoryFilter === 'lifestyle') {
-                    // Include all lifestyle subcategories
-                    filteredProducts = filteredProducts.filter(product => 
-                        product.category === 'lifestyle' || 
-                        product.category === 'chopsticks-holders' || 
-                        product.category === 'matcha-set' || 
-                        product.category === 'bag-hanger' || 
-                        product.category === 'rice-soup-spoon' || 
-                        product.category === 'sushi-set' || 
-                        product.category === 'keychain' || 
-                        product.category === 'anime-drawing-book'
+                    filteredProducts = filteredProducts.filter(p => 
+                        ['lifestyle', 'chopsticks-holders', 'matcha-set', 'bag-hanger', 'rice-soup-spoon', 'sushi-set', 'keychain', 'anime-drawing-book'].includes(p.category)
                     );
                 } else {
-                    filteredProducts = filteredProducts.filter(product => 
-                        product.category === categoryFilter
-                    );
+                    filteredProducts = filteredProducts.filter(p => p.category === categoryFilter);
                 }
             }
             
-            // Apply sorting
+            // Sorting
             switch (sortBy) {
                 case 'name':
                     filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
@@ -1471,762 +415,242 @@
             
             if (filteredProducts.length === 0) {
                 container.innerHTML = `
-                    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: #ccc;">
-                        <h3>No products found</h3>
-                        <p>Try adjusting your search or filter criteria.</p>
+                    <div class="col-span-full text-center py-12">
+                        <div class="text-6xl mb-4">🔍</div>
+                        <h3 class="text-xl font-semibold text-gray-600 mb-2">No products found</h3>
+                        <p class="text-gray-500">Try adjusting your search or filter criteria</p>
                     </div>
                 `;
                 return;
             }
             
-            container.innerHTML = '';
-            filteredProducts.forEach(product => {
-                const productCard = document.createElement('div');
-                productCard.className = 'product-card';
+            container.innerHTML = filteredProducts.map(product => {
                 const price = product.sellPrice || product.price || 0;
-                const isInCart = cart.some(item => item.id === product.id);
-                const cartItem = cart.find(item => item.id === product.id);
-                
-                productCard.innerHTML = `
-                    <div class="product-image">
-                        Product Image<br>${product.name}
+                return `
+                    <div class="product-card bg-white rounded-2xl shadow-lg overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" onclick="navigateToProduct('${product.id}')">
+                        <div class="relative aspect-square bg-gray-100 overflow-hidden">
+                            <img src="${product.image || 'https://via.placeholder.com/300'}" 
+                                 alt="${product.name}" 
+                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                                 onerror="this.src='https://via.placeholder.com/300?text=${encodeURIComponent(product.name)}'">
+                            ${product.isNewArrival ? '<div class="absolute top-2 left-2 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">NEW</div>' : ''}
+                            ${product.isBestSeller ? '<div class="absolute top-2 right-2 bg-yellow-500 text-white px-3 py-1 rounded-full text-xs font-bold">BEST</div>' : ''}
                     </div>
-                    <div class="product-name">${product.name}</div>
-                    <div class="product-price">$${price.toFixed(2)}</div>
-                    <div class="quantity-controls" id="qty-controls-${product.id}" style="display: ${isInCart ? 'flex' : 'none'}">
-                        <button class="quantity-btn minus" onclick="event.stopPropagation(); adjustCartQuantity('${product.id}', -1)">-</button>
-                        <span class="quantity-display" id="qty-${product.id}">${isInCart ? cartItem.quantity : 1}</span>
-                        <button class="quantity-btn plus" onclick="event.stopPropagation(); adjustCartQuantity('${product.id}', 1)">+</button>
-                    </div>
-                    <button class="add-to-cart" id="add-btn-${product.id}" onclick="event.stopPropagation(); addToCartFirst('${product.id}', '${product.name}', ${price})" style="display: ${isInCart ? 'none' : 'block'}">
-                        Add to Cart
+                        <div class="p-4 space-y-3">
+                            <h3 class="font-semibold text-gray-900 text-lg line-clamp-2">${product.name}</h3>
+                            <div class="flex items-center justify-between">
+                                <span class="text-2xl font-bold text-primary">$${price.toFixed(2)}</span>
+                                <button 
+                                    onclick="event.stopPropagation(); addToCart('${product.id}', '${product.name.replace(/'/g, "\\'")}', ${price}, '${product.image}')" 
+                                    class="px-4 py-2 bg-primary text-white rounded-full hover:bg-primaryDark transition-colors flex items-center gap-2">
+                                    <i class="fas fa-cart-plus"></i>
+                                    <span>Add</span>
                     </button>
+                            </div>
+                        </div>
+                    </div>
                 `;
-                
-                // Make entire card clickable
-                productCard.onclick = function(e) {
-                    // Don't navigate if clicking on buttons or quantity controls
-                    if (e.target.closest('button') || e.target.closest('.quantity-controls')) {
-                        return;
-                    }
-                    navigateToProduct(product.id);
-                };
-                productCard.style.cursor = 'pointer';
-                
-                container.appendChild(productCard);
-                
-                // Initialize the product card state immediately after adding to DOM
-                if (isInCart && cartItem) {
-                    initializeProductCardState(product.id, cartItem.quantity);
-                }
-            });
+            }).join('');
         }
-
-        // DYNAMIC CART FUNCTIONS
-        
-        function addToCartFirst(id, name, price) {
-            // Add product to cart for the first time
-            cart.push({ id, name, price, quantity: 1 });
-            
-            // Save to localStorage
-            localStorage.setItem('okinawa-cart', JSON.stringify(cart));
-            
-            // Get DOM elements
-            const addButton = document.getElementById(`add-btn-${id}`);
-            const quantityControls = document.getElementById(`qty-controls-${id}`);
-            const quantityDisplay = document.getElementById(`qty-${id}`);
-            
-            console.log('DOM elements found:', {
-                addButton: !!addButton,
-                quantityControls: !!quantityControls,
-                quantityDisplay: !!quantityDisplay
-            });
-            
-            // Hide add button
-            if (addButton) {
-                addButton.style.display = 'none';
-                console.log('Add button hidden');
-            }
-            
-            // Show quantity controls
-            if (quantityControls) {
-                quantityControls.style.display = 'flex';
-                quantityControls.style.animation = 'slideInUp 0.3s ease-out';
-                console.log('Quantity controls shown');
-            }
-            
-            // Set quantity to 1
-            if (quantityDisplay) {
-                quantityDisplay.textContent = '1';
-                console.log('Quantity set to 1');
-            }
-            
-            // Update cart UI
-            updateCartUI();
-            
-            // Visual feedback
-            if (event && event.target) {
-                const button = event.target;
-                const originalText = button.textContent;
-                button.textContent = 'Added!';
-                button.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
-                
-                setTimeout(() => {
-                    button.textContent = originalText;
-                    button.style.background = 'linear-gradient(135deg, #A61f23, #cf2029)';
-                }, 1000);
-            }
-        }
-        
-        function adjustCartQuantity(productId, change) {
-            console.log('Adjusting cart quantity:', productId, 'change:', change);
-            
-            // Find item in cart
-            const existingItem = cart.find(item => item.id === productId);
-            if (!existingItem) {
-                console.log('Item not found in cart');
-                return;
-            }
-            
-            // Calculate new quantity
-            const newQuantity = existingItem.quantity + change;
-            console.log('New quantity will be:', newQuantity);
-            
-            // If quantity goes to 0 or below, remove from cart
-            if (newQuantity <= 0) {
-                console.log('Removing item from cart');
-                cart = cart.filter(item => item.id !== productId);
-                
-                // Hide quantity controls
-                const quantityControls = document.getElementById(`qty-controls-${productId}`);
-                if (quantityControls) {
-                    quantityControls.style.display = 'none';
-                    console.log('Quantity controls hidden');
-                }
-                
-                // Show add to cart button
-                const addButton = document.getElementById(`add-btn-${productId}`);
-                if (addButton) {
-                    addButton.style.display = 'block';
-                    console.log('Add to cart button shown');
-                }
-            } else {
-                // Update quantity in cart
-                existingItem.quantity = newQuantity;
-                console.log('Quantity updated in cart to:', newQuantity);
-                
-                // Update quantity display on product card
-                const quantityDisplay = document.getElementById(`qty-${productId}`);
-                if (quantityDisplay) {
-                    quantityDisplay.textContent = newQuantity;
-                    console.log('Quantity display updated to:', newQuantity);
-                    
-                    // Visual feedback
-                    quantityDisplay.style.transform = 'scale(1.2)';
-                    quantityDisplay.style.background = 'rgba(166, 31, 35, 0.2)';
-                    
-                    setTimeout(() => {
-                        quantityDisplay.style.transform = 'scale(1)';
-                        quantityDisplay.style.background = 'white';
-                    }, 200);
-                }
-            }
-            
-            // Save to localStorage
-            localStorage.setItem('okinawa-cart', JSON.stringify(cart));
-            console.log('Cart saved to localStorage');
-            
-            // Update cart UI
-            updateCartUI();
-            console.log('Cart UI updated');
-        }
-
-        // Initialize product card state
-        function initializeProductCardState(productId, quantity) {
-            const quantityDisplay = document.getElementById(`qty-${productId}`);
-            const quantityControls = document.getElementById(`qty-controls-${productId}`);
-            const addButton = document.getElementById(`add-btn-${productId}`);
-            
-            if (quantityDisplay) {
-                quantityDisplay.textContent = quantity;
-            }
-            
-            if (quantityControls) {
-                quantityControls.style.display = 'flex';
-            }
-            
-            if (addButton) {
-                addButton.style.display = 'none';
-            }
-        }
-
-        // This function is no longer needed - removed for simplicity
 
         // Cart functions
-        function addToCart(id, name, price) {
-            const existingItem = cart.find(item => item.id === id);
+        function addToCart(productId, productName, productPrice, productImage) {
+            const existingItem = cart.find(item => item.id === productId);
             
             if (existingItem) {
                 existingItem.quantity += 1;
             } else {
-                cart.push({ id, name, price, quantity: 1 });
+                cart.push({
+                    id: productId,
+                    name: productName,
+                    price: parseFloat(productPrice),
+                    image: productImage,
+                    quantity: 1
+                });
             }
             
             localStorage.setItem('okinawa-cart', JSON.stringify(cart));
             updateCartUI();
-            
-            // Show feedback
-            const button = event.target;
-            const originalText = button.textContent;
-            button.textContent = 'Added!';
-            button.style.backgroundColor = '#28a745';
-            
-            setTimeout(() => {
-                button.textContent = originalText;
-                button.style.backgroundColor = '#cf2029';
-            }, 1000);
+            showToast('Added to cart!');
+        }
+
+        function removeFromCart(productId) {
+                cart = cart.filter(item => item.id !== productId);
+            localStorage.setItem('okinawa-cart', JSON.stringify(cart));
+            updateCartUI();
+            updateCartDisplay();
+        }
+
+        function updateCartQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+            } else {
+            localStorage.setItem('okinawa-cart', JSON.stringify(cart));
+            updateCartUI();
+                    updateCartDisplay();
+                }
+            }
         }
 
         function updateCartUI() {
             const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
             document.getElementById('cart-count').textContent = cartCount;
             document.getElementById('fab-cart-count').textContent = cartCount;
-            document.getElementById('fab-cart-count').style.display = cartCount > 0 ? 'flex' : 'none';
-            
-            // Update all product card displays to reflect cart changes
-            updateAllProductCardQuantities();
         }
 
-        // Update quantity displays on all visible product cards
-        function updateAllProductCardQuantities() {
-            console.log('Updating all product card quantities...');
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cart-items');
+            const cartFooter = document.getElementById('cart-footer');
+            const cartTotal = document.getElementById('cart-total');
             
-            // Get all product cards
-            const allProductCards = document.querySelectorAll('.product-card');
-            
-            allProductCards.forEach(card => {
-                // Find the product ID from the quantity display element
-                const quantityDisplay = card.querySelector('.quantity-display');
-                if (!quantityDisplay) return;
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="text-center py-12 text-gray-400">
+                        <i class="fas fa-shopping-cart text-6xl mb-4"></i>
+                        <p class="text-lg">Your cart is empty</p>
+                    </div>
+                `;
+                cartFooter.classList.add('hidden');
+            } else {
+                let total = 0;
+                cartItems.innerHTML = cart.map(item => {
+                    total += item.price * item.quantity;
+                    return `
+                        <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg mb-4">
+                            <img src="${item.image || 'https://via.placeholder.com/60'}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg">
+                            <div class="flex-1">
+                                <h3 class="font-medium text-gray-900">${item.name}</h3>
+                                <p class="text-sm text-primary font-semibold">$${item.price.toFixed(2)}</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button onclick="updateCartQuantity('${item.id}', -1)" class="w-8 h-8 bg-gray-200 hover:bg-gray-300 rounded-full flex items-center justify-center transition-colors">
+                                    <i class="fas fa-minus text-xs"></i>
+                                </button>
+                                <span class="w-8 text-center font-medium">${item.quantity}</span>
+                                <button onclick="updateCartQuantity('${item.id}', 1)" class="w-8 h-8 bg-primary hover:bg-primaryDark text-white rounded-full flex items-center justify-center transition-colors">
+                                    <i class="fas fa-plus text-xs"></i>
+                                </button>
+                            </div>
+                            <button onclick="removeFromCart('${item.id}')" class="text-red-500 hover:text-red-600 transition-colors">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                }).join('');
                 
-                const productId = quantityDisplay.id.replace('qty-', '');
-                console.log('Processing product card:', productId);
-                
-                // Check if this product is in cart
-                const cartItem = cart.find(item => item.id === productId);
-                const quantityControls = card.querySelector('.quantity-controls');
-                const addButton = card.querySelector('.add-to-cart');
-                
-                if (cartItem) {
-                    // Product is in cart - show quantity controls
-                    console.log(`Product ${productId} is in cart with quantity ${cartItem.quantity}`);
-                    
-                    if (quantityDisplay) {
-                        quantityDisplay.textContent = cartItem.quantity;
-                    }
-                    
-                    if (quantityControls) {
-                        quantityControls.style.display = 'flex';
-                    }
-                    
-                    if (addButton) {
-                        addButton.style.display = 'none';
-                    }
-                } else {
-                    // Product is not in cart - show add to cart button
-                    console.log(`Product ${productId} is not in cart`);
-                    
-                    if (quantityControls) {
-                        quantityControls.style.display = 'none';
-                    }
-                    
-                    if (addButton) {
-                        addButton.style.display = 'block';
-                    }
-                }
-            });
-            
-            console.log('All product card quantities updated');
+                cartTotal.textContent = `$${total.toFixed(2)}`;
+                cartFooter.classList.remove('hidden');
+            }
         }
 
         function openCart() {
-            // Redirect to main page with cart open
+            document.getElementById('cart-sidebar').classList.remove('translate-x-full');
+            document.getElementById('cart-overlay').classList.remove('hidden');
+            updateCartDisplay();
+        }
+
+        function closeCart() {
+            document.getElementById('cart-sidebar').classList.add('translate-x-full');
+            document.getElementById('cart-overlay').classList.add('hidden');
+        }
+
+        function openCheckout() {
             window.location.href = 'index.html#cart';
         }
 
-        // CATEGORY OVERLAY FUNCTIONS
-        
+        // Category overlay functions
         function toggleCategoryOverlay() {
-            const overlay = document.getElementById('category-overlay');
-            if (overlay.classList.contains('active')) {
-                closeCategoryOverlay();
-            } else {
-                openCategoryOverlay();
-            }
-        }
-        
-        function openCategoryOverlay() {
-            const overlay = document.getElementById('category-overlay');
-            overlay.classList.add('active');
-            
-            // Close other overlays
-            closeFabMenus();
-            
-            // Prevent body scroll
-            document.body.style.overflow = 'hidden';
+            document.getElementById('category-overlay').classList.toggle('hidden');
         }
         
         function closeCategoryOverlay() {
-            const overlay = document.getElementById('category-overlay');
-            overlay.classList.remove('active');
-            
-            // Restore body scroll
-            document.body.style.overflow = '';
+            document.getElementById('category-overlay').classList.add('hidden');
         }
         
         async function selectCategoryAndClose(category) {
-            // Close the overlay first
             closeCategoryOverlay();
             
-            // Handle "All Products" selection
             if (category === 'all-products') {
-                try {
-                    // Load all products from database
                     const products = await loadProducts();
                     allProducts = products;
-                    
-                    // Update page title
                     document.getElementById('page-title').textContent = 'All Products';
-                    
-                    // Update URL
-                    const newUrl = new URL(window.location);
-                    newUrl.searchParams.set('type', 'all');
-                    window.history.replaceState({}, '', newUrl);
-                    
-                    // Reset category filter to "All"
                     document.getElementById('category-filter').value = 'all';
-                    
-                    // Apply filter to show all products
                     filterProducts();
                     return;
-                } catch (error) {
-                    console.error('Error loading all products:', error);
-                }
             }
             
-            // Get current URL parameters
-            const urlParams = new URLSearchParams(window.location.search);
-            const currentType = urlParams.get('type') || 'all';
-            
-            // If we're coming from best-selling or new-arrivals, we need to load all products
-            if (currentType === 'best-selling' || currentType === 'new-arrivals') {
-                try {
-                    // Load all products from database
-                    const products = await loadProducts();
-                    allProducts = products; // Replace the filtered products with all products
-                    
-                    // Update page title to "All Products"
-                    document.getElementById('page-title').textContent = 'All Products';
-                    
-                    // Update URL to reflect the change (optional)
-                    const newUrl = new URL(window.location);
-                    newUrl.searchParams.set('type', 'all');
-                    window.history.replaceState({}, '', newUrl);
-                    
-                } catch (error) {
-                    console.error('Error loading all products:', error);
-                }
-            }
-            
-            // Update the category filter
             document.getElementById('category-filter').value = category;
-            
-            // Update page title based on category selection
-            const pageTitle = document.getElementById('page-title');
-            if (category === 'all') {
-                pageTitle.textContent = 'All Products';
-            } else if (category === 'food-beverage') {
-                pageTitle.textContent = 'Food & Beverage (Oishii)';
-            } else if (category === 'togarashi-furikake') {
-                pageTitle.textContent = 'Togarashi / Furikake';
-            } else if (category === 'miso') {
-                pageTitle.textContent = 'Miso';
-            } else if (category === 'yuzu') {
-                pageTitle.textContent = 'Yuzu';
-            } else if (category === 'matcha') {
-                pageTitle.textContent = 'Matcha';
-            } else if (category === 'beauty') {
-                pageTitle.textContent = 'Beauty';
-            } else if (category === 'body-soap') {
-                pageTitle.textContent = 'Body Soap';
-            } else if (category === 'hand-cream') {
-                pageTitle.textContent = 'Hand Cream';
-            } else if (category === 'face-mask') {
-                pageTitle.textContent = 'Face Mask';
-            } else if (category === 'facial-tissue') {
-                pageTitle.textContent = 'Facial Tissue';
-            } else if (category === 'lifestyle') {
-                pageTitle.textContent = 'Lifestyle';
-            } else if (category === 'chopsticks-holders') {
-                pageTitle.textContent = 'Chopsticks & Holders';
-            } else if (category === 'matcha-set') {
-                pageTitle.textContent = 'Matcha Set';
-            } else if (category === 'bag-hanger') {
-                pageTitle.textContent = 'Bag Hanger';
-            } else if (category === 'rice-soup-spoon') {
-                pageTitle.textContent = 'Rice/Soup Spoon';
-            } else if (category === 'sushi-set') {
-                pageTitle.textContent = 'Sushi Set';
-            } else if (category === 'keychain') {
-                pageTitle.textContent = 'Keychain';
-            } else if (category === 'anime-drawing-book') {
-                pageTitle.textContent = 'Anime Drawing Book';
-            }
-            
-            // Apply the filter
             filterProducts();
         }
 
-        // FAB AUTH FUNCTIONS
-        
-        function toggleFabAuth() {
-            const menu = document.getElementById('fab-auth-menu');
-            menu.classList.toggle('active');
-        }
-
-        function updateFabAuth() {
-            const fabAuthMenu = document.getElementById('fab-auth-menu');
-            
-            // For now, just show login/register options
-            // You can integrate with Firebase auth here
-            fabAuthMenu.innerHTML = `
-                <button onclick="window.location.href='index.html'; closeFabMenus();">Login</button>
-                <button onclick="window.location.href='index.html'; closeFabMenus();">Register</button>
-            `;
-        }
-
-        function closeFabMenus() {
-            const fabAuthMenu = document.getElementById('fab-auth-menu');
-            if (fabAuthMenu) {
-                fabAuthMenu.classList.remove('active');
-            }
-        }
-
-        // SIMPLE TRANSLATION SYSTEM - REBUILT FROM ZERO
-        
-        let isEnglish = true; // Simple boolean flag
-        
-        // Simple translation function
+        // Language toggle
         function toggleLanguage() {
-            console.log('Toggle language clicked, current state:', isEnglish);
-            
-            // Toggle the language
             isEnglish = !isEnglish;
-            
-            // Update button text
-            const langText = document.querySelector('.lang-text');
-            if (langText) {
-                langText.textContent = isEnglish ? 'EN' : 'AR';
-                console.log('Button text updated to:', langText.textContent);
-            }
-            
-            // Update document direction
+            document.querySelector('.lang-text').textContent = isEnglish ? 'EN' : 'AR';
             document.documentElement.dir = isEnglish ? 'ltr' : 'rtl';
-            
-            // Translate the page
-            translateAllText();
-            
-            // Save preference
-            localStorage.setItem('allproducts-lang', isEnglish ? 'en' : 'ar');
-        }
-        
-        // Simple translation function
-        function translateAllText() {
-            console.log('Translating page, isEnglish:', isEnglish);
-            
-            if (isEnglish) {
-                // Convert to English
-                translateToEnglish();
-            } else {
-                // Convert to Arabic
-                translateToArabic();
-            }
-        }
-        
-        // Convert all text to English
-        function translateToEnglish() {
-            // Page title - translate based on current category
-            const pageTitle = document.getElementById('page-title');
-            if (pageTitle) {
-                const currentText = pageTitle.textContent.trim();
-                if (currentText === 'جميع المنتجات') {
-                    pageTitle.textContent = 'All Products';
-                } else if (currentText === 'الطعام والمشروبات (أوشي)') {
-                    pageTitle.textContent = 'Food & Beverage (Oishii)';
-                } else if (currentText === 'توجاراشي / فوريكاكي') {
-                    pageTitle.textContent = 'Togarashi / Furikake';
-                } else if (currentText === 'ميسو') {
-                    pageTitle.textContent = 'Miso';
-                } else if (currentText === 'يوزو') {
-                    pageTitle.textContent = 'Yuzu';
-                } else if (currentText === 'ماتشا') {
-                    pageTitle.textContent = 'Matcha';
-                } else if (currentText === 'الجمال') {
-                    pageTitle.textContent = 'Beauty';
-                } else if (currentText === 'صابون الجسم') {
-                    pageTitle.textContent = 'Body Soap';
-                } else if (currentText === 'كريم اليدين') {
-                    pageTitle.textContent = 'Hand Cream';
-                } else if (currentText === 'قناع الوجه') {
-                    pageTitle.textContent = 'Face Mask';
-                } else if (currentText === 'مناديل الوجه') {
-                    pageTitle.textContent = 'Facial Tissue';
-                } else if (currentText === 'نمط الحياة') {
-                    pageTitle.textContent = 'Lifestyle';
-                } else if (currentText === 'عصي الطعام والحوامل') {
-                    pageTitle.textContent = 'Chopsticks & Holders';
-                } else if (currentText === 'طقم ماتشا') {
-                    pageTitle.textContent = 'Matcha Set';
-                } else if (currentText === 'علاقة الحقيبة') {
-                    pageTitle.textContent = 'Bag Hanger';
-                } else if (currentText === 'ملعقة الأرز/الحساء') {
-                    pageTitle.textContent = 'Rice/Soup Spoon';
-                } else if (currentText === 'طقم السوشي') {
-                    pageTitle.textContent = 'Sushi Set';
-                } else if (currentText === 'مفتاح') {
-                    pageTitle.textContent = 'Keychain';
-                } else if (currentText === 'كتاب رسم الأنمي') {
-                    pageTitle.textContent = 'Anime Drawing Book';
-                }
-            }
-            
-            // Search input
-            const searchInput = document.getElementById('product-search');
-            if (searchInput) searchInput.placeholder = 'Search by name...';
-            
-            // Back to home
-            const backToHome = document.querySelector('.back-to-home');
-            if (backToHome) backToHome.textContent = '← Back to Home';
-            
-            // Labels
-            const labels = document.querySelectorAll('label');
-            labels.forEach(label => {
-                const text = label.textContent.trim();
-                if (text === 'البحث في المنتجات') label.textContent = 'Search Products';
-                else if (text === 'تصفية حسب الفئة') label.textContent = 'Filter by Category';
-                else if (text === 'ترتيب حسب') label.textContent = 'Sort by';
-            });
-            
-            // Select options
-            const options = document.querySelectorAll('option');
-            options.forEach(option => {
-                const text = option.textContent.trim();
-                if (text === 'جميع الفئات') option.textContent = 'All Categories';
-                else if (text === 'جميع الطعام والمشروبات') option.textContent = 'All Food & Beverage';
-                else if (text === 'توجاراشي / فوريكاكي') option.textContent = 'Togarashi / Furikake';
-                else if (text === 'ميسو') option.textContent = 'Miso';
-                else if (text === 'يوزو') option.textContent = 'Yuzu';
-                else if (text === 'ماتشا') option.textContent = 'Matcha';
-                else if (text === 'جميع الجمال') option.textContent = 'All Beauty';
-                else if (text === 'صابون الجسم') option.textContent = 'Body Soap';
-                else if (text === 'كريم اليدين') option.textContent = 'Hand Cream';
-                else if (text === 'قناع الوجه') option.textContent = 'Face Mask';
-                else if (text === 'مناديل الوجه') option.textContent = 'Facial Tissue';
-                else if (text === 'جميع نمط الحياة') option.textContent = 'All Lifestyle';
-                else if (text === 'عصي الطعام والحوامل') option.textContent = 'Chopsticks & Holders';
-                else if (text === 'طقم ماتشا') option.textContent = 'Matcha Set';
-                else if (text === 'علاقة الحقيبة') option.textContent = 'Bag Hanger';
-                else if (text === 'ملعقة الأرز/الحساء') option.textContent = 'Rice/Soup Spoon';
-                else if (text === 'طقم السوشي') option.textContent = 'Sushi Set';
-                else if (text === 'مفتاح') option.textContent = 'Keychain';
-                else if (text === 'كتاب رسم الأنمي') option.textContent = 'Anime Drawing Book';
-                else if (text === 'السعر: من الأقل للأعلى') option.textContent = 'Price: Low to High';
-                else if (text === 'السعر: من الأعلى للأقل') option.textContent = 'Price: High to Low';
-                else if (text === 'الاسم: من أ إلى ي') option.textContent = 'Name: A to Z';
-                else if (text === 'الاسم: من ي إلى أ') option.textContent = 'Name: Z to A';
-            });
-            
-            // Optgroups
-            const optgroups = document.querySelectorAll('optgroup');
-            optgroups.forEach(optgroup => {
-                const text = optgroup.label.trim();
-                if (text === 'الطعام والمشروبات') optgroup.label = 'Food & Beverage';
-                else if (text === 'الجمال') optgroup.label = 'Beauty';
-                else if (text === 'نمط الحياة') optgroup.label = 'Lifestyle';
-            });
-            
-            // Buttons
-            const buttons = document.querySelectorAll('button');
-            buttons.forEach(button => {
-                const text = button.textContent.trim();
-                if (text === 'أضف إلى السلة') button.textContent = 'Add to Cart';
-                else if (text === 'إزالة') button.textContent = 'Remove';
-            });
-        }
-        
-        // Convert all text to Arabic
-        function translateToArabic() {
-            // Page title - translate based on current category
-            const pageTitle = document.getElementById('page-title');
-            if (pageTitle) {
-                const currentText = pageTitle.textContent.trim();
-                if (currentText === 'All Products') {
-                    pageTitle.textContent = 'جميع المنتجات';
-                } else if (currentText === 'Food & Beverage (Oishii)') {
-                    pageTitle.textContent = 'الطعام والمشروبات (أوشي)';
-                } else if (currentText === 'Togarashi / Furikake') {
-                    pageTitle.textContent = 'توجاراشي / فوريكاكي';
-                } else if (currentText === 'Miso') {
-                    pageTitle.textContent = 'ميسو';
-                } else if (currentText === 'Yuzu') {
-                    pageTitle.textContent = 'يوزو';
-                } else if (currentText === 'Matcha') {
-                    pageTitle.textContent = 'ماتشا';
-                } else if (currentText === 'Beauty') {
-                    pageTitle.textContent = 'الجمال';
-                } else if (currentText === 'Body Soap') {
-                    pageTitle.textContent = 'صابون الجسم';
-                } else if (currentText === 'Hand Cream') {
-                    pageTitle.textContent = 'كريم اليدين';
-                } else if (currentText === 'Face Mask') {
-                    pageTitle.textContent = 'قناع الوجه';
-                } else if (currentText === 'Facial Tissue') {
-                    pageTitle.textContent = 'مناديل الوجه';
-                } else if (currentText === 'Lifestyle') {
-                    pageTitle.textContent = 'نمط الحياة';
-                } else if (currentText === 'Chopsticks & Holders') {
-                    pageTitle.textContent = 'عصي الطعام والحوامل';
-                } else if (currentText === 'Matcha Set') {
-                    pageTitle.textContent = 'طقم ماتشا';
-                } else if (currentText === 'Bag Hanger') {
-                    pageTitle.textContent = 'علاقة الحقيبة';
-                } else if (currentText === 'Rice/Soup Spoon') {
-                    pageTitle.textContent = 'ملعقة الأرز/الحساء';
-                } else if (currentText === 'Sushi Set') {
-                    pageTitle.textContent = 'طقم السوشي';
-                } else if (currentText === 'Keychain') {
-                    pageTitle.textContent = 'مفتاح';
-                } else if (currentText === 'Anime Drawing Book') {
-                    pageTitle.textContent = 'كتاب رسم الأنمي';
-                }
-            }
-            
-            // Search input
-            const searchInput = document.getElementById('product-search');
-            if (searchInput) searchInput.placeholder = 'البحث بالاسم...';
-            
-            // Back to home
-            const backToHome = document.querySelector('.back-to-home');
-            if (backToHome) backToHome.textContent = '← العودة للرئيسية';
-            
-            // Labels
-            const labels = document.querySelectorAll('label');
-            labels.forEach(label => {
-                const text = label.textContent.trim();
-                if (text === 'Search Products') label.textContent = 'البحث في المنتجات';
-                else if (text === 'Filter by Category') label.textContent = 'تصفية حسب الفئة';
-                else if (text === 'Sort by') label.textContent = 'ترتيب حسب';
-            });
-            
-            // Select options
-            const options = document.querySelectorAll('option');
-            options.forEach(option => {
-                const text = option.textContent.trim();
-                if (text === 'All Categories') option.textContent = 'جميع الفئات';
-                else if (text === 'All Food & Beverage') option.textContent = 'جميع الطعام والمشروبات';
-                else if (text === 'Togarashi / Furikake') option.textContent = 'توجاراشي / فوريكاكي';
-                else if (text === 'Miso') option.textContent = 'ميسو';
-                else if (text === 'Yuzu') option.textContent = 'يوزو';
-                else if (text === 'Matcha') option.textContent = 'ماتشا';
-                else if (text === 'All Beauty') option.textContent = 'جميع الجمال';
-                else if (text === 'Body Soap') option.textContent = 'صابون الجسم';
-                else if (text === 'Hand Cream') option.textContent = 'كريم اليدين';
-                else if (text === 'Face Mask') option.textContent = 'قناع الوجه';
-                else if (text === 'Facial Tissue') option.textContent = 'مناديل الوجه';
-                else if (text === 'All Lifestyle') option.textContent = 'جميع نمط الحياة';
-                else if (text === 'Chopsticks & Holders') option.textContent = 'عصي الطعام والحوامل';
-                else if (text === 'Matcha Set') option.textContent = 'طقم ماتشا';
-                else if (text === 'Bag Hanger') option.textContent = 'علاقة الحقيبة';
-                else if (text === 'Rice/Soup Spoon') option.textContent = 'ملعقة الأرز/الحساء';
-                else if (text === 'Sushi Set') option.textContent = 'طقم السوشي';
-                else if (text === 'Keychain') option.textContent = 'مفتاح';
-                else if (text === 'Anime Drawing Book') option.textContent = 'كتاب رسم الأنمي';
-                else if (text === 'Price: Low to High') option.textContent = 'السعر: من الأقل للأعلى';
-                else if (text === 'Price: High to Low') option.textContent = 'السعر: من الأعلى للأقل';
-                else if (text === 'Name: A to Z') option.textContent = 'الاسم: من أ إلى ي';
-                else if (text === 'Name: Z to A') option.textContent = 'الاسم: من ي إلى أ';
-            });
-            
-            // Optgroups
-            const optgroups = document.querySelectorAll('optgroup');
-            optgroups.forEach(optgroup => {
-                const text = optgroup.label.trim();
-                if (text === 'Food & Beverage') optgroup.label = 'الطعام والمشروبات';
-                else if (text === 'Beauty') optgroup.label = 'الجمال';
-                else if (text === 'Lifestyle') optgroup.label = 'نمط الحياة';
-            });
-            
-            // Buttons
-            const buttons = document.querySelectorAll('button');
-            buttons.forEach(button => {
-                const text = button.textContent.trim();
-                if (text === 'Add to Cart') button.textContent = 'أضف إلى السلة';
-                else if (text === 'Remove') button.textContent = 'إزالة';
-            });
-        }
-        
-        // Load saved language preference
-        function loadLanguagePreference() {
-            const saved = localStorage.getItem('allproducts-lang');
-            if (saved === 'ar') {
-                isEnglish = false;
-                const langText = document.querySelector('.lang-text');
-                if (langText) langText.textContent = 'AR';
-                document.documentElement.dir = 'rtl';
-                translateToArabic();
-            }
+            localStorage.setItem('okinawa-language', isEnglish ? 'en' : 'ar');
         }
 
-        // Navigate to product page
+        // Navigation
         function navigateToProduct(productId) {
             window.location.href = `product.html?id=${productId}`;
         }
 
-        // Initialize page when DOM is loaded
+        // Toast notification
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed top-24 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-slide-up';
+            toast.innerHTML = `<i class="fas fa-check-circle mr-2"></i>${message}`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // Auth state handler
+        auth.onAuthStateChanged(function(user) {
+            const authButtons = document.getElementById('auth-buttons');
+            const userInfo = document.getElementById('user-info');
+            
+            if (user) {
+                // User is logged in
+                if (authButtons) authButtons.style.display = 'none';
+                if (userInfo) userInfo.style.display = 'flex';
+                const userName = user.displayName || user.email.split('@')[0];
+                const userNameEl = document.getElementById('user-name');
+                if (userNameEl) userNameEl.textContent = userName;
+            } else {
+                // User is logged out
+                if (authButtons) authButtons.style.display = 'flex';
+                if (userInfo) userInfo.style.display = 'none';
+            }
+        });
+
+        // Logout function
+        async function logout() {
+            try {
+                await auth.signOut();
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
+        }
+
+        // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            // Load language preference
-            loadLanguagePreference();
-            
             initializePage();
-            updateFabAuth();
+            updateCartUI();
             
-            // Initialize product card states based on existing cart
-            updateAllProductCardQuantities();
-            
-            // Close category overlay when clicking outside
-            document.getElementById('category-overlay').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeCategoryOverlay();
-                }
-            });
-
-            // Handle escape key for overlays
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    closeCategoryOverlay();
-                    closeFabMenus();
-                }
-            });
-
-            // Close FAB auth menu when clicking outside
-            document.addEventListener('click', function(e) {
-                const fabAuthMenu = document.getElementById('fab-auth-menu');
-                const fabAuthBtn = document.getElementById('fab-auth-btn');
-                if (fabAuthMenu && fabAuthBtn && !fabAuthBtn.contains(e.target) && fabAuthMenu.classList.contains('active')) {
-                    closeFabMenus();
-                }
-            });
+            // Load language preference
+            const savedLang = localStorage.getItem('okinawa-language');
+            if (savedLang === 'ar') {
+                isEnglish = false;
+                document.querySelector('.lang-text').textContent = 'AR';
+                document.documentElement.dir = 'rtl';
+            }
         });
     </script>
 </body>
 </html>
+
