@@ -222,256 +222,329 @@
         </div>
     </section>
 
-    <!-- Categories Section with Subcategories -->
-    <section id="categories" class="py-20 bg-white">
+    <!-- Food & Beverage Category Section -->
+    <section id="categories" class="py-16 bg-white">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
+            <div class="text-center mb-12">
                 <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                    Shop by <span class="text-primary">Category</span>
+                    Food & <span class="text-red-600">Beverage</span>
                 </h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    Explore our carefully curated collections of authentic Japanese products
-                </p>
+                <p class="text-xl text-gray-600">Authentic Japanese cuisine and drinks</p>
             </div>
 
-            <!-- Main Categories Grid -->
-            <div class="space-y-12 max-w-7xl mx-auto">
-                <!-- Food & Beverage Category -->
-                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-red-100">
-                    <div class="grid md:grid-cols-2 gap-0">
-                        <!-- Category Image -->
-                        <div class="relative h-64 md:h-80 overflow-hidden bg-gradient-to-br from-red-50 to-red-100">
-                            <img 
-                                src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&h=600&fit=crop" 
-                                alt="Japanese Food & Beverage"
-                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                onerror="this.src='https://via.placeholder.com/800x600/fef3e2/ff6b35?text=Japanese+Food'"
-                            >
-                            <div class="absolute inset-0 bg-gradient-to-t from-red-900/70 via-red-800/30 to-transparent"></div>
-                            <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
-                                <div class="flex items-center gap-3 mb-2">
-                                    <div class="w-12 h-12 rounded-xl bg-red-600/90 backdrop-blur-sm flex items-center justify-center">
-                                        <i class="fas fa-bowl-food text-2xl"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="text-2xl md:text-3xl font-bold">Food & Beverage</h3>
-                                        <p class="text-sm text-white/90">Authentic Japanese cuisine</p>
-                                    </div>
-                                </div>
-                            </div>
+            <div class="mt-12 space-y-12">
+                <div class="rounded-3xl bg-gray-50 p-8 shadow-inner">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900">Spices &amp; Seasonings</h3>
+                            <p class="text-gray-600">Signature Togarashi blends and Japanese furikake favorites.</p>
                         </div>
-
-                        <!-- Subcategories -->
-                        <div class="p-8 md:p-10 flex flex-col justify-center">
-                            <div class="grid grid-cols-2 gap-4 mb-6">
-                                <a href="all-products.html?type=togarashi-furikake" class="group/subcat relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-50 to-red-100 p-4 hover:shadow-lg transition-all duration-300 border border-red-200 hover:border-red-600">
-                                    <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover/subcat:opacity-100 transition-opacity"></div>
-                                    <div class="relative text-center py-2">
-                                        <h4 class="font-semibold text-gray-900 text-sm mb-1">Togarashi</h4>
-                                        <p class="text-xs text-gray-600">Spices & Seasonings</p>
-                                    </div>
-                                </a>
-
-                                <a href="all-products.html?type=miso" class="group/subcat relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-50 to-red-100 p-4 hover:shadow-lg transition-all duration-300 border border-red-200 hover:border-red-600">
-                                    <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover/subcat:opacity-100 transition-opacity"></div>
-                                    <div class="relative text-center py-2">
-                                        <h4 class="font-semibold text-gray-900 text-sm mb-1">Miso</h4>
-                                        <p class="text-xs text-gray-600">Traditional Soups</p>
-                                    </div>
-                                </a>
-
-                                <a href="all-products.html?type=yuzu" class="group/subcat relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-50 to-red-100 p-4 hover:shadow-lg transition-all duration-300 border border-red-200 hover:border-red-600">
-                                    <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover/subcat:opacity-100 transition-opacity"></div>
-                                    <div class="relative text-center py-2">
-                                        <h4 class="font-semibold text-gray-900 text-sm mb-1">Yuzu</h4>
-                                        <p class="text-xs text-gray-600">Citrus Freshness</p>
-                                    </div>
-                                </a>
-
-                                <a href="all-products.html?type=matcha" class="group/subcat relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-50 to-red-100 p-4 hover:shadow-lg transition-all duration-300 border border-red-200 hover:border-red-600">
-                                    <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover/subcat:opacity-100 transition-opacity"></div>
-                                    <div class="relative text-center py-2">
-                                        <h4 class="font-semibold text-gray-900 text-sm mb-1">Matcha</h4>
-                                        <p class="text-xs text-gray-600">Premium Tea</p>
-                                    </div>
-                                </a>
-                            </div>
-                            <a href="all-products.html?type=food-beverage" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-all duration-300 font-semibold shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
-                                View All Food & Beverage
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
+                        <a href="all-products.html?type=togarashi-furikake" class="inline-flex items-center gap-2 px-5 py-3 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors">
+                            Explore Togarashi
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div id="subcategory-togarashi-grid" class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="col-span-full text-center py-12">
+                            <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-red-500 border-t-transparent"></div>
+                            <p class="mt-3 text-gray-500">Loading subcategory products...</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Beauty & Wellness Category -->
-                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-red-100">
-                    <div class="grid md:grid-cols-2 gap-0">
-                        <!-- Subcategories -->
-                        <div class="p-8 md:p-10 flex flex-col justify-center order-2 md:order-1">
-                            <div class="grid grid-cols-2 gap-4 mb-6">
-                                <a href="all-products.html?type=body-soap" class="group/subcat relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-50 to-red-100 p-4 hover:shadow-lg transition-all duration-300 border border-red-200 hover:border-red-600">
-                                    <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover/subcat:opacity-100 transition-opacity"></div>
-                                    <div class="relative text-center py-2">
-                                        <h4 class="font-semibold text-gray-900 text-sm mb-1">Body Soap</h4>
-                                        <p class="text-xs text-gray-600">Natural Cleansing</p>
-                                    </div>
-                                </a>
-
-                                <a href="all-products.html?type=hand-cream" class="group/subcat relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-50 to-red-100 p-4 hover:shadow-lg transition-all duration-300 border border-red-200 hover:border-red-600">
-                                    <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover/subcat:opacity-100 transition-opacity"></div>
-                                    <div class="relative text-center py-2">
-                                        <h4 class="font-semibold text-gray-900 text-sm mb-1">Hand Cream</h4>
-                                        <p class="text-xs text-gray-600">Nourishing Care</p>
-                                    </div>
-                                </a>
-
-                                <a href="all-products.html?type=face-mask" class="group/subcat relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-50 to-red-100 p-4 hover:shadow-lg transition-all duration-300 border border-red-200 hover:border-red-600">
-                                    <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover/subcat:opacity-100 transition-opacity"></div>
-                                    <div class="relative text-center py-2">
-                                        <h4 class="font-semibold text-gray-900 text-sm mb-1">Face Mask</h4>
-                                        <p class="text-xs text-gray-600">Hydration Boost</p>
-                                    </div>
-                                </a>
-
-                                <a href="all-products.html?type=facial-tissue" class="group/subcat relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-50 to-red-100 p-4 hover:shadow-lg transition-all duration-300 border border-red-200 hover:border-red-600">
-                                    <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover/subcat:opacity-100 transition-opacity"></div>
-                                    <div class="relative text-center py-2">
-                                        <h4 class="font-semibold text-gray-900 text-sm mb-1">Facial Tissue</h4>
-                                        <p class="text-xs text-gray-600">Ultra-Soft</p>
-                                    </div>
-                                </a>
-                            </div>
-                            <a href="all-products.html?type=beauty" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-all duration-300 font-semibold shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
-                                View All Beauty & Wellness
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
+                <div class="rounded-3xl bg-gray-50 p-8 shadow-inner">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900">Traditional Miso</h3>
+                            <p class="text-gray-600">Comforting soups and fermented pastes straight from Japan.</p>
                         </div>
-
-                        <!-- Category Image -->
-                        <div class="relative h-64 md:h-80 overflow-hidden bg-gradient-to-br from-red-50 to-red-100 order-1 md:order-2">
-                            <img 
-                                src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=800&h=600&fit=crop" 
-                                alt="Japanese Beauty & Wellness"
-                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                onerror="this.src='https://via.placeholder.com/800x600/fce7f3/f43f5e?text=Beauty+Products'"
-                            >
-                            <div class="absolute inset-0 bg-gradient-to-t from-red-900/70 via-red-800/30 to-transparent"></div>
-                            <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
-                                <div class="flex items-center gap-3 mb-2">
-                                    <div class="w-12 h-12 rounded-xl bg-red-600/90 backdrop-blur-sm flex items-center justify-center">
-                                        <i class="fas fa-spa text-2xl"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="text-2xl md:text-3xl font-bold">Beauty & Wellness</h3>
-                                        <p class="text-sm text-white/90">Premium Japanese skincare</p>
-                                    </div>
-                                </div>
-                            </div>
+                        <a href="all-products.html?type=miso" class="inline-flex items-center gap-2 px-5 py-3 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors">
+                            Explore Miso
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div id="subcategory-miso-grid" class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="col-span-full text-center py-12">
+                            <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-red-500 border-t-transparent"></div>
+                            <p class="mt-3 text-gray-500">Loading subcategory products...</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Lifestyle & Home Category -->
-                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-red-100">
-                    <div class="grid md:grid-cols-2 gap-0">
-                        <!-- Category Image -->
-                        <div class="relative h-64 md:h-80 overflow-hidden bg-gradient-to-br from-red-50 to-red-100">
-                            <img 
-                                src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop" 
-                                alt="Japanese Lifestyle & Home"
-                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                onerror="this.src='https://via.placeholder.com/800x600/ecfdf5/10b981?text=Lifestyle+Home'"
-                            >
-                            <div class="absolute inset-0 bg-gradient-to-t from-red-900/70 via-red-800/30 to-transparent"></div>
-                            <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
-                                <div class="flex items-center gap-3 mb-2">
-                                    <div class="w-12 h-12 rounded-xl bg-red-600/90 backdrop-blur-sm flex items-center justify-center">
-                                        <i class="fas fa-house text-2xl"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="text-2xl md:text-3xl font-bold">Lifestyle & Home</h3>
-                                        <p class="text-sm text-white/90">Elegant everyday essentials</p>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="rounded-3xl bg-gray-50 p-8 shadow-inner">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900">Yuzu &amp; Citrus</h3>
+                            <p class="text-gray-600">Bright citrus condiments, sauces, and refreshing drinks.</p>
                         </div>
+                        <a href="all-products.html?type=yuzu" class="inline-flex items-center gap-2 px-5 py-3 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors">
+                            Explore Yuzu
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div id="subcategory-yuzu-grid" class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="col-span-full text-center py-12">
+                            <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-red-500 border-t-transparent"></div>
+                            <p class="mt-3 text-gray-500">Loading subcategory products...</p>
+                        </div>
+                    </div>
+                </div>
 
-                        <!-- Subcategories -->
-                        <div class="p-8 md:p-10 flex flex-col justify-center">
-                            <div class="grid grid-cols-2 gap-4 mb-6">
-                                <a href="all-products.html?type=chopsticks-holders" class="group/subcat relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-50 to-red-100 p-4 hover:shadow-lg transition-all duration-300 border border-red-200 hover:border-red-600">
-                                    <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover/subcat:opacity-100 transition-opacity"></div>
-                                    <div class="relative text-center py-2">
-                                        <h4 class="font-semibold text-gray-900 text-sm mb-1">Chopsticks</h4>
-                                        <p class="text-xs text-gray-600">Elegant Dining</p>
-                                    </div>
-                                </a>
-
-                                <a href="all-products.html?type=matcha-set" class="group/subcat relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-50 to-red-100 p-4 hover:shadow-lg transition-all duration-300 border border-red-200 hover:border-red-600">
-                                    <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover/subcat:opacity-100 transition-opacity"></div>
-                                    <div class="relative text-center py-2">
-                                        <h4 class="font-semibold text-gray-900 text-sm mb-1">Matcha Set</h4>
-                                        <p class="text-xs text-gray-600">Tea Ceremony</p>
-                                    </div>
-                                </a>
-
-                                <a href="all-products.html?type=bag-hanger" class="group/subcat relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-50 to-red-100 p-4 hover:shadow-lg transition-all duration-300 border border-red-200 hover:border-red-600">
-                                    <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover/subcat:opacity-100 transition-opacity"></div>
-                                    <div class="relative text-center py-2">
-                                        <h4 class="font-semibold text-gray-900 text-sm mb-1">Bag Hanger</h4>
-                                        <p class="text-xs text-gray-600">Practical Style</p>
-                                    </div>
-                                </a>
-
-                                <a href="all-products.html?type=rice-soup-spoon" class="group/subcat relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-50 to-red-100 p-4 hover:shadow-lg transition-all duration-300 border border-red-200 hover:border-red-600">
-                                    <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover/subcat:opacity-100 transition-opacity"></div>
-                                    <div class="relative text-center py-2">
-                                        <h4 class="font-semibold text-gray-900 text-sm mb-1">Rice Spoon</h4>
-                                        <p class="text-xs text-gray-600">Dining Tools</p>
-                                    </div>
-                                </a>
-
-                                <a href="all-products.html?type=sushi-set" class="group/subcat relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-50 to-red-100 p-4 hover:shadow-lg transition-all duration-300 border border-red-200 hover:border-red-600">
-                                    <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover/subcat:opacity-100 transition-opacity"></div>
-                                    <div class="relative text-center py-2">
-                                        <h4 class="font-semibold text-gray-900 text-sm mb-1">Sushi Set</h4>
-                                        <p class="text-xs text-gray-600">Make Sushi</p>
-                                    </div>
-                                </a>
-
-                                <a href="all-products.html?type=keychain" class="group/subcat relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-50 to-red-100 p-4 hover:shadow-lg transition-all duration-300 border border-red-200 hover:border-red-600">
-                                    <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover/subcat:opacity-100 transition-opacity"></div>
-                                    <div class="relative text-center py-2">
-                                        <h4 class="font-semibold text-gray-900 text-sm mb-1">Keychain</h4>
-                                        <p class="text-xs text-gray-600">Culture Style</p>
-                                    </div>
-                                </a>
-
-                                <a href="all-products.html?type=anime-drawing-book" class="group/subcat relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-50 to-red-100 p-4 hover:shadow-lg transition-all duration-300 border border-red-200 hover:border-red-600 col-span-2">
-                                    <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover/subcat:opacity-100 transition-opacity"></div>
-                                    <div class="relative text-center py-2">
-                                        <h4 class="font-semibold text-gray-900 text-sm mb-1">Drawing Book</h4>
-                                        <p class="text-xs text-gray-600">Anime Art & Culture</p>
-                                    </div>
-                                </a>
-                            </div>
-                            <a href="all-products.html?type=lifestyle" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-all duration-300 font-semibold shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
-                                View All Lifestyle & Home
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
+                <div class="rounded-3xl bg-gray-50 p-8 shadow-inner">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900">Matcha &amp; Tea Rituals</h3>
+                            <p class="text-gray-600">Ceremonial-grade matcha, whisk sets, and tea essentials.</p>
+                        </div>
+                        <a href="all-products.html?type=matcha" class="inline-flex items-center gap-2 px-5 py-3 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors">
+                            Explore Matcha
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div id="subcategory-matcha-grid" class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="col-span-full text-center py-12">
+                            <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-red-500 border-t-transparent"></div>
+                            <p class="mt-3 text-gray-500">Loading subcategory products...</p>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- View All Button -->
-            <div class="text-center mt-16">
-                <a href="all-products.html" class="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-full hover:from-red-700 hover:to-red-800 transition-all duration-300 text-lg font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                    <i class="fas fa-th-large"></i>
-                    <span>Browse All Categories</span>
-                    <i class="fas fa-arrow-right"></i>
-                </a>
+    <!-- Beauty & Wellness Category Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                    Beauty & <span class="text-red-600">Wellness</span>
+                </h2>
+                <p class="text-xl text-gray-600">Premium Japanese skincare and beauty products</p>
+            </div>
+
+            <div class="mt-12 space-y-12">
+                <div class="rounded-3xl bg-white p-8 shadow-inner">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900">Luxury Cleansers</h3>
+                            <p class="text-gray-600">Silky body soaps inspired by Japanese spa rituals.</p>
+                        </div>
+                        <a href="all-products.html?type=body-soap" class="inline-flex items-center gap-2 px-5 py-3 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors">
+                            Explore Body Soap
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div id="subcategory-body-soap-grid" class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="col-span-full text-center py-12">
+                            <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-red-500 border-t-transparent"></div>
+                            <p class="mt-3 text-gray-500">Loading subcategory products...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rounded-3xl bg-white p-8 shadow-inner">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900">Hand &amp; Nail Care</h3>
+                            <p class="text-gray-600">Moisturizing hand creams and protective treatments.</p>
+                        </div>
+                        <a href="all-products.html?type=hand-cream" class="inline-flex items-center gap-2 px-5 py-3 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors">
+                            Explore Hand Care
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div id="subcategory-hand-cream-grid" class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="col-span-full text-center py-12">
+                            <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-red-500 border-t-transparent"></div>
+                            <p class="mt-3 text-gray-500">Loading subcategory products...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rounded-3xl bg-white p-8 shadow-inner">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900">Sheet Masks &amp; Treatments</h3>
+                            <p class="text-gray-600">Targeted skincare solutions for glowing complexions.</p>
+                        </div>
+                        <a href="all-products.html?type=face-mask" class="inline-flex items-center gap-2 px-5 py-3 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors">
+                            Explore Face Masks
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div id="subcategory-face-mask-grid" class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="col-span-full text-center py-12">
+                            <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-red-500 border-t-transparent"></div>
+                            <p class="mt-3 text-gray-500">Loading subcategory products...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rounded-3xl bg-white p-8 shadow-inner">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900">Premium Facial Tissues</h3>
+                            <p class="text-gray-600">Ultra-soft tissues for daily beauty routines.</p>
+                        </div>
+                        <a href="all-products.html?type=facial-tissue" class="inline-flex items-center gap-2 px-5 py-3 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors">
+                            Explore Facial Tissue
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div id="subcategory-facial-tissue-grid" class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="col-span-full text-center py-12">
+                            <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-red-500 border-t-transparent"></div>
+                            <p class="mt-3 text-gray-500">Loading subcategory products...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lifestyle & Home Category Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                    Lifestyle & <span class="text-red-600">Home</span>
+                </h2>
+                <p class="text-xl text-gray-600">Elegant everyday essentials for your home</p>
+            </div>
+
+            <div class="mt-12 space-y-12">
+                <div class="rounded-3xl bg-gray-50 p-8 shadow-inner">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900">Tableware Essentials</h3>
+                            <p class="text-gray-600">Chopsticks, holders, and dining accessories for refined meals.</p>
+                        </div>
+                        <a href="all-products.html?type=chopsticks-holders" class="inline-flex items-center gap-2 px-5 py-3 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors">
+                            Explore Chopsticks
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div id="subcategory-chopsticks-grid" class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="col-span-full text-center py-12">
+                            <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-red-500 border-t-transparent"></div>
+                            <p class="mt-3 text-gray-500">Loading subcategory products...</p>
+                        </div>
+                    </div>
+            </div>
+
+                <div class="rounded-3xl bg-gray-50 p-8 shadow-inner">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900">Tea Ceremony Sets</h3>
+                            <p class="text-gray-600">Complete matcha sets for mindful tea experiences.</p>
+                        </div>
+                        <a href="all-products.html?type=matcha-set" class="inline-flex items-center gap-2 px-5 py-3 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors">
+                            Explore Matcha Sets
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div id="subcategory-matcha-set-grid" class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="col-span-full text-center py-12">
+                            <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-red-500 border-t-transparent"></div>
+                            <p class="mt-3 text-gray-500">Loading subcategory products...</p>
+                        </div>
+                        </div>
+                    </div>
+
+                <div class="rounded-3xl bg-gray-50 p-8 shadow-inner">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900">Accessories &amp; Gifts</h3>
+                            <p class="text-gray-600">Elegant bag hangers for on-the-go convenience.</p>
+                        </div>
+                        <a href="all-products.html?type=bag-hanger" class="inline-flex items-center gap-2 px-5 py-3 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors">
+                            Explore Bag Hangers
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div id="subcategory-bag-hanger-grid" class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="col-span-full text-center py-12">
+                            <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-red-500 border-t-transparent"></div>
+                            <p class="mt-3 text-gray-500">Loading subcategory products...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rounded-3xl bg-gray-50 p-8 shadow-inner">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900">Kitchen Tools</h3>
+                            <p class="text-gray-600">Japanese rice spoons and soup ladles for everyday cooking.</p>
+                        </div>
+                        <a href="all-products.html?type=rice-soup-spoon" class="inline-flex items-center gap-2 px-5 py-3 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors">
+                            Explore Kitchen Tools
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div id="subcategory-rice-spoon-grid" class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="col-span-full text-center py-12">
+                            <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-red-500 border-t-transparent"></div>
+                            <p class="mt-3 text-gray-500">Loading subcategory products...</p>
+                        </div>
+                        </div>
+                    </div>
+
+                <div class="rounded-3xl bg-gray-50 p-8 shadow-inner">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900">Sushi Kits</h3>
+                            <p class="text-gray-600">Create restaurant-quality sushi at home.</p>
+                        </div>
+                        <a href="all-products.html?type=sushi-set" class="inline-flex items-center gap-2 px-5 py-3 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors">
+                            Explore Sushi Sets
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div id="subcategory-sushi-set-grid" class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="col-span-full text-center py-12">
+                            <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-red-500 border-t-transparent"></div>
+                            <p class="mt-3 text-gray-500">Loading subcategory products...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rounded-3xl bg-gray-50 p-8 shadow-inner">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900">Collectibles &amp; Keychains</h3>
+                            <p class="text-gray-600">Curated accessories celebrating Japanese culture.</p>
+                        </div>
+                        <a href="all-products.html?type=keychain" class="inline-flex items-center gap-2 px-5 py-3 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors">
+                            Explore Keychains
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div id="subcategory-keychain-grid" class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="col-span-full text-center py-12">
+                            <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-red-500 border-t-transparent"></div>
+                            <p class="mt-3 text-gray-500">Loading subcategory products...</p>
+                        </div>
+                        </div>
+                    </div>
+
+                <div class="rounded-3xl bg-gray-50 p-8 shadow-inner">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900">Art &amp; Stationery</h3>
+                            <p class="text-gray-600">Anime drawing books and creative inspiration kits.</p>
+                        </div>
+                        <a href="all-products.html?type=anime-drawing-book" class="inline-flex items-center gap-2 px-5 py-3 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors">
+                            Explore Drawing Books
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div id="subcategory-anime-drawing-book-grid" class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="col-span-full text-center py-12">
+                            <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-red-500 border-t-transparent"></div>
+                            <p class="mt-3 text-gray-500">Loading subcategory products...</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
