@@ -582,6 +582,171 @@ async function loadBestSelling() {
 }
 
 /**
+ * Load Food & Beverage products
+ */
+async function loadFoodBeverage() {
+    const startTime = Date.now();
+    console.log('Loading food & beverage products...');
+    showLoadingSkeleton('food-beverage-grid', 8);
+    
+    try {
+        const products = await loadProducts();
+        const foodBeverage = products
+            .filter(p => {
+                const mainCategory = (p.mainCategory || '').toLowerCase();
+                const category = (p.category || '').toLowerCase();
+                return mainCategory.includes('food') || 
+                       mainCategory.includes('beverage') ||
+                       category.includes('food') || 
+                       category.includes('beverage') ||
+                       mainCategory === 'food-beverage' ||
+                       category === 'food-beverage';
+            })
+            .slice(0, 8);
+        
+        displayProducts(foodBeverage, 'food-beverage-grid');
+        console.log(`Food & beverage products loaded in ${Date.now() - startTime}ms`);
+    } catch (error) {
+        console.error('Error loading food & beverage products:', error);
+    }
+}
+
+/**
+ * Load Beauty & Wellness products
+ */
+async function loadBeautyWellness() {
+    const startTime = Date.now();
+    console.log('Loading beauty & wellness products...');
+    showLoadingSkeleton('beauty-wellness-grid', 8);
+    
+    try {
+        const products = await loadProducts();
+        const beautyWellness = products
+            .filter(p => {
+                const mainCategory = (p.mainCategory || '').toLowerCase();
+                const category = (p.category || '').toLowerCase();
+                return mainCategory.includes('beauty') || 
+                       mainCategory.includes('wellness') ||
+                       category.includes('beauty') || 
+                       category.includes('wellness') ||
+                       mainCategory === 'beauty' ||
+                       category === 'beauty';
+            })
+            .slice(0, 8);
+        
+        displayProducts(beautyWellness, 'beauty-wellness-grid');
+        console.log(`Beauty & wellness products loaded in ${Date.now() - startTime}ms`);
+    } catch (error) {
+        console.error('Error loading beauty & wellness products:', error);
+    }
+}
+
+/**
+ * Load Lifestyle & Home products
+ */
+async function loadLifestyleHome() {
+    const startTime = Date.now();
+    console.log('Loading lifestyle & home products...');
+    showLoadingSkeleton('lifestyle-home-grid', 8);
+    
+    try {
+        const products = await loadProducts();
+        const lifestyleHome = products
+            .filter(p => {
+                const mainCategory = (p.mainCategory || '').toLowerCase();
+                const category = (p.category || '').toLowerCase();
+                return mainCategory.includes('lifestyle') || 
+                       mainCategory.includes('home') ||
+                       category.includes('lifestyle') || 
+                       category.includes('home') ||
+                       mainCategory === 'lifestyle' ||
+                       category === 'lifestyle';
+            })
+            .slice(0, 8);
+        
+        displayProducts(lifestyleHome, 'lifestyle-home-grid');
+        console.log(`Lifestyle & home products loaded in ${Date.now() - startTime}ms`);
+    } catch (error) {
+        console.error('Error loading lifestyle & home products:', error);
+    }
+}
+
+/**
+ * Load products for a specific subcategory
+ */
+async function loadSubcategoryProducts(keys, containerId, options = {}) {
+    const container = document.getElementById(containerId);
+    if (!container) {
+        console.warn(`Container not found for subcategory ${containerId}`);
+        return;
+    }
+
+    const keyList = Array.isArray(keys) ? keys : [keys];
+    const limit = options.limit || 4;
+    const skeletonCount = options.skeletonCount || limit;
+    const startTime = Date.now();
+
+    showLoadingSkeleton(containerId, skeletonCount);
+
+    try {
+        const products = await loadProducts();
+        const filtered = products.filter(product => {
+            const mainCategory = (product.mainCategory || '').toLowerCase();
+            const category = (product.category || '').toLowerCase();
+            const subcategory = (product.subcategory || '').toLowerCase();
+
+            return keyList.some(searchKey => {
+                const normalized = searchKey.toLowerCase().replace(/\s+/g, '-'); // Normalize spaces to hyphens
+                
+                // Check exact matches first (most reliable)
+                if (subcategory === normalized || 
+                    category === normalized || 
+                    subcategory.replace(/\s+/g, '-') === normalized ||
+                    category.replace(/\s+/g, '-') === normalized) {
+                    return true;
+                }
+                
+                // Check partial matches (for backward compatibility)
+                if (subcategory.includes(normalized) || 
+                    normalized.includes(subcategory) ||
+                    category.includes(normalized) || 
+                    normalized.includes(category) ||
+                    // Also check with spaces replaced
+                    subcategory.replace(/\s+/g, '-').includes(normalized) ||
+                    category.replace(/\s+/g, '-').includes(normalized)) {
+                    return true;
+                }
+                
+                return false;
+            });
+        }).slice(0, limit);
+
+        displayProducts(filtered, containerId);
+        console.log(`Subcategory ${keyList.join(', ')} loaded in ${Date.now() - startTime}ms`);
+    } catch (error) {
+        console.error(`Error loading subcategory products for ${keyList.join(', ')}`, error);
+    }
+}
+
+const subcategoryConfigs = [
+    { keys: ['togarashi-furikake', 'togarashi'], containerId: 'subcategory-togarashi-grid' },
+    { keys: ['miso'], containerId: 'subcategory-miso-grid' },
+    { keys: ['yuzu'], containerId: 'subcategory-yuzu-grid' },
+    { keys: ['matcha'], containerId: 'subcategory-matcha-grid' },
+    { keys: ['body-soap'], containerId: 'subcategory-body-soap-grid' },
+    { keys: ['hand-cream'], containerId: 'subcategory-hand-cream-grid' },
+    { keys: ['face-mask'], containerId: 'subcategory-face-mask-grid' },
+    { keys: ['facial-tissue'], containerId: 'subcategory-facial-tissue-grid' },
+    { keys: ['chopsticks-holders', 'chopsticks'], containerId: 'subcategory-chopsticks-grid' },
+    { keys: ['matcha-set'], containerId: 'subcategory-matcha-set-grid' },
+    { keys: ['bag-hanger'], containerId: 'subcategory-bag-hanger-grid' },
+    { keys: ['rice-soup-spoon', 'rice-spoon'], containerId: 'subcategory-rice-spoon-grid' },
+    { keys: ['sushi-set'], containerId: 'subcategory-sushi-set-grid' },
+    { keys: ['keychain'], containerId: 'subcategory-keychain-grid' },
+    { keys: ['anime-drawing-book', 'drawing-book'], containerId: 'subcategory-anime-drawing-book-grid' }
+];
+
+/**
  * Show loading skeleton
  */
 function showLoadingSkeleton(containerId, count = 8) {
@@ -922,7 +1087,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Load products
     await Promise.all([
         loadNewArrivals(),
-        loadBestSelling()
+        loadBestSelling(),
+        ...subcategoryConfigs.map(config => loadSubcategoryProducts(config.keys, config.containerId, config))
     ]);
     
     // Initialize hero carousel
